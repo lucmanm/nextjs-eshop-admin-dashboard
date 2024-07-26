@@ -2,7 +2,6 @@ import MbMobileMenu from "@/components/mb-mobile-menu";
 import { SearchInput } from "@/components/search-input";
 import { Sidebar } from "@/components/side-bar";
 import ToggleUserMenu from "@/components/toggle-user-menu";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export default function DashboardLayout({
