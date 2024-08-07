@@ -1,5 +1,14 @@
 {
   "HomePage": {
     "title": "مرحبا بالعالم!"
+  },
+  "authentication": {
+    "SignUp": {
+      "title": "سجل",
+      "form": {
+        "placeholder": "يرجى إدخال اسمك",
+        "submit": "إرسال"
+      }
+    }
   }
 }
