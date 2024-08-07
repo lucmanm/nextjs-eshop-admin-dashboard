@@ -3,11 +3,27 @@
     "title": "مرحبا بالعالم!"
   },
   "authentication": {
-    "SignUp": {
-      "title": "سجل",
+    "Login": {
+      "title": "تسجيل الدخول",
+      "subTitle": "أدخل بريدك الإلكتروني وكلمة المرور أدناه لتسجيل الدخول إلى حسابك",
       "form": {
-        "placeholder": "يرجى إدخال اسمك",
-        "submit": "إرسال"
+        "email": {
+          "title": "بريد إلكتروني",
+          "placeholder": "email@example.com"
+        },
+        "password": {
+          "title": "كلمة المرور",
+          "placeholder": "email@example.com"
+        },
+        "linkForgetPass": {
+          "title": "نسيت كلمة السر؟"
+        },
+        "btnLogin": {
+          "title": "الدخول"
+        },
+        "btnLoginWithGoogle": {
+          "title": "تسجيل الدخول عبر جوجل"
+        }
       }
     }
   }

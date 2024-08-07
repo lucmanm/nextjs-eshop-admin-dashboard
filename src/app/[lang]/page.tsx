@@ -1,15 +1,7 @@
-import React from "react";
-import { getTranslations } from "next-intl/server";
-import LanguageButton from "@/components/language-button";
+import { redirect } from "next/navigation";
 
-export default async function Page() {
-  const t = await getTranslations("HomePage");
+const RootPage = ({ params }: { params: { lang: string } }) => {
+  redirect(`${params.lang}/login`);
+};
 
-  return (
-    <div>
-      <LanguageButton />
-      Page
-      {t("title")}
-    </div>
-  );
-}
+export default RootPage;

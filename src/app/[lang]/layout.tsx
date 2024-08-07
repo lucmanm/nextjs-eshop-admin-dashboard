@@ -1,12 +1,12 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Cairo as FontCairo } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "../globals.css";
 import { getLangDir } from "rtl-detect";
 
-const fontSans = FontSans({
+const fontSans = FontCairo({
   subsets: ["latin"],
   variable: "--font-sans",
 });

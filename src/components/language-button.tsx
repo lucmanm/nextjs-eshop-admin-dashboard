@@ -17,7 +17,7 @@ export default function LanguageButton() {
 
   return (
     <>
-      {Language.filter((lang) => lang.code.toLowerCase() !== locale).map((lang) => (
+      {Language.filter((lang) => lang.code.toLowerCase() !== locale.toLowerCase()).map((lang) => (
         <Button
           size="default"
           variant="outline"

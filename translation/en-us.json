@@ -3,11 +3,27 @@
     "title": "Hello world!"
   },
   "authentication": {
-    "SignUp": {
-      "title": "Sign up",
+    "Login": {
+      "title": "Login",
+      "subTitle": "Enter your email below to login to your account",
       "form": {
-        "placeholder": "Please enter your name",
-        "submit": "Submit"
+        "email": {
+          "title": "Email",
+          "placeholder": "email@example.com"
+        },
+        "password": {
+          "title": "Password",
+          "placeholder": "email@example.com"
+        },
+        "linkForgetPass": {
+          "title": "Forgot your password?"
+        },
+        "btnLogin": {
+          "title": "Login"
+        },
+        "btnLoginWithGoogle": {
+          "title": "Login with Google"
+        }
       }
     }
   }
