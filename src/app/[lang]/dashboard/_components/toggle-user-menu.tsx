@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   DropdownMenu,
@@ -6,11 +7,18 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "../../../../components/ui/dropdown-menu";
 import { CircleUser } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../../../../components/ui/button";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
-function ToggleUserMenu() {
+export const ToggleUserMenu = () => {
+  const router = useRouter();
+  const locale = useLocale();
+
+  const onClick = (value: string) => router.push(`/${locale}/dashboard/${value}`);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -22,13 +30,11 @@ function ToggleUserMenu() {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onClick("settings")}>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
-
-export default ToggleUserMenu;
+};

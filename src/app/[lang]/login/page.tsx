@@ -4,11 +4,19 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import LanguageButton from "@/components/language-button";
+import { redirect } from "next/navigation";
 
 async function LoginPage() {
+
+  const locale = await getLocale();
+  const signedIn = true;
+
+  signedIn && redirect(`/${locale}/dashboard`);
+
   const t = await getTranslations("authentication.Login");
+
   return (
     <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
       <div className="flex items-center justify-center py-12">
@@ -57,7 +65,6 @@ async function LoginPage() {
           height="1080"
           className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
           priority
-
         />
       </div>
     </div>

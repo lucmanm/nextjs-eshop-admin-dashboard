@@ -3,9 +3,12 @@ import { Bell, Home, LineChart, Package, Package2, ShoppingCart, Users } from "l
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { sideMenu } from "@/constant/sidebar-menu";
-import { Separator } from "./ui/separator";
+import { Separator } from "../../../../components/ui/separator";
+import { usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
 
 export function Sidebar() {
+  const locale = useLocale()
   return (
     <div className="hidden border-r bg-muted/40 md:block">
       <div className="flex h-full max-h-screen flex-col gap-2">
@@ -25,7 +28,7 @@ export function Sidebar() {
               ? sideMenu.map(({ name, icons, path, count }) => (
                   <Link
                     key={name}
-                    href={`${path}`}
+                    href={`/${locale}/dashboard/${path}`}
                     className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                   >
                     {icons}
