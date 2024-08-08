@@ -7,11 +7,84 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Building2 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { SettingsCard } from "./_components/settings-card";
+import { useLocale } from "next-intl";
 
 const IndexPage = () => {
+  const locale = useLocale();
+  const settingsData = {
+    "en-us": [
+      {
+        title: "store Information",
+        description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
+      },
+      {
+        title: "store Information",
+        description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
+      },
+      {
+        title: "store Information",
+        description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
+      },
+      {
+        title: "store Information",
+        description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
+      },
+      {
+        title: "store Information",
+        description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
+      },
+      {
+        title: "store Information",
+        description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
+      },
+      {
+        title: "store Information",
+        description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
+      },
+      {
+        title: "store Information",
+        description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ",
+      },
+    ],
+    "ar-sa": [
+      {
+        title: "معلومات المتجر",
+        description: "لوريم إيبسوم، دولور سيت أميت كونسيكتتور أديبيسيسينج إيليت.",
+      },
+      {
+        title: "معلومات المتجر",
+        description: "لوريم إيبسوم، دولور سيت أميت كونسيكتتور أديبيسيسينج إيليت.",
+      },
+      {
+        title: "معلومات المتجر",
+        description: "لوريم إيبسوم، دولور سيت أميت كونسيكتتور أديبيسيسينج إيليت.",
+      },
+      {
+        title: "معلومات المتجر",
+        description: "لوريم إيبسوم، دولور سيت أميت كونسيكتتور أديبيسيسينج إيليت.",
+      },
+      {
+        title: "معلومات المتجر",
+        description: "لوريم إيبسوم، دولور سيت أميت كونسيكتتور أديبيسيسينج إيليت.",
+      },
+      {
+        title: "معلومات المتجر",
+        description: "لوريم إيبسوم، دولور سيت أميت كونسيكتتور أديبيسيسينج إيليت.",
+      },
+      {
+        title: "معلومات المتجر",
+        description: "لوريم إيبسوم، دولور سيت أميت كونسيكتتور أديبيسيسينج إيليت.",
+      },
+      {
+        title: "معلومات المتجر",
+        description: "لوريم إيبسوم، دولور سيت أميت كونسيكتتور أديبيسيسينج إيليت.",
+      },
+    ],
+  };
+
+  const dataToDisplay = settingsData[locale as keyof typeof settingsData] || settingsData["en-us"];
+
   return (
     <React.Fragment>
       <section>
@@ -21,16 +94,9 @@ const IndexPage = () => {
             <CardDescription>Configure your frontend informationd details</CardDescription>
           </CardHeader>
           {/* Container */}
-          <CardContent className="grid grid-cols-4 gap-4">
-            {Array.from({ length: 12 }).map((_, idx) => (
-              <Link
-                key={idx}
-                href="/"
-                className={cn("flex border items-center p-4 justify-between rounded-lg shadow-sm")}
-              >
-                <Building2 />
-                <p>Store Information</p>
-              </Link>
+          <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {dataToDisplay.map((data, idx) => (
+              <SettingsCard key={idx} title={data.title} description={data.description} />
             ))}
           </CardContent>
           <CardFooter>
