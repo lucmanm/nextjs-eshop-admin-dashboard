@@ -10,6 +10,7 @@ const SettingName = async ({ params }: { params: { settingName: string;} }) => {
 
   return (
     <React.Fragment>
+      <span>{decodeParams}</span>
         <p>System Data page</p>
     </React.Fragment>
   )

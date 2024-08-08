@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
 
 export function Sidebar() {
-  const locale = useLocale()
+  const locale = useLocale();
   return (
     <div className="hidden border-r bg-muted/40 md:block">
       <div className="flex h-full max-h-screen flex-col gap-2">
@@ -29,7 +29,7 @@ export function Sidebar() {
                   <Link
                     key={name}
                     href={`/${locale}/dashboard/${path}`}
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted"
                   >
                     {icons}
                     {name}
@@ -41,7 +41,7 @@ export function Sidebar() {
                   </Link>
                 ))
               : "No Data from Sidebar"}
-            <Separator/>
+            <Separator />
             <Link
               href="#"
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
