@@ -1,30 +1,11 @@
 import Link from "next/link";
-import {
-  Activity,
-  ArrowUpRight,
-  CircleUser,
-  CreditCard,
-  DollarSign,
-  Menu,
-  Package2,
-  Search,
-  Users,
-} from "lucide-react";
+import { Activity, ArrowUpRight, CreditCard, DollarSign, Users } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
 import {
   Table,
   TableBody,
@@ -33,25 +14,32 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { isRtlLang } from "rtl-detect";
+import { useLocale } from "next-intl";
 
 export default function Dashboard() {
+  const locale = useLocale();
+  const rtl = isRtlLang(`${locale}`);
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <Card x-chunk="dashboard-01-chunk-0">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {rtl ? "إجمالي الإيرادات" : "Total Revenue"}
+              </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold">{rtl ? "48،859.50 ر. س." : "48,859.50 SAR"}</div>
               <p className="text-xs text-muted-foreground">+20.1% from last month</p>
             </CardContent>
           </Card>
           <Card x-chunk="dashboard-01-chunk-1">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
+              <CardTitle className="text-sm font-medium">{rtl ? "عملاء" : "Customers"}</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -61,7 +49,7 @@ export default function Dashboard() {
           </Card>
           <Card x-chunk="dashboard-01-chunk-2">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Sales</CardTitle>
+              <CardTitle className="text-sm font-medium">{rtl ? "مبيعات" : "Sales"}</CardTitle>
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -71,7 +59,9 @@ export default function Dashboard() {
           </Card>
           <Card x-chunk="dashboard-01-chunk-3">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Now</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {rtl ? "نشط الآن" : "Active Now"}
+              </CardTitle>
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
