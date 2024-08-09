@@ -9,14 +9,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { File, ListFilter, PlusCircle } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export const RightHeader = () => {
   const router = useRouter();
 
   const onClick = () => {
-    router.push(`/dashboard/products/addProduct`);
+    router.push(`/dashboard/products/create product`);
   };
   return (
     <div className="ml-auto flex items-center gap-2">
