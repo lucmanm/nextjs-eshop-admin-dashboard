@@ -34,7 +34,7 @@ export const BreadcrumbComp = () => {
       <React.Fragment key={path}>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href={path}>{capitalizedSegment}</Link>
+            <Link href={path}>{decodeURI(capitalizedSegment)}</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         {index < segments.length - 1 && <BreadcrumbSeparator />}
