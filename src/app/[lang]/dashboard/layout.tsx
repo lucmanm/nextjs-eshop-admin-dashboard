@@ -4,6 +4,7 @@ import { Sidebar } from "@/app/[lang]/dashboard/_components/side-bar";
 import { cn } from "@/lib/utils";
 import { ToggleUserMenu } from "./_components/toggle-user-menu";
 import LanguageButton from "@/components/language-button";
+import { NotificationIcon } from "./_components/notifiction-icon";
 
 export default function DashboardLayout({
   children,
@@ -20,7 +21,8 @@ export default function DashboardLayout({
             {/* Mobile Toggle or sheet menu */}
             <MbMobileMenu />
             <SearchInput />
-            <LanguageButton/>
+            <LanguageButton />
+            <NotificationIcon />
             <ToggleUserMenu />
           </header>
           <main className="flex flex-1 flex-col gap-4 lg:gap ">{children}</main>

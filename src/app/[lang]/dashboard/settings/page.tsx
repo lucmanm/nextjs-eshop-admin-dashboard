@@ -87,23 +87,18 @@ const IndexPage = () => {
 
   return (
     <React.Fragment>
-      <section>
-        <Card>
-          <CardHeader>
-            <CardTitle>Frontend Settings</CardTitle>
-            <CardDescription>Configure your frontend informationd details</CardDescription>
-          </CardHeader>
-          {/* Container */}
-          <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {dataToDisplay.map((data, idx) => (
-              <SettingsCard key={idx} title={data.title} description={data.description} />
-            ))}
-          </CardContent>
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
-        </Card>
-      </section>
+      <Card className="border-none shadow-none">
+        <CardHeader>
+          <CardTitle>Frontend Settings</CardTitle>
+          <CardDescription>Configure your frontend informationd details</CardDescription>
+        </CardHeader>
+        {/* Container */}
+        <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4 ">
+          {dataToDisplay.map((data, idx) => (
+            <SettingsCard key={idx} title={data.title} description={data.description} />
+          ))}
+        </CardContent>
+      </Card>
     </React.Fragment>
   );
 };

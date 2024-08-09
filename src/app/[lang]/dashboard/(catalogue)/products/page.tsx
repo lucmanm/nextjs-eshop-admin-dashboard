@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -30,7 +31,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
 
 export default async function Page() {
   return (
