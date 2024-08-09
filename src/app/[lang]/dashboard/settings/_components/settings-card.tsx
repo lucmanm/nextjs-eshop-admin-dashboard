@@ -1,31 +1,36 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Building2 } from "lucide-react";
+import { useLocale } from "next-intl";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
+import { isRtlLang } from "rtl-detect";
 
 type TSettingsCardProps = {
-  title?: string;
-  description?: string;
+  nameEn: string;
+  nameAr: string;
+  descriptionEn: string;
+  descriptionAr: string;
+  icon: React.JSX.Element;
 };
 
-export const SettingsCard = ({ title, description }: TSettingsCardProps) => {
+export const SettingsCard = ({ item }: { item: TSettingsCardProps }) => {
   const pathname = usePathname();
+  const locale = useLocale();
+  const rtl = isRtlLang(locale);
 
   return (
     <Link
-      href={`${pathname}/${title}`}
+      href={`${pathname}/${item.nameEn}`}
       className={cn(
-        "flex border items-center p-3 lg:p-4 gap-4 rounded-lg shadow-sm overflow-hidden"
+        "flex border items-center p-3 lsg:p-4 gap-4 rounded-lg shadow-sm overflow-hidden"
       )}
     >
-      <div>
-        <Building2 />
-      </div>
+      <div>{item.icon}</div>
       <div className="w-full overflow-hidden">
-        <p className="max-sm:text-sm">{title}</p>
-        <p className="max-sm:text-xs truncate">{description}</p>
+        <p className="max-sm:text-sm font-bold">{rtl ? item.nameAr : item.nameEn}</p>
+        <p className="max-sm:text-xs truncate">{rtl ? item.descriptionAr : item.descriptionEn}</p>
       </div>
     </Link>
   );
