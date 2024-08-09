@@ -3,28 +3,33 @@ import { Home, LineChart, Package, ShoppingCart, Users } from "lucide-react";
 
 export const sideMenu = [
   {
-    name: "Dashboard",
+    nameEn: "Dashboard",
+    nameAr: "لوحة القيادة",
     icons: <Home className="h-4 w-4" />,
     path: "/",
   },
   {
-    name: "Orders",
+    nameEn: "Orders",
+    nameAr: "طلبات",
     path: "orders",
     icons: <ShoppingCart className="h-4 w-4" />,
     count: 6
   },
   {
-    name: "Products",
+    nameEn: "Products",
+    nameAr: "منتجات",
     path: "products",
     icons: <Package className="h-4 w-4" />,
   },
   {
-    name: "Customers",
+    nameEn: "Customers",
+    nameAr: "عملاء",
     path: "customers",
     icons: <Users className="h-4 w-4" />,
   },
   {
-    name: "Analytics",
+    nameEn: "Analytics",
+    nameAr: "التحليلات",
     path: "analytics",
     icons: <LineChart className="h-4 w-4" />,
   },
