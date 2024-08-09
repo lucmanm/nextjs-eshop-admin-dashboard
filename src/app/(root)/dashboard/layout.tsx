@@ -1,10 +1,10 @@
-import { Sidebar } from "@/app/[lang]/dashboard/_components/side-bar";
+import { Sidebar } from "@/app/(root)/dashboard/_components/side-bar";
 import { cn } from "@/lib/utils";
 import { ToggleUserMenu } from "./_components/toggle-user-menu";
-import LanguageButton from "@/components/language-button";
 import { NotificationIcon } from "./_components/notifiction-icon";
 import MbMobileMenu from "./_components/mb-mobile-menu";
 import { SearchInput } from "./_components/search-input";
+import LocaleSwitcher from "@/components/locale-switcher";
 
 export default function DashboardLayout({
   children,
@@ -21,7 +21,7 @@ export default function DashboardLayout({
             {/* Mobile Toggle or sheet menu */}
             <MbMobileMenu />
             <SearchInput />
-            <LanguageButton />
+            <LocaleSwitcher />
             <NotificationIcon />
             <ToggleUserMenu />
           </header>

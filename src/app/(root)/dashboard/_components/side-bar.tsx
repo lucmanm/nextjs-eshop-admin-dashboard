@@ -16,6 +16,7 @@ import { useLocale } from "next-intl";
 import { isRtlLang } from "rtl-detect";
 
 export function Sidebar() {
+
   const locale = useLocale();
   const rtl = isRtlLang(locale);
 

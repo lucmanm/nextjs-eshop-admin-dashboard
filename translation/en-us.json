@@ -2,6 +2,11 @@
   "HomePage": {
     "title": "Hello world!"
   },
+  "LocaleSwitcher": {
+    "ar-sa": "Deutsch",
+    "en-us": "English",
+    "label": "Language"
+  },
   "authentication": {
     "Login": {
       "title": "Login",

@@ -4,16 +4,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getLocale, getTranslations } from "next-intl/server";
-import LanguageButton from "@/components/language-button";
+import { getTranslations } from "next-intl/server";
+import LanguageButton from "@/components/locale-switcher";
 import { redirect } from "next/navigation";
 
 async function LoginPage() {
-
-  const locale = await getLocale();
   const signedIn = true;
 
-  signedIn && redirect(`/${locale}/dashboard`);
+  signedIn && redirect(`/dashboard`);
 
   const t = await getTranslations("authentication.Login");
 

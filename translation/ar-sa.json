@@ -2,6 +2,11 @@
   "HomePage": {
     "title": "مرحبا بالعالم!"
   },
+  "LocaleSwitcher": {
+    "ar-sa": "Deutsch",
+    "en-us": "English",
+    "label": "Language"
+  },
   "authentication": {
     "Login": {
       "title": "تسجيل الدخول",
