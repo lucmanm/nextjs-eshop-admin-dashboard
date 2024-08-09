@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import {
   Breadcrumb,
@@ -8,27 +9,43 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import React from "react";
+import { usePathname } from "next/navigation";
+
+// Function to capitalize only the first letter of a string
+const capitalizeFirstLetter = (string) => {
+  if (string.length === 0) return "";
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};
 
 export const BreadcrumbComp = () => {
+  const pathname = usePathname();
+
+  // Split the pathname and filter out empty segments
+  const segments = pathname.split("/").filter(Boolean);
+
+  // Build breadcrumb items
+  const breadcrumbItems = segments.map((segment, index) => {
+    // Create a URL path for each breadcrumb link
+    const path = `/${segments.slice(0, index + 1).join("/")}`;
+
+    // Capitalize only the first letter of each segment
+    const capitalizedSegment = capitalizeFirstLetter(segment.replace(/-/g, " "));
+
+    return (
+      <React.Fragment key={path}>
+        <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href={path}>{capitalizedSegment}</Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        {index < segments.length - 1 && <BreadcrumbSeparator />}
+      </React.Fragment>
+    );
+  });
+
   return (
     <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href="#">Dashboard</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href="#">Products</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>All Products</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
+      <BreadcrumbList>{breadcrumbItems}</BreadcrumbList>
     </Breadcrumb>
   );
 };
