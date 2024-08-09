@@ -17,7 +17,7 @@ export const ToggleUserMenu = () => {
   const router = useRouter();
   const locale = useLocale();
 
-  const onClick = (value: string) => router.push(`/${locale}/dashboard/${value}`);
+  const onClick = (value: string) => router.push(`/dashboard/${value}`);
 
   return (
     <DropdownMenu>

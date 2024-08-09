@@ -3,9 +3,9 @@
     "title": "مرحبا بالعالم!"
   },
   "LocaleSwitcher": {
-    "ar-sa": "Deutsch",
-    "en-us": "English",
-    "label": "Language"
+    "ar-sa": "عربي",
+    "en-us": "Arabic",
+    "label": "لغة"
   },
   "authentication": {
     "Login": {

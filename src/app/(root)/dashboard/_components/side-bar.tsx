@@ -1,14 +1,5 @@
 import Link from "next/link";
-import {
-  Bell,
-  Home,
-  LineChart,
-  Package,
-  Package2,
-  Settings,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
+import { Home, LineChart, Package, Package2, Settings, ShoppingCart, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { sideMenu } from "@/constant/sidebar-menu";
 import { Separator } from "@/components/ui/separator";
@@ -16,7 +7,6 @@ import { useLocale } from "next-intl";
 import { isRtlLang } from "rtl-detect";
 
 export function Sidebar() {
-
   const locale = useLocale();
   const rtl = isRtlLang(locale);
 
@@ -35,7 +25,7 @@ export function Sidebar() {
               ? sideMenu.map(({ nameEn, icons, path, count, nameAr }) => (
                   <Link
                     key={nameEn}
-                    href={`/${locale}/dashboard/${path}`}
+                    href={`/dashboard/${path}`}
                     className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted"
                   >
                     {icons}
