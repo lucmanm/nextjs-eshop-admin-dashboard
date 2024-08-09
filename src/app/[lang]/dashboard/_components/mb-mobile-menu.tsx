@@ -1,12 +1,12 @@
 import React from "react";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import { Home, LineChart, Menu, Package, Package2, ShoppingCart, Users } from "lucide-react";
-import { Badge } from "./ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
-function MbMobileMenu () {
+function MbMobileMenu() {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -78,6 +78,6 @@ function MbMobileMenu () {
       </SheetContent>
     </Sheet>
   );
-};
+}
 
 export default MbMobileMenu;

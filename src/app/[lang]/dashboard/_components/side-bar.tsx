@@ -10,11 +10,9 @@ import {
   Users,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { sideMenu } from "@/constant/sidebar-menu";
-import { Separator } from "../../../../components/ui/separator";
+import { Separator } from "@/components/ui/separator";
 import { useLocale } from "next-intl";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function Sidebar() {
   const locale = useLocale();
