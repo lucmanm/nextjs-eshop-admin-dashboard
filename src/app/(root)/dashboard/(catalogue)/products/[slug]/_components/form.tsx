@@ -53,11 +53,11 @@ export function FormProduct() {
         <FormField
           control={form.control}
           name="image"
-          render={({ field }) => (
+          render={({ field: { value, onChange } }) => (
             <FormItem>
               <FormLabel />
               <FormControl>
-                <ImageUpload />
+                <ImageUpload value={value} onChange={(image) => onChange(image)} />
               </FormControl>
               <FormDescription>Upload an image</FormDescription>
               <FormMessage />
