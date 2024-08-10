@@ -10,14 +10,29 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { File, ListFilter, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import { useStoreModal } from "@/hook/useStoreModal";
+import { useLocale } from "next-intl";
+import { isRtlLang } from "rtl-detect";
 
-export const RightHeader = () => {
+export const ProductRightMenu = () => {
   const router = useRouter();
+  const { toggle, setHeaderData } = useStoreModal((sate) => sate);
+  const locale = useLocale();
+  const rtl = isRtlLang(locale);
 
   const onClick = () => {
     router.push(`/dashboard/products/create product`);
   };
+
+  const openModal = () => {
+    toggle();
+    setHeaderData({
+      title: rtl ? "إضافة العلامة التجارية" : "Add Brand",
+      description: rtl ? "أدخل العلامة التجارية للمنتج" : "Enter Product Brand",
+    });
+  };
+
+
   return (
     <div className="ml-auto flex items-center gap-2">
       <DropdownMenu>
@@ -42,6 +57,10 @@ export const RightHeader = () => {
       <Button size="sm" className="h-8 gap-1" onClick={onClick}>
         <PlusCircle className="h-3.5 w-3.5" />
         <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Add Product</span>
+      </Button>
+      <Button size="sm" className="h-8 gap-1" onClick={openModal}>
+        <PlusCircle className="h-3.5 w-3.5" />
+        <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Create Brand</span>
       </Button>
     </div>
   );

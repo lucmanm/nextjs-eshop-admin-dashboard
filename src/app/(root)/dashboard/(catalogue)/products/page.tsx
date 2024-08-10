@@ -31,11 +31,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { RightHeader } from "./_components/right-header";
+import { ProductRightMenu } from "./_components/products-right-menu";
 
 export default async function Page() {
   return (
     <React.Fragment>
+
       <div className="flex flex-1 items-center justify-center rounded-lg ">
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           <Tabs defaultValue="all">
@@ -48,8 +49,9 @@ export default async function Page() {
                   Archived
                 </TabsTrigger>
               </TabsList>
+
               {/* Product Right menus and options */}
-              <RightHeader/>
+              <ProductRightMenu />
             </div>
             <TabsContent value="category">
               <span>category Data Here</span>

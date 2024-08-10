@@ -16,10 +16,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { ImageUpload } from "./image-upload";
 
 const FormSchema = z.object({
   image: z.string().min(2, {
-    message: "Missinput input field Upload",
+    message: "Missing input input field Upload",
+  }),
+  model: z.string().min(2, {
+    message: " Input field model Required",
   }),
 });
 
@@ -28,6 +32,7 @@ export function FormProduct() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       image: "",
+      model: "",
     },
   });
 
@@ -44,17 +49,31 @@ export function FormProduct() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <FormField
           control={form.control}
           name="image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel />
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <ImageUpload />
               </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
+              <FormDescription>Upload an image</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="model"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Model</FormLabel>
+              <FormControl>
+                <Input placeholder="Model" {...field} />
+              </FormControl>
+              <FormDescription>Input model or series of the product</FormDescription>
               <FormMessage />
             </FormItem>
           )}
