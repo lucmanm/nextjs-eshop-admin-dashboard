@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import React from "react";
+import { SliderForm } from "./_components/slider-form";
 
-const SettingName = async ({ params }: { params: { settingName: string;} }) => {
+const SettingName = async ({ params }: { params: { settingName: string } }) => {
   const decodeParams = decodeURI(params.settingName).toLowerCase();
 
   if (!params.settingName || decodeParams === "") {
@@ -9,11 +10,10 @@ const SettingName = async ({ params }: { params: { settingName: string;} }) => {
   }
 
   return (
-    <React.Fragment>
-      <span>{decodeParams}</span>
-        <p>System Data page</p>
-    </React.Fragment>
-  )
+    <main>
+      <SliderForm />
+    </main>
+  );
 };
 
 export default SettingName;

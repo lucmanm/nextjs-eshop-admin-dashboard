@@ -13,7 +13,7 @@ const IndexPage = () => {
           <CardDescription>Configure your frontend informationd details</CardDescription>
         </CardHeader>
         {/* Container */}
-        <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4 ">
+        <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:grid-cols-3">
           {settingsData.map(({ descriptionAr, descriptionEn, icon, nameAr, nameEn }) => (
             <SettingsCard
               key={nameEn}
@@ -28,7 +28,7 @@ const IndexPage = () => {
           <CardDescription>Configure your frontend informationd details</CardDescription>
         </CardHeader>
         {/* Container */}
-        <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4 ">
+        <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:grid-cols-3">
           {synchronizationData.map(({ descriptionAr, descriptionEn, icon, nameAr, nameEn }) => (
             <SettingsCard
               key={nameEn}

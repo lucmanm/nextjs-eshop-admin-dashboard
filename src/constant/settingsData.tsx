@@ -14,6 +14,13 @@ export const  settingsData = [
         descriptionEn: "User Account who are managing this application",
         descriptionAr: "حساب المستخدم الذين يديرون هذا التطبيق",
         icon: <User />
+    },
+    {
+        nameEn: "Slider or Carousel",
+        nameAr: "شريط التمرير أو الكاروسيل",
+        descriptionEn: "You can configure your store slider banner",
+        descriptionAr: "يمكنك تكوين شعار منزلق متجرك",
+        icon: <User />
     }
 ]
 
