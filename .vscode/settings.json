@@ -1,5 +1,7 @@
 {
-    "prisma-smart-formatter.typescript.defaultFormatter": "vscode.typescript-language-features",
-    "prisma-smart-formatter.typescriptreact.defaultFormatter": "esbenp.prettier-vscode",
-    "prisma-smart-formatter.prisma.defaultFormatter": "Prisma.prisma"
+  "prisma-smart-formatter.typescript.defaultFormatter": "vscode.typescript-language-features",
+  "prisma-smart-formatter.typescriptreact.defaultFormatter": "esbenp.prettier-vscode",
+  "prisma-smart-formatter.prisma.defaultFormatter": "Prisma.prisma",
+  "i18n-ally.localesPaths": ["../translation"], // E.g. "./messages"
+  "i18n-ally.keystyle": "nested"
 }
