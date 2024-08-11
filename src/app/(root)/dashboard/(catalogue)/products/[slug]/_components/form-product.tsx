@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { UploadMultipleImage } from "@/dashboard/_components/upload-multiple-image";
+import { UploadMultipleImage } from "@/components/upload-multiple-image";
 import { Save } from "lucide-react";
 
 const FormSchema = z.object({
@@ -54,7 +54,7 @@ export function FormProduct() {
           control={form.control}
           name="image"
           render={({ field: { value, onChange } }) => {
-            console.log(value);
+            // console.log(value);
 
             return (
               <FormItem>

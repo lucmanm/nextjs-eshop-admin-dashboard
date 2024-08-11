@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import "../globals.css";
 import { getLangDir } from "rtl-detect";
 
-import { ToastContainer } from "react-toastify";
 import { Toaster } from "@/components/ui/toaster"
 const fontSans = FontCairo({
   subsets: ["latin"],
@@ -35,7 +34,6 @@ export default async function RootLayout({
     <html lang={locale} dir={dir}>
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
-        <ToastContainer />
         <Toaster />
       </body>
     </html>

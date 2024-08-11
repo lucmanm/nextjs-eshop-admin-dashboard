@@ -16,11 +16,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { UploadMultipleImage } from "@/dashboard/_components/upload-multiple-image";
+import { UploadMultipleImage } from "@/components/upload-multiple-image";
 import { Save } from "lucide-react";
 
 const FormSchema = z.object({
-  image: z.array(z.string()),
+  images: z.array(z.string()).nonempty("Upload Image Required"),
   model: z.string().min(2, {
     message: " Input field model Required",
   }),
@@ -30,7 +30,7 @@ export function SliderForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      image: [],
+      images: [],
       model: "",
     },
   });
@@ -52,15 +52,16 @@ export function SliderForm() {
         {/* Image upload component multiple images */}
         <FormField
           control={form.control}
-          name="image"
-          render={({ field: { value, onChange } }) => {
-            console.log(value);
-
+          name="images"
+          render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel />
                 <FormControl>
-                  <UploadMultipleImage value={value || []} onChange={(image) => onChange(image)} />
+                  <UploadMultipleImage
+                    value={field.value}
+                    onChange={(val) => field.onChange(val)}
+                  />
                 </FormControl>
                 <FormDescription>Upload an image</FormDescription>
                 <FormMessage />
