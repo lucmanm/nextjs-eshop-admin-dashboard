@@ -1,9 +1,15 @@
 import React from "react";
 import cloudinary from "cloudinary";
-import { CloudImage } from "../../_components/cld-image";
+import { CloudImage } from "@dashboard/_components/cld-image";
 import { TImage } from "@/types/cloudinary";
+import { ENV } from "@/config/env-variable";
+
+cloudinary.v2.config({
+  cloud_name: ENV.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+});
 
 const Page = async () => {
+
   const response = (await cloudinary.v2.search
     .expression("resource_type:image AND folder:eshop")
     .sort_by("public_id", "desc")
