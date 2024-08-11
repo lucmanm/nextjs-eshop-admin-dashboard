@@ -20,7 +20,7 @@ import { UploadMultipleImage } from "@/components/upload-multiple-image";
 import { Save } from "lucide-react";
 
 const FormSchema = z.object({
-  image: z.array(z.string()).nonempty({ message: "Missing input field required upload image" }),
+  images: z.array(z.string()).nonempty({ message: "Missing input field required upload image" }),
   model: z.string().min(2, {
     message: " Input field model Required",
   }),
@@ -30,7 +30,7 @@ export function FormProduct() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      image: [],
+      images: [],
       model: "",
     },
   });
@@ -52,15 +52,16 @@ export function FormProduct() {
         {/* Image upload component multiple images */}
         <FormField
           control={form.control}
-          name="image"
+          name="images"
           render={({ field: { value, onChange } }) => {
-            // console.log(value);
-
             return (
               <FormItem>
                 <FormLabel />
                 <FormControl>
-                  <UploadMultipleImage value={value} onChange={(image) => onChange([...image, image])} />
+                  <UploadMultipleImage
+                    value={value}
+                    onChange={(img) => onChange(img)}
+                  />
                 </FormControl>
                 <FormDescription>Upload an image</FormDescription>
                 <FormMessage />

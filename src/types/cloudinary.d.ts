@@ -37,4 +37,11 @@ export type TImage = {
     etag: string;
     created_by: null;
     uploaded_by: null;
-  };
+};
+export type TOnSuccess = {
+    access_mode: string,
+    path: string
+    tags: []
+    url: string
+    thumbnail_url: string
+}

@@ -1,34 +1,30 @@
+import { Fragment } from "react";
 import { Button } from "@/components/ui/button";
 import { ENV } from "@/config/env-variable";
 import { Image as ImageIcon, X } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
-import { Fragment, useEffect, useState } from "react";
 import { CldImage } from "next-cloudinary";
-import { TCoundinaryResults } from "@/types/cloudinary";
+import { TOnSuccess } from "@/types/cloudinary";
 
 type TImageUploadProps = {
   value: string[];
-  onChange: (image: string[]) => void;
+  onChange: (image: []) => void;
+};
+
+type TIamgeUrl = {
+  info: {
+    url: string
+  };
 };
 
 export const UploadMultipleImage = ({ value, onChange }: TImageUploadProps) => {
-  console.log("NO_VALUE_UPLOAD_MULTIPLE_IMAGE", ...value);
-
-  const onUploadAdded = (results: TCoundinaryResults) => {
-    const newImageUrl = results.info.secure_url; // Get the new image URL
-    onChange([...value, newImageUrl]); // Append the new image URL to the existing list
+  const onUploadAdded = (results: TIamgeUrl) => {
+    console.log(results.info.url);
+    // onChange(results.info.url)
   };
-
-  const removeImage = (index: number) => {
-    // Remove the image at the specified index
-    const updatedImages = value.filter((_, i) => i !== index);
-    onChange(updatedImages);
-  };
-
   return (
     <Fragment>
       <div className="flex gap-4">
-
         {value?.length > 0 &&
           value.map((publicUrl) => (
             <div key={publicUrl} className="relative border-2 shadow-sm bg-white rounded-md">
@@ -47,7 +43,7 @@ export const UploadMultipleImage = ({ value, onChange }: TImageUploadProps) => {
 
         <CldUploadWidget
           uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-          onUploadAdded={() => onUploadAdded}
+          onUploadAdded={(results) => onUploadAdded(results)}
         >
           {({ open }) => {
             return (
