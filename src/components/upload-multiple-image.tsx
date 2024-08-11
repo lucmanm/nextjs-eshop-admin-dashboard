@@ -12,7 +12,7 @@ type TImageUploadProps = {
 };
 
 export const UploadMultipleImage = ({ value, onChange }: TImageUploadProps) => {
-  console.log(...value);
+  console.log("NO_VALUE_UPLOAD_MULTIPLE_IMAGE", ...value);
 
   const onUploadAdded = (results: TCoundinaryResults) => {
     const newImageUrl = results.info.secure_url; // Get the new image URL
@@ -28,6 +28,7 @@ export const UploadMultipleImage = ({ value, onChange }: TImageUploadProps) => {
   return (
     <Fragment>
       <div className="flex gap-4">
+
         {value?.length > 0 &&
           value.map((publicUrl) => (
             <div key={publicUrl} className="relative border-2 shadow-sm bg-white rounded-md">
@@ -46,7 +47,7 @@ export const UploadMultipleImage = ({ value, onChange }: TImageUploadProps) => {
 
         <CldUploadWidget
           uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-          onSuccess={onUploadAdded}
+          onUploadAdded={() => onUploadAdded}
         >
           {({ open }) => {
             return (
