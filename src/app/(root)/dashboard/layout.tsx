@@ -1,12 +1,12 @@
-import { Sidebar } from "@/app/(root)/dashboard/_components/side-bar";
-import { cn } from "@/lib/utils";
-import { ToggleUserMenu } from "./_components/toggle-user-menu";
-import { NotificationIcon } from "./_components/notifiction-icon";
-import MbMobileMenu from "./_components/mb-mobile-menu";
-import { SearchInput } from "./_components/search-input";
-import LocaleSwitcher from "@/components/locale-switcher";
 import { Fragment } from "react";
-import { Modal } from "./_components/modal";
+import { cn } from "@/lib/utils";
+import { ToggleUserMenu } from "@dashboard/_components/toggle-user-menu";
+import { NotificationIcon } from "@dashboard/_components/notifiction-icon";
+import { SearchInput } from "@dashboard/_components/search-input";
+import LocaleSwitcher from "@/components/locale-switcher";
+import { Modal } from "@dashboard/_components/modal";
+import MbMobileMenu from "@dashboard/_components/mb-mobile-menu";
+import { Sidebar } from "@dashboard/_components/side-bar";
 
 export default function DashboardLayout({
   children,

@@ -25,6 +25,8 @@ type TCoundinaryResults = {
 };
 
 export const UploadMultipleImage = ({ value, onChange }: TImageUploadProps) => {
+  console.log(...value);
+
   const onUploadAdded = (results: TCoundinaryResults) => {
     const newImageUrl = results.info.secure_url; // Get the new image URL
     onChange([...value, newImageUrl]); // Append the new image URL to the existing list
@@ -48,6 +50,7 @@ export const UploadMultipleImage = ({ value, onChange }: TImageUploadProps) => {
                 height="500"
                 src={publicUrl}
                 sizes="100vw"
+                priority
                 alt="Description of my image"
                 className="size-36"
               />

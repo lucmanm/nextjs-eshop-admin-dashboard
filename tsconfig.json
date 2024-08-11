@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*","./src/app/(root)/*"]
+      "@/*": ["./src/*"],
+      "@dashboard/*": ["./src/app/(root)/dashboard/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

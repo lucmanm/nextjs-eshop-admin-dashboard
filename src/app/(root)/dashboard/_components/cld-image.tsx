@@ -41,6 +41,7 @@ export const CloudImage = ({ public_id }: CloudImage) => {
         src={public_id}
         sizes="100vw"
         alt="Description of my image"
+        priority
       />
     </Card>
   );

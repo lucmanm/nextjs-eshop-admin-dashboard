@@ -2,16 +2,13 @@ import React from "react";
 import cloudinary from "cloudinary";
 import { CloudImage, TImage } from "../../_components/cld-image";
 
-type TResources = {
-  resources: TImage[];
-};
 const Page = async () => {
 
-  const response: TResources = await cloudinary.v2.search
+  const response = (await cloudinary.v2.search
     .expression("resource_type:image AND folder:eshop")
     .sort_by("public_id", "desc")
     .max_results(4)
-    .execute();
+    .execute()) as { resources: TImage[] };
 
   return (
     <div className="flex flex-wrap gap-4">
