@@ -4,24 +4,11 @@ import { Image as ImageIcon, X } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
 import { Fragment, useEffect, useState } from "react";
 import { CldImage } from "next-cloudinary";
+import { TCoundinaryResults } from "@/types/cloudinary";
 
 type TImageUploadProps = {
   value: string[];
   onChange: (image: string[]) => void;
-};
-
-type TCoundinaryResults = {
-  info: {
-    folder: string;
-    original_filename: string;
-    public_id: string;
-    secure_url: string;
-    signature: string;
-    url: string;
-    created_at: string;
-    thumbnail_url: string;
-    tags: [];
-  };
 };
 
 export const UploadMultipleImage = ({ value, onChange }: TImageUploadProps) => {
