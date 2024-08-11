@@ -1,9 +1,9 @@
 import React from "react";
 import cloudinary from "cloudinary";
-import { CloudImage, TImage } from "../../_components/cld-image";
+import { CloudImage } from "../../_components/cld-image";
+import { TImage } from "@/types/cloudinary";
 
 const Page = async () => {
-
   const response = (await cloudinary.v2.search
     .expression("resource_type:image AND folder:eshop")
     .sort_by("public_id", "desc")

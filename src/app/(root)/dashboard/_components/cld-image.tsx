@@ -2,11 +2,11 @@
 import { Card } from "@/components/ui/card";
 import { CldImage, CldImageProps } from "next-cloudinary";
 
-type CloudImage = {
+type CloudImageProps = {
   public_id: string;
 } & Omit<CldImageProps, "width" | "height" | "src" | "sizes" | "alt" | "priority">;
 
-export const CloudImage = ({ public_id, ...props }: CldImageProps) => {
+export const CloudImage = ({ public_id, ...props }: CloudImageProps) => {
   return (
     <Card>
       <CldImage
