@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, LineChart, Package, Package2, Settings, ShoppingCart, Users } from "lucide-react";
+import { FolderInput, Home, LineChart, Package, Package2, Settings, ShoppingCart, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { sideMenu } from "@/constant/sidebar-menu";
 import { Separator } from "@/components/ui/separator";
@@ -40,11 +40,11 @@ export function Sidebar() {
               : "No Data from Sidebar"}
             <Separator className="my-2" />
             <Link
-              href="#"
+              href="/dashboard/media-library"
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
             >
-              <Home className="h-4 w-4" />
-              Dashboard
+              <FolderInput  className="h-4 w-4" />
+              Media Library
             </Link>
             <Link
               href="#"
