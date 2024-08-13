@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { UploadMultipleImage } from "@/components/upload-multiple-image";
 import { Save } from "lucide-react";
 
 const FormSchema = z.object({
@@ -50,25 +49,7 @@ export function SliderForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
         {/* Image upload component multiple images */}
-        <FormField
-          control={form.control}
-          name="images"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel />
-                <FormControl>
-                  <UploadMultipleImage
-                    value={field.value}
-                    onChange={(val) => field.onChange(val)}
-                  />
-                </FormControl>
-                <FormDescription>Upload an image</FormDescription>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
+
         <FormField
           control={form.control}
           name="model"

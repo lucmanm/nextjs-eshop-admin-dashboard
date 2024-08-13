@@ -10,9 +10,9 @@ const SettingName = async ({ params }: { params: { settingName: string } }) => {
   }
 
   return (
-    <main>
-      <SliderForm />
-    </main>
+    <div>
+      Sldier Form Working in progress
+    </div>
   );
 };
 
