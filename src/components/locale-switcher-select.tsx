@@ -34,7 +34,7 @@ export default function LocaleSwitcherSelect({ defaultValue, items, label }: Pro
           )}
         >
           <Select.Icon>
-            <LanguagesIcon className="h-6 w-6 text-slate-600 transition-colors group-hover:text-slate-900" />
+            <LanguagesIcon className="size-5 text-slate-600 transition-colors group-hover:text-slate-900" />
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
