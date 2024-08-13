@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { string, z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,28 +16,28 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { Save } from "lucide-react";
-import { CldImage, CldUploadWidget } from "next-cloudinary";
+import { ImageIcon, Save } from "lucide-react";
+import { CldImage, CldUploadWidget, CloudinaryUploadWidgetResults } from "next-cloudinary";
 import { ENV } from "@/config/env-variable";
-import { TResults } from "@/components/upload-multiple-image";
+import { Card } from "@/components/ui/card";
 
-const FormSchema = z.object({
-  images: z.array(z.string()).nonempty({ message: "Missing input field required upload image" }),
+const zProductSchema = z.object({
+  images: z.string().array(),
   model: z.string().min(2, {
     message: "Input field model Required",
   }),
 });
 
 export function FormProduct() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof zProductSchema>>({
+    resolver: zodResolver(zProductSchema),
     defaultValues: {
       images: [],
       model: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: z.infer<typeof zProductSchema>) {
     toast({
       title: "You submitted the following values:",
       description: (
@@ -47,6 +47,11 @@ export function FormProduct() {
       ),
     });
   }
+  console.log(form.getValues());
+
+  const onUpload = (value: string) => {
+    form.setValue("images", [...form.getValues("images"), value]);
+  };
 
   return (
     <Form {...form}>
@@ -55,53 +60,54 @@ export function FormProduct() {
           control={form.control}
           name="images"
           render={({ field: { value, onChange } }) => {
+            console.log(value.map((data) => data));
+
             return (
               <FormItem>
                 <FormLabel />
                 <FormControl>
-                  <div className="flex ">
-                    {value.length >= 0 &&
-                      value.map((data, idx) => (
-                        <CldImage
-                          key={idx}
-                          alt="asdasd"
-                          src={data}
-                          className="size-10"
-                          height={500}
-                          width={500}
-                        />
-                      ))}
+                  <div className="flex  flex-col gap-2 md:gap-4">
+                    <div className="flex gap-2 md:gap4">
+                      {value.length >= 0 &&
+                        value.map((data, idx) => (
+                          <Card key={idx} className="overflow-hidden size-28">
+                            <CldImage alt={`${data}`} src={`${data}`} height={500} width={500} />
+                          </Card>
+                        ))}
                       {/* Upload botton */}
 
-                    <CldUploadWidget
-                      uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-                      onSuccess={(results) => {
-                        if (results.info && typeof results.info !== "string") {
-                          onChange((prevIamges: any) => [...prevIamges, results.info?.secure_url]);
-                        }
-                      }}
-                    >
-                      {({ open }) => {
-                        const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-                          e.preventDefault();
-                          open();
-                        };
+                      <CldUploadWidget
+                        uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+                        onSuccess={(results: CloudinaryUploadWidgetResults) => {
+                          if (typeof results.info === "object") {
+                            onUpload(results.info.secure_url);
+                          }
+                        }}
+                        options={{
+                          sources: ["local", "url", "google_drive"],
+                        }}
+                      >
+                        {({ open }) => {
+                          const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+                            e.preventDefault();
+                            open();
+                          };
 
-                        return (
-                          <Button
-                            variant="outline"
-                            onClick={onClick}
-                            className="flex size-28 flex-col gap-4"
-                          >
-                            <Save className="text-slate-950 size-7" />
-                            Upload
-                          </Button>
-                        );
-                      }}
-                    </CldUploadWidget>
+                          return (
+                            <Button
+                              variant="outline"
+                              onClick={onClick}
+                              className="flex  gap-4 size-28 flex-col"
+                            >
+                              <ImageIcon className="text-slate-950 size-4 md:size-8" />
+                              <span className="max-sm:text-xs">Upload Image</span>
+                            </Button>
+                          );
+                        }}
+                      </CldUploadWidget>
+                    </div>
                   </div>
                 </FormControl>
-                <FormDescription>Upload an image</FormDescription>
                 <FormMessage />
               </FormItem>
             );
