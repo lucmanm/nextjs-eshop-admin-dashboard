@@ -1,9 +1,9 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -28,7 +28,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 
@@ -58,22 +57,20 @@ export function FormProduct() {
       ),
     });
   }
-  // console.log(form.getValues());
-
-  // const onUpload = (value: string) => {
-  //   form.setValue("images", [...form.getValues("images"), value]);
-  // };
 
   const images = form.watch("images");
 
   return (
     <div>
-      {images.length >= 0 &&
-        images.map((data) => (
-          <Card key={data} className="overflow-hidden size-28">
-            <CldImage alt={`${data}`} src={`${data}`} height={500} width={500} />
-          </Card>
-        ))}
+      {images.length >= 0 && (
+        <div className="flex gap-2 md:gap-4 p-2 md:p-4 flex-wrap">
+          {images.map((data) => (
+            <Card key={data} className="overflow-hidden size-28">
+              <CldImage alt={`${data}`} src={`${data}`} height={500} width={500} />
+            </Card>
+          ))}
+        </div>
+      )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <Tabs defaultValue="english" className="">
@@ -113,9 +110,7 @@ export function FormProduct() {
                   <FormField
                     control={form.control}
                     name="images"
-                    render={({ field: { value, onChange } }) => {
-                      console.log(value.map((data) => data));
-
+                    render={({ field: { onChange } }) => {
                       return (
                         <FormItem>
                           <FormLabel />
@@ -176,9 +171,6 @@ export function FormProduct() {
                     )}
                   />
                 </CardContent>
-                <CardFooter>
-                  <Button>Save changes</Button>
-                </CardFooter>
               </Card>
             </TabsContent>
             <TabsContent value="arabic">
@@ -190,18 +182,70 @@ export function FormProduct() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  <div className="space-y-1">
-                    <Label htmlFor="current">Current password</Label>
-                    <Input id="current" type="password" />
-                  </div>
-                  <div className="space-y-1">
-                    <Label htmlFor="new">New password</Label>
-                    <Input id="new" type="password" />
-                  </div>
+                  <FormField
+                    control={form.control}
+                    name="images"
+                    render={({ field: { onChange } }) => {
+                      return (
+                        <FormItem>
+                          <FormLabel />
+                          <FormControl>
+                            <div className="flex  flex-col gap-2 md:gap-4">
+                              {/* Upload botton */}
+                              <CldUploadWidget
+                                uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+                                onSuccess={(results: CloudinaryUploadWidgetResults) => {
+                                  if (typeof results.info === "object") {
+                                    onChange([
+                                      ...form.getValues("images"),
+                                      results.info.secure_url,
+                                    ]);
+                                  }
+                                }}
+                                options={{
+                                  sources: ["local", "url", "google_drive"],
+                                }}
+                              >
+                                {({ open }) => {
+                                  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+                                    e.preventDefault();
+                                    open();
+                                  };
+
+                                  return (
+                                    <Button
+                                      variant="outline"
+                                      onClick={onClick}
+                                      className="flex  gap-4 size-28 flex-col"
+                                    >
+                                      <ImageIcon className="text-slate-950 size-4 md:size-8" />
+                                      <span className="max-sm:text-xs">Upload Image</span>
+                                    </Button>
+                                  );
+                                }}
+                              </CldUploadWidget>
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="model"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Model</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Model" {...field} />
+                        </FormControl>
+                        <FormDescription>Input model or series of the product</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </CardContent>
-                <CardFooter>
-                  <Button>Save password</Button>
-                </CardFooter>
               </Card>
             </TabsContent>
           </Tabs>
