@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { string, z } from "zod";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -58,19 +58,19 @@ export function FormProduct() {
       ),
     });
   }
-  console.log(form.getValues());
+  // console.log(form.getValues());
 
-  const onUpload = (value: string) => {
-    form.setValue("images", [...form.getValues("images"), value]);
-  };
+  // const onUpload = (value: string) => {
+  //   form.setValue("images", [...form.getValues("images"), value]);
+  // };
 
-  const images = form.getValues("images");
+  const images = form.watch("images");
 
   return (
     <div>
       {images.length >= 0 &&
-        images.map((data, idx) => (
-          <Card key={idx} className="overflow-hidden size-28">
+        images.map((data) => (
+          <Card key={data} className="overflow-hidden size-28">
             <CldImage alt={`${data}`} src={`${data}`} height={500} width={500} />
           </Card>
         ))}
@@ -113,7 +113,7 @@ export function FormProduct() {
                   <FormField
                     control={form.control}
                     name="images"
-                    render={({ field: { value } }) => {
+                    render={({ field: { value, onChange } }) => {
                       console.log(value.map((data) => data));
 
                       return (
@@ -126,7 +126,10 @@ export function FormProduct() {
                                 uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
                                 onSuccess={(results: CloudinaryUploadWidgetResults) => {
                                   if (typeof results.info === "object") {
-                                    onUpload(results.info.secure_url);
+                                    onChange([
+                                      ...form.getValues("images"),
+                                      results.info.secure_url,
+                                    ]);
                                   }
                                 }}
                                 options={{
