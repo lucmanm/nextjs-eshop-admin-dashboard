@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { useStoreModal } from "@/hook/useStoreModal";
 import { useLocale } from "next-intl";
 import { isRtlLang } from "rtl-detect";
+import { ButtonWithIcon } from "@/components/ui/button-w-icon";
 
 export const ProductRightMenu = () => {
   const router = useRouter();
@@ -31,7 +32,6 @@ export const ProductRightMenu = () => {
       description: rtl ? "أدخل العلامة التجارية للمنتج" : "Enter Product Brand",
     });
   };
-
 
   return (
     <div className="ml-auto flex items-center gap-2">
@@ -54,14 +54,22 @@ export const ProductRightMenu = () => {
         <File className="h-3.5 w-3.5" />
         <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Export</span>
       </Button>
-      <Button size="sm" className="h-8 gap-1" onClick={onClick}>
-        <PlusCircle className="h-3.5 w-3.5" />
-        <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Add Product</span>
-      </Button>
-      <Button size="sm" className="h-8 gap-1" onClick={openModal}>
-        <PlusCircle className="h-3.5 w-3.5" />
-        <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Create Brand</span>
-      </Button>
+
+
+      <ButtonWithIcon
+        {...{
+          icon: <PlusCircle className="h-3.5 w-3.5" />,
+          label: "Create Product",
+          onClick: () => onClick(),
+        }}
+      />
+      <ButtonWithIcon
+        {...{
+          icon: <PlusCircle className="h-3.5 w-3.5" />,
+          label: "Add Brand",
+          onClick: () => openModal(),
+        }}
+      />
     </div>
   );
 };
