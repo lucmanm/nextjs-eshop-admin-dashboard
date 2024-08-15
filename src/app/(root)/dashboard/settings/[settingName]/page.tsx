@@ -21,8 +21,8 @@ const SliderImage = () => (
         />
       </Card>
     ))}
-    <Button className="group flex-1 flex h-full max-sm:h-36 shad bg-neutral-100  drop-shadow-sm">
-      <CirclePlus className="size-1/2 text-blue-600 group-hover:text-slate-100 " />
+    <Button className="group flex-1 flex h-36 bg-neutral-100 drop-shadow-sm">
+      <CirclePlus className="max-sm:size-1/6 size-1/2 text-blue-600 group-hover:text-slate-100 " />
     </Button>
   </div>
 );
@@ -41,8 +41,8 @@ const SettingName = async ({ params }: { params: { settingName: string } }) => {
           enDesctription: "all the slider data available",
           arTitle: "لافتات",
           arDesctription: "جميع بيانات شريط التمرير المتاحة",
-          enchildren: <SliderImage />,
-          archildren: <SliderImage />,
+          enChildren: <SliderImage />,
+          arChildren: <SliderImage />,
         }}
       />
     </div>

@@ -7,14 +7,14 @@ type TabTransalationProps = {
   enDesctription?: string;
   arTitle?: string;
   arDesctription?: string;
-  enchildren?: React.ReactNode;
-  archildren?: React.ReactNode;
+  enChildren?: React.ReactNode;
+  arChildren?: React.ReactNode;
 };
 export const TabTransalation = (props: TabTransalationProps) => {
   return (
-    <Tabs defaultValue="english" className="">
+    <Tabs defaultValue="english" >
       {/* Tabs buttons */}
-      <TabsList className="grid grid-cols-2 w-80">
+      <TabsList className="grid grid-cols-2">
         <TabsTrigger value="english" className="gap-2 md:gap-4">
           <Image
             className="rounded-full"
@@ -43,7 +43,7 @@ export const TabTransalation = (props: TabTransalationProps) => {
             <CardTitle className="font-bold">{props.enTitle}</CardTitle>
             <CardDescription>{props.enDesctription}</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">{props.enchildren}</CardContent>
+          <CardContent className="space-y-2">{props.enChildren}</CardContent>
         </Card>
       </TabsContent>
       <TabsContent value="arabic" dir="rtl">
@@ -52,7 +52,7 @@ export const TabTransalation = (props: TabTransalationProps) => {
             <CardTitle className="font-bold">{props.arTitle}</CardTitle>
             <CardDescription>{props.arDesctription}</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">{props.archildren}</CardContent>
+          <CardContent className="space-y-2">{props.arChildren}</CardContent>
         </Card>
       </TabsContent>
     </Tabs>

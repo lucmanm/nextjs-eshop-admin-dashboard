@@ -26,6 +26,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
+import { TabTransalation } from "@/components/tab-translation";
 
 const brandSchema = z.object({
   image: z.string().min(1, { message: "Missing input required Upload image" }),
@@ -58,46 +59,49 @@ export function Modal() {
   return (
     <Dialog open={isOpen} onOpenChange={toggle}>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>{headerData?.title}</DialogTitle>
-          <DialogDescription>{headerData?.description}</DialogDescription>
-        </DialogHeader>
         {/* Forms Data */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
-            <div className="flex gap-4">
+            <TabTransalation
+              {...{
+                enDesctription: headerData.description,
+                enTitle: headerData.title,
+                // English  input
+                enChildren: (
+                  <FormField
+                    control={form.control}
+                    name="nameEn"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Brand Name </FormLabel>
+                        <FormControl>
+                          <Input placeholder="Brand Name" {...field} />
+                        </FormControl>
+                        <FormDescription>Enter brand name in english language</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ),
+                arChildren: (
+                  <FormField
+                    control={form.control}
+                    name="nameAr"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>اسم العلامة التجارية</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Brand Name" {...field} />
+                        </FormControl>
+                        <FormDescription>أدخل اسم العلامة التجارية باللغة العربية</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ),
+              }}
+            />
 
-              <div>
-                <FormField
-                  control={form.control}
-                  name="nameEn"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>English Brand Name </FormLabel>
-                      <FormControl>
-                        <Input placeholder="Brand Name" {...field} />
-                      </FormControl>
-                      <FormDescription>Enter brand name in enligh language</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="nameAr"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Arabic Brand Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Brand Name" {...field} />
-                      </FormControl>
-                      <FormDescription>Enter brand name in arabic language </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
             <DialogFooter className="gap-4">
               <Button type="submit" className="hover:bg-green-600">
                 Save
