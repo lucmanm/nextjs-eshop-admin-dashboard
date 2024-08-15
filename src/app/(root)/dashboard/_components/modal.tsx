@@ -27,6 +27,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "@/components/ui/use-toast";
 import { TabTransalation } from "@/components/tab-translation";
+import { ButtonWithIcon } from "@/components/ui/button-w-icon";
+import { Save } from "lucide-react";
 
 const brandSchema = z.object({
   image: z.string().min(1, { message: "Missing input required Upload image" }),
@@ -103,18 +105,20 @@ export function Modal() {
             />
 
             <DialogFooter className="gap-4">
-              <Button type="submit" className="hover:bg-green-600">
-                Save
-              </Button>
-              <DialogClose asChild>
-                <Button
-                  type="button"
-                  onClick={() => toggle}
-                  className="bg-red-900 hover:bg-red-600"
-                >
-                  Cancel
-                </Button>
-              </DialogClose>
+              <ButtonWithIcon
+                {...{
+                  icon: <Save className="size-4" />,
+                  label: "Save",
+                }}
+              />
+              <ButtonWithIcon
+                {...{
+                  icon: <Save className="size-4" />,
+                  label: "Cancel",
+                  onClick: () => toggle(),
+                  className: "bg-red-600 gap-2",
+                }}
+              />
             </DialogFooter>
           </form>
         </Form>
