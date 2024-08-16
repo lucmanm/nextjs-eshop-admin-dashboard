@@ -15,10 +15,11 @@ import { Button } from "@/components/ui/button";
 import { ENV } from "@/config/env-variable";
 import { ButtonWithIcon } from "@/components/ui/button-w-icon";
 import { ZSliderSchema } from "@/schemas/slider.schema";
+import { revalidatePath } from "next/cache";
 type TSliderProps = {
   items: z.infer<typeof ZSliderSchema>[];
 };
-export const SliderCard = ({ items }: TSliderProps) => {
+export const BannersContainer = ({ items }: TSliderProps) => {
   // TODO Try to use useformcontext
   const form = useForm<z.infer<typeof ZSliderSchema>>({
     resolver: zodResolver(ZSliderSchema),
@@ -37,6 +38,7 @@ export const SliderCard = ({ items }: TSliderProps) => {
         },
         body: JSON.stringify(data),
       });
+      revalidatePath("/dashboard/settings/banners");
       if (response.ok) {
         toast({
           title: "You submitted the following values:",
@@ -84,50 +86,63 @@ export const SliderCard = ({ items }: TSliderProps) => {
                       />
                     </Card>
                   ))}
+                  {form.getValues("enSlider") ? (
+                    <CloudinaryImage
+                      src={form.getValues("enSlider")}
+                      alt="cld sample"
+                      className="h-36 overflow-hidden rounded-md object-cover"
+                      width={1080}
+                      height={300}
+                    />
+                  ) : (
+                    <FormField
+                      control={form.control}
+                      name="enSlider"
+                      render={({ field: { onChange } }) => {
+                        return (
+                          <FormItem>
+                            <FormControl>
+                              <div className="flex  flex-col gap-2 md:gap-4">
+                                {/* Upload botton */}
+                                {/* TODO onchange previous value is not updating */}
+                                <CldUploadWidget
+                                  uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+                                  onSuccess={(results: CloudinaryUploadWidgetResults) => {
+                                    if (typeof results.info === "object") {
+                                      onChange(results.info.secure_url);
+                                    }
+                                  }}
+                                  options={{
+                                    sources: ["local", "url", "google_drive"],
+                                  }}
+                                >
+                                  {({ open }) => {
+                                    const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+                                      e.preventDefault();
+                                      open();
+                                    };
 
-                  <FormField
-                    control={form.control}
-                    name="enSlider"
-                    render={({ field: { onChange } }) => {
-                      return (
-                        <FormItem>
-                          <FormControl>
-                            <div className="flex  flex-col gap-2 md:gap-4">
-                              {/* Upload botton */}
-                              <CldUploadWidget
-                                uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-                                onSuccess={(results: CloudinaryUploadWidgetResults) => {
-                                  if (typeof results.info === "object") {
-                                    onChange(results.info.secure_url);
-                                  }
-                                }}
-                                options={{
-                                  sources: ["local", "url", "google_drive"],
-                                }}
-                              >
-                                {({ open }) => {
-                                  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-                                    e.preventDefault();
-                                    open();
-                                  };
-
-                                  return (
-                                    <Button
-                                      onClick={onClick}
-                                      className="group flex-1 flex h-36 bg-neutral-100 drop-shadow-sm"
-                                    >
-                                      <CirclePlus className="max-sm:size-1/6 size-1/2 text-blue-600 group-hover:text-slate-100 " />
-                                    </Button>
-                                  );
-                                }}
-                              </CldUploadWidget>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
+                                    return (
+                                      <Button
+                                        onClick={onClick}
+                                        className={
+                                          "group flex-1 flex h-36 bg-neutral-100 drop-shadow-sm"
+                                        }
+                                      >
+                                        <CirclePlus className="max-sm:size-1/6 size-1/2 text-blue-600 group-hover:text-slate-100 " />
+                                      </Button>
+                                    );
+                                  }}
+                                </CldUploadWidget>
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                            {/* TODO error message shoudl be outside */}
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  )}
                 </div>
               </React.Fragment>
             ),
@@ -146,50 +161,61 @@ export const SliderCard = ({ items }: TSliderProps) => {
                       />
                     </Card>
                   ))}
+                  {form.getValues("arSlider") ? (
+                    <CloudinaryImage
+                      src={form.getValues("arSlider")}
+                      alt="cld sample"
+                      className="h-36 overflow-hidden rounded-md object-cover"
+                      width={1080}
+                      height={300}
+                    />
+                  ) : (
+                    <FormField
+                      control={form.control}
+                      name="arSlider"
+                      render={({ field: { onChange } }) => {
+                        return (
+                          <FormItem>
+                            <FormControl>
+                              <div className="flex  flex-col gap-2 md:gap-4">
+                                {/* Upload botton */}
+                                <CldUploadWidget
+                                  uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+                                  onSuccess={(results: CloudinaryUploadWidgetResults) => {
+                                    if (typeof results.info === "object") {
+                                      onChange(results.info.secure_url);
+                                    }
+                                  }}
+                                  options={{
+                                    sources: ["local", "url", "google_drive"],
+                                  }}
+                                >
+                                  {({ open }) => {
+                                    const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+                                      e.preventDefault();
+                                      open();
+                                    };
 
-                  <FormField
-                    control={form.control}
-                    name="arSlider"
-                    render={({ field: { onChange } }) => {
-                      return (
-                        <FormItem>
-                          <FormControl>
-                            <div className="flex  flex-col gap-2 md:gap-4">
-                              {/* Upload botton */}
-                              <CldUploadWidget
-                                uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-                                onSuccess={(results: CloudinaryUploadWidgetResults) => {
-                                  if (typeof results.info === "object") {
-                                    onChange(results.info.secure_url);
-                                  }
-                                }}
-                                options={{
-                                  sources: ["local", "url", "google_drive"],
-                                }}
-                              >
-                                {({ open }) => {
-                                  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-                                    e.preventDefault();
-                                    open();
-                                  };
-
-                                  return (
-                                    <Button
-                                      onClick={onClick}
-                                      className="group flex-1 flex h-36 bg-neutral-100 drop-shadow-sm"
-                                    >
-                                      <CirclePlus className="max-sm:size-1/6 size-1/2 text-blue-600 group-hover:text-slate-100 " />
-                                    </Button>
-                                  );
-                                }}
-                              </CldUploadWidget>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
+                                    return (
+                                      <Button
+                                        onClick={onClick}
+                                        className={
+                                          "group flex-1 flex h-36 bg-neutral-100 drop-shadow-sm"
+                                        }
+                                      >
+                                        <CirclePlus className="max-sm:size-1/6 size-1/2 text-blue-600 group-hover:text-slate-100 " />
+                                      </Button>
+                                    );
+                                  }}
+                                </CldUploadWidget>
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  )}
                 </div>
               </React.Fragment>
             ),
