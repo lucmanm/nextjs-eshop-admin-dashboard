@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { z } from "zod";
-import { ZSliderSchema } from "@/app/api/v1/slider/route";
 import { CloudinaryImage } from "@/components/cloudinary-image";
 import { Card } from "@/components/ui/card";
 import { CloseButton } from "@/components/ui/close-btn";
@@ -15,6 +14,7 @@ import { CirclePlus, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ENV } from "@/config/env-variable";
 import { ButtonWithIcon } from "@/components/ui/button-w-icon";
+import { ZSliderSchema } from "@/schemas/slider.schema";
 type TSliderProps = {
   items: z.infer<typeof ZSliderSchema>[];
 };

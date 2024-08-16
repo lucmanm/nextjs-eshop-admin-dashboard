@@ -1,12 +1,7 @@
 import { prisma } from "@/lib/prisma";
+import { ZSliderSchema } from "@/schemas/slider.schema";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-
-export const ZSliderSchema = z.object({
-    enSlider: z.string().min(1),
-    arSlider: z.string().min(1),
-});
-
 export async function POST(request: Request) {
     try {
         const body = await request.json()
