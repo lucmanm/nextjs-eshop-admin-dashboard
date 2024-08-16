@@ -1,15 +1,15 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Home, LineChart, Menu, Package, Package2, ShoppingCart, Users } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
-import { Navigation } from "./navigation";
 
-function MbMobileMenu() {
+import { Navigation } from "./navigation";
+import { Menu } from "lucide-react";
+
+export const  MbMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" className="shrink-0 md:hidden">
           <Menu className="h-5 w-5" />
@@ -17,10 +17,9 @@ function MbMobileMenu() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="flex flex-col">
-        <Navigation />
+        <Navigation setIsOpen={setIsOpen} isOpen={isOpen} />
       </SheetContent>
     </Sheet>
   );
 }
 
-export default MbMobileMenu;
