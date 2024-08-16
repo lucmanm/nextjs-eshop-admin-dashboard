@@ -16,15 +16,22 @@ export const  settingsData = [
         icon: <User />
     },
     {
-        nameEn: "Slider or Carousel",
+        nameEn: "Banners",
         nameAr: "شريط التمرير أو الكاروسيل",
         descriptionEn: "You can configure your store slider banner",
+        descriptionAr: "يمكنك تكوين شعار منزلق متجرك",
+        icon: <User />
+    },
+    {
+        nameEn: "Images",
+        nameAr: "شريط التمرير أو الكاروسيل",
+        descriptionEn: "Store Image",
         descriptionAr: "يمكنك تكوين شعار منزلق متجرك",
         icon: <User />
     }
 ]
 
-export const  synchronizationData = [
+export const  adminData = [
     {
         nameEn: "Import",
         nameAr: "يستورد",

@@ -3,5 +3,5 @@ export default function SettingsLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main className="p-6">{children}</main>;
+  return children
 }

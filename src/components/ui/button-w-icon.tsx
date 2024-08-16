@@ -13,7 +13,7 @@ type ButtonWithIconProps = ButtonProps & {
 export const ButtonWithIcon = React.forwardRef<HTMLButtonElement, ButtonWithIconProps>(
   ({ icon, label, className, ...props }, ref) => {
     return (
-      <Button size="sm" className={cn("flex gap-2", className)} ref={ref} {...props}>
+      <Button size="sm" className={cn("flex gap-2 drop-shadow-md hover:bg-blue-800", className)} ref={ref} {...props}>
         {icon}
         <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">{label}</span>
       </Button>

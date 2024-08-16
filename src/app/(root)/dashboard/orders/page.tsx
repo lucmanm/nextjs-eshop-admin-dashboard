@@ -2,9 +2,9 @@ import React from "react";
 
 const Page = () => {
   return (
-    <React.Fragment>
+    <main className="p-2 md:p-6">
       Orders
-    </React.Fragment>
+    </main>
   );
 };
 

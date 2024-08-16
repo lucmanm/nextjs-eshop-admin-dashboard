@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SettingsCard } from "./_components/settings-card";
 
-import { settingsData, synchronizationData } from "@/constant/settingsData";
+import { settingsData, adminData } from "@/constant/settingsData";
 
 const IndexPage = () => {
   return (
@@ -10,7 +10,7 @@ const IndexPage = () => {
       <Card className="border-none shadow-none">
         <CardHeader>
           <CardTitle>Frontend Settings</CardTitle>
-          <CardDescription>Configure your frontend informationd details</CardDescription>
+          <CardDescription>Settings and Configurations about our storefront</CardDescription>
         </CardHeader>
         {/* Container */}
         <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:grid-cols-3">
@@ -24,12 +24,12 @@ const IndexPage = () => {
       </Card>
       <Card className="border-none shadow-none">
         <CardHeader>
-          <CardTitle>Frontend Settings</CardTitle>
-          <CardDescription>Configure your frontend informationd details</CardDescription>
+          <CardTitle>Admin</CardTitle>
+          <CardDescription>Here is your all configuration about your admin settings.</CardDescription>
         </CardHeader>
         {/* Container */}
         <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:grid-cols-3">
-          {synchronizationData.map(({ descriptionAr, descriptionEn, icon, nameAr, nameEn }) => (
+          {adminData.map(({ descriptionAr, descriptionEn, icon, nameAr, nameEn }) => (
             <SettingsCard
               key={nameEn}
               item={{ descriptionAr, descriptionEn, icon, nameAr, nameEn }}

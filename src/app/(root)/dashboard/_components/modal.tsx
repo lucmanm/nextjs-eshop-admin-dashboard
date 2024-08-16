@@ -31,7 +31,6 @@ import { ButtonWithIcon } from "@/components/ui/button-w-icon";
 import { Save } from "lucide-react";
 
 const brandSchema = z.object({
-  image: z.string().min(1, { message: "Missing input required Upload image" }),
   nameEn: z.string().min(1, { message: "Missing input required English Brand Name" }),
   nameAr: z.string().min(1, { message: "Missing input required Arabic Brand Name" }),
 });
@@ -43,7 +42,6 @@ export function Modal() {
   const form = useForm<z.infer<typeof brandSchema>>({
     resolver: zodResolver(brandSchema),
     defaultValues: {
-      image: "",
       nameAr: "",
       nameEn: "",
     },

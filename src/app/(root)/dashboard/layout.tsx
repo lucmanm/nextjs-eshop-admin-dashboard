@@ -20,6 +20,7 @@ export default function DashboardLayout({
           {/* Sidebar */}
           <Sidebar />
           <div className="flex flex-col">
+            {/* Header */}
             <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
               {/* Mobile Toggle or sheet menu */}
               <MbMobileMenu />

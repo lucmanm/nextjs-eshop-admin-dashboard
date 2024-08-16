@@ -34,7 +34,7 @@ const SettingName = async ({ params }: { params: { settingName: string } }) => {
     notFound();
   }
   return (
-    <div className="w-full">
+    <main className="w-full p-2 md:p-6">
       <TabTransalation
         {...{
           enTitle: "Banners",
@@ -45,7 +45,7 @@ const SettingName = async ({ params }: { params: { settingName: string } }) => {
           arChildren: <SliderImage />,
         }}
       />
-    </div>
+    </main>
   );
 };
 
