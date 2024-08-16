@@ -23,7 +23,7 @@ export const  settingsData = [
         icon: <User />
     },
     {
-        nameEn: "Images",
+        nameEn: "Store Images",
         nameAr: "شريط التمرير أو الكاروسيل",
         descriptionEn: "Store Image",
         descriptionAr: "يمكنك تكوين شعار منزلق متجرك",

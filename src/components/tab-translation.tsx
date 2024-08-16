@@ -2,17 +2,22 @@ import React, { ReactElement } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { useLocale } from "next-intl";
+import { isRtlLang } from "rtl-detect";
+
 type TabTransalationProps = {
   enTitle?: string;
-  enDesctription?: string;
+  enDescription?: string;
   arTitle?: string;
-  arDesctription?: string;
+  arDescription?: string;
   enChildren?: React.ReactNode;
   arChildren?: React.ReactNode;
 };
 export const TabTransalation = (props: TabTransalationProps) => {
+  const locale = useLocale();
+  const rtl = isRtlLang(locale);
   return (
-    <Tabs defaultValue="english" >
+    <Tabs defaultValue="english">
       {/* Tabs buttons */}
       <TabsList className="grid grid-cols-2">
         <TabsTrigger value="english" className="gap-2 md:gap-4">
@@ -23,7 +28,7 @@ export const TabTransalation = (props: TabTransalationProps) => {
             alt="United States"
             src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg"
           />
-          <span>English</span>
+          {rtl ? <span>إنجليزي</span> : <span>English</span>}
         </TabsTrigger>
         <TabsTrigger value="arabic" className="gap-2 md:gap-4">
           <Image
@@ -33,7 +38,7 @@ export const TabTransalation = (props: TabTransalationProps) => {
             alt="United States"
             src="http://purecatamphetamine.github.io/country-flag-icons/3x2/SA.svg"
           />
-          <span>Arabic</span>
+          {rtl ? <span>عربي</span> : <span>Arabic</span>}
         </TabsTrigger>
       </TabsList>
 
@@ -41,7 +46,7 @@ export const TabTransalation = (props: TabTransalationProps) => {
         <Card>
           <CardHeader>
             <CardTitle className="font-bold">{props.enTitle}</CardTitle>
-            <CardDescription>{props.enDesctription}</CardDescription>
+            <CardDescription>{props.enDescription}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">{props.enChildren}</CardContent>
         </Card>
@@ -50,7 +55,7 @@ export const TabTransalation = (props: TabTransalationProps) => {
         <Card>
           <CardHeader>
             <CardTitle className="font-bold">{props.arTitle}</CardTitle>
-            <CardDescription>{props.arDesctription}</CardDescription>
+            <CardDescription>{props.arDescription}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">{props.arChildren}</CardContent>
         </Card>

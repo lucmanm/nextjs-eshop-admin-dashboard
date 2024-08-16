@@ -10,7 +10,7 @@ export async function getSliders() {
         return result.data
 
     } catch (error) {
-        console.log("ERROR_GET_PRODUCTS", error);
+        console.log("FAILED_FETCH_SLIDERS", error);
 
     }
 }
