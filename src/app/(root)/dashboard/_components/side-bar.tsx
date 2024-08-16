@@ -1,10 +1,13 @@
+"use client";
 import Link from "next/link";
 import { Package2 } from "lucide-react";
 import { useLocale } from "next-intl";
 import { isRtlLang } from "rtl-detect";
 import { Navigation } from "./navigation";
+import { useState } from "react";
 
 export function Sidebar() {
+  const [isOpen, setIsOpenn] = useState(false);
   const locale = useLocale();
   const rtl = isRtlLang(locale);
 
@@ -18,7 +21,7 @@ export function Sidebar() {
           </Link>
         </div>
         <div className="flex-1">
-          <Navigation />
+          <Navigation isOpen={isOpen} setIsOpen={setIsOpenn} />
         </div>
       </div>
     </div>
