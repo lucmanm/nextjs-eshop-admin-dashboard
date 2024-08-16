@@ -9,7 +9,7 @@ const IndexPage = () => {
     <React.Fragment>
       <Card className="border-none shadow-none">
         <CardHeader>
-          <CardTitle>Frontend Settings</CardTitle>
+          <CardTitle>Store Settings</CardTitle>
           <CardDescription>Settings and Configurations about our storefront</CardDescription>
         </CardHeader>
         {/* Container */}
@@ -24,7 +24,7 @@ const IndexPage = () => {
       </Card>
       <Card className="border-none shadow-none">
         <CardHeader>
-          <CardTitle>Admin</CardTitle>
+          <CardTitle>Admin Settings</CardTitle>
           <CardDescription>Here is your all configuration about your admin settings.</CardDescription>
         </CardHeader>
         {/* Container */}
