@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 import { ToggleUserMenu } from "@dashboard/_components/toggle-user-menu";
 import { NotificationIcon } from "@dashboard/_components/notifiction-icon";
 import { SearchInput } from "@dashboard/_components/search-input";
+import { MbMenu } from "@dashboard/_components/mb-menu";
 import LocaleSwitcher from "@/components/locale-switcher";
 import { Modal } from "@dashboard/_components/modal";
-import MbMobileMenu from "@dashboard/_components/mb-mobile-menu";
 import { Sidebar } from "@dashboard/_components/side-bar";
 
 export default function DashboardLayout({
@@ -23,7 +23,7 @@ export default function DashboardLayout({
             {/* Header */}
             <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
               {/* Mobile Toggle or sheet menu */}
-              <MbMobileMenu />
+              <MbMenu />
               <SearchInput />
               <LocaleSwitcher />
               <NotificationIcon />

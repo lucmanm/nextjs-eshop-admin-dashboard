@@ -36,10 +36,9 @@ import { ProductRightMenu } from "./_components/products-right-menu";
 export default async function Page() {
   return (
     <React.Fragment>
-
-      <div className="flex flex-1 items-center justify-center rounded-lg ">
-        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-          <Tabs defaultValue="all">
+      <main className="flex flex-1 items-center justify-center rounded-lg ">
+        <div className="grid flex-1 items-start gap-4  md:gap-8">
+          <Tabs defaultValue="products">
             <div className="flex items-center">
               <TabsList>
                 <TabsTrigger value="products">Products</TabsTrigger>
@@ -294,8 +293,8 @@ export default async function Page() {
               </Card>
             </TabsContent>
           </Tabs>
-        </main>
-      </div>
+        </div>
+      </main>
     </React.Fragment>
   );
 }
