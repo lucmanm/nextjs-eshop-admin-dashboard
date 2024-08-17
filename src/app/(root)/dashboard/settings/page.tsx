@@ -25,7 +25,9 @@ const IndexPage = () => {
       <Card className="border-none shadow-none">
         <CardHeader>
           <CardTitle>Admin Settings</CardTitle>
-          <CardDescription>Here is your all configuration about your admin settings.</CardDescription>
+          <CardDescription>
+            Here is your all configuration about your admin settings.
+          </CardDescription>
         </CardHeader>
         {/* Container */}
         <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:grid-cols-3">

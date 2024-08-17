@@ -1,13 +1,13 @@
+import { Toaster } from "@/components/ui/toaster";
+import { cn } from "@/lib/utils";
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import type { Metadata } from "next";
 import { Cairo as FontCairo } from "next/font/google";
-import { cn } from "@/lib/utils";
-import "../globals.css";
-import { getLangDir } from "rtl-detect";
 import { ToastContainer } from "react-toastify";
-import { Toaster } from "@/components/ui/toaster";
 import "react-toastify/dist/ReactToastify.css";
+import { getLangDir } from "rtl-detect";
+import "../globals.css";
 const fontSans = FontCairo({
   subsets: ["latin"],
   variable: "--font-sans",

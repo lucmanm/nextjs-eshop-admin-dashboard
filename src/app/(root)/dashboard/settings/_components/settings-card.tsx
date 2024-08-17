@@ -1,10 +1,7 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { Building2 } from "lucide-react";
-import { useLocale } from "next-intl";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import React from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
 import { isRtlLang } from "rtl-detect";
 
 type TSettingsCardProps = {
@@ -16,13 +13,12 @@ type TSettingsCardProps = {
 };
 
 export const SettingsCard = ({ item }: { item: TSettingsCardProps }) => {
-  const pathname = usePathname();
   const locale = useLocale();
   const rtl = isRtlLang(locale);
 
   return (
     <Link
-      href={`${pathname}/${item.nameEn.toLowerCase()}`}
+      href={`/dashboard/settings/${item.nameEn.toLowerCase()}`}
       className={cn(
         "flex border items-center p-3 lsg:p-4 gap-4 rounded-lg shadow-sm overflow-hidden"
       )}
