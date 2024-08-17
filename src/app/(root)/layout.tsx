@@ -5,8 +5,9 @@ import { Cairo as FontCairo } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "../globals.css";
 import { getLangDir } from "rtl-detect";
-
-import { Toaster } from "@/components/ui/toaster"
+import { ToastContainer } from "react-toastify";
+import { Toaster } from "@/components/ui/toaster";
+import "react-toastify/dist/ReactToastify.css";
 const fontSans = FontCairo({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -35,6 +36,7 @@ export default async function RootLayout({
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
         <Toaster />
+        <ToastContainer position="bottom-right" />
       </body>
     </html>
   );

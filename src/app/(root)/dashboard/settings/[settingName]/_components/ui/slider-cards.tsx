@@ -5,23 +5,22 @@ import { CloudinaryImage } from "@/components/cloudinary-image";
 import { Card } from "@/components/ui/card";
 import { CloseButton } from "@/components/ui/close-btn";
 import { TabTransalation } from "@/components/tab-translation";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "@/components/ui/use-toast";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { CldUploadWidget, CloudinaryUploadWidgetResults } from "next-cloudinary";
-import { CirclePlus, Save } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ENV } from "@/config/env-variable";
+import { Save } from "lucide-react";
 import { ButtonWithIcon } from "@/components/ui/button-w-icon";
 import { ZSliderSchema } from "@/schemas/slider.schema";
-import { revalidatePath } from "next/cache";
+import { ImageUploadField } from "./image-upload-field";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+
 type TSliderProps = {
   items: z.infer<typeof ZSliderSchema>[];
 };
+
 export const BannersContainer = ({ items }: TSliderProps) => {
-  // TODO Try to use useformcontext
-  const form = useForm<z.infer<typeof ZSliderSchema>>({
+  const router = useRouter();
+  const formMethods = useForm<z.infer<typeof ZSliderSchema>>({
     resolver: zodResolver(ZSliderSchema),
     defaultValues: {
       arSlider: "",
@@ -38,33 +37,19 @@ export const BannersContainer = ({ items }: TSliderProps) => {
         },
         body: JSON.stringify(data),
       });
-      revalidatePath("/dashboard/settings/banners");
       if (response.ok) {
-        toast({
-          title: "You submitted the following values:",
-          description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-            </pre>
-          ),
-        });
+        toast.success("Banner added Successfully");
+        router.refresh();
+        formMethods.reset();
       }
     } catch (error) {
-      toast({
-        title: "ERROR_SUBMITTION",
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
-      });
-      console.log("ERROR_SUBMIT_SLIDER", error);
+      toast.error("ERROR_BANNER_SUBMIT");
     }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <FormProvider {...formMethods}>
+      <form onSubmit={formMethods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <TabTransalation
           {...{
             arTitle: "لافتات",
@@ -86,62 +71,16 @@ export const BannersContainer = ({ items }: TSliderProps) => {
                       />
                     </Card>
                   ))}
-                  {form.getValues("enSlider") ? (
+                  {formMethods.getValues("enSlider") ? (
                     <CloudinaryImage
-                      src={form.getValues("enSlider")}
+                      src={formMethods.getValues("enSlider")}
                       alt="cld sample"
                       className="h-36 overflow-hidden rounded-md object-cover"
                       width={1080}
                       height={300}
                     />
                   ) : (
-                    <FormField
-                      control={form.control}
-                      name="enSlider"
-                      render={({ field: { onChange } }) => {
-                        return (
-                          <FormItem>
-                            <FormControl>
-                              <div className="flex  flex-col gap-2 md:gap-4">
-                                {/* Upload botton */}
-                                {/* TODO onchange previous value is not updating */}
-                                <CldUploadWidget
-                                  uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-                                  onSuccess={(results: CloudinaryUploadWidgetResults) => {
-                                    if (typeof results.info === "object") {
-                                      onChange(results.info.secure_url);
-                                    }
-                                  }}
-                                  options={{
-                                    sources: ["local", "url", "google_drive"],
-                                  }}
-                                >
-                                  {({ open }) => {
-                                    const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-                                      e.preventDefault();
-                                      open();
-                                    };
-
-                                    return (
-                                      <Button
-                                        onClick={onClick}
-                                        className={
-                                          "group flex-1 flex h-36 bg-neutral-100 drop-shadow-sm"
-                                        }
-                                      >
-                                        <CirclePlus className="max-sm:size-1/6 size-1/2 text-blue-600 group-hover:text-slate-100 " />
-                                      </Button>
-                                    );
-                                  }}
-                                </CldUploadWidget>
-                              </div>
-                            </FormControl>
-                            <FormMessage />
-                            {/* TODO error message shoudl be outside */}
-                          </FormItem>
-                        );
-                      }}
-                    />
+                    <ImageUploadField name="enSlider" />
                   )}
                 </div>
               </React.Fragment>
@@ -161,66 +100,24 @@ export const BannersContainer = ({ items }: TSliderProps) => {
                       />
                     </Card>
                   ))}
-                  {form.getValues("arSlider") ? (
+                  {formMethods.getValues("arSlider") ? (
                     <CloudinaryImage
-                      src={form.getValues("arSlider")}
+                      src={formMethods.getValues("arSlider")}
                       alt="cld sample"
                       className="h-36 overflow-hidden rounded-md object-cover"
                       width={1080}
                       height={300}
                     />
                   ) : (
-                    <FormField
-                      control={form.control}
-                      name="arSlider"
-                      render={({ field: { onChange } }) => {
-                        return (
-                          <FormItem>
-                            <FormControl>
-                              <div className="flex  flex-col gap-2 md:gap-4">
-                                {/* Upload botton */}
-                                <CldUploadWidget
-                                  uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-                                  onSuccess={(results: CloudinaryUploadWidgetResults) => {
-                                    if (typeof results.info === "object") {
-                                      onChange(results.info.secure_url);
-                                    }
-                                  }}
-                                  options={{
-                                    sources: ["local", "url", "google_drive"],
-                                  }}
-                                >
-                                  {({ open }) => {
-                                    const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-                                      e.preventDefault();
-                                      open();
-                                    };
-
-                                    return (
-                                      <Button
-                                        onClick={onClick}
-                                        className={
-                                          "group flex-1 flex h-36 bg-neutral-100 drop-shadow-sm"
-                                        }
-                                      >
-                                        <CirclePlus className="max-sm:size-1/6 size-1/2 text-blue-600 group-hover:text-slate-100 " />
-                                      </Button>
-                                    );
-                                  }}
-                                </CldUploadWidget>
-                              </div>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
+                    <ImageUploadField name="arSlider" />
                   )}
                 </div>
               </React.Fragment>
             ),
           }}
         />
+        {/* error message test */}
+        <div className="text-red-600">{formMethods.formState.errors.enSlider?.message}</div>
         <ButtonWithIcon
           {...{
             icon: <Save className="h-3.5 w-3.5" />,
@@ -230,6 +127,6 @@ export const BannersContainer = ({ items }: TSliderProps) => {
           }}
         />
       </form>
-    </Form>
+    </FormProvider>
   );
 };
