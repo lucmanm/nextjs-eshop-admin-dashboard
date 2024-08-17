@@ -1,7 +1,6 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 import { Button, ButtonProps } from "./button";
-import { PlusCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 // Define the props type for ButtonWithIcon
 type ButtonWithIconProps = ButtonProps & {

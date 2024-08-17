@@ -13,6 +13,7 @@ import { ZSliderSchema } from "@/schemas/slider.schema";
 import { ImageUploadField } from "./image-upload-field";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { ENV } from "@/config/env-variable";
 
 type TSliderProps = {
   items: z.infer<typeof ZSliderSchema>[];
@@ -30,7 +31,7 @@ export const BannersContainer = ({ items }: TSliderProps) => {
 
   async function onSubmit(data: z.infer<typeof ZSliderSchema>) {
     try {
-      const response = await fetch("/api/v1/slider", {
+      const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/slider`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

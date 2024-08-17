@@ -10,10 +10,11 @@ type SettingNameProps = {
 
 type SettingName = "banners" | "store images";
 
-const SettingName = async ({ params }: SettingNameProps) => {
-  const decodedSettingName = decodeURIComponent(params.settingName).toLowerCase() as SettingName
+const SettingNamePage = async ({ params }: SettingNameProps) => {
+  // Normalize and validate the setting name
+  const decodedSettingName = decodeURIComponent(params.settingName).toLowerCase();
 
-  if (!decodedSettingName) {
+  if (!["banners", "store images"].includes(decodedSettingName)) {
     return notFound();
   }
 
@@ -35,4 +36,4 @@ const SettingName = async ({ params }: SettingNameProps) => {
   }
 };
 
-export default SettingName;
+export default SettingNamePage;
