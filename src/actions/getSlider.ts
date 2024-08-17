@@ -1,6 +1,8 @@
+"use "
 import { ENV } from "@/config/env-variable";
 
 export async function getSliders() {
+     'use server'
     try {
         const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/slider`)
         if (!response.ok) {
