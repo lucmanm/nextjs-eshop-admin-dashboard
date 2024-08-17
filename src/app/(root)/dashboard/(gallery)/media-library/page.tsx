@@ -13,7 +13,9 @@ const Page = async () => {
   return (
     <div className="flex flex-wrap gap-4">
       {response.resources.map((data, idx) => {
-        return <CloudImage key={idx} public_id={data.public_id} />;
+        return (
+          <CloudImage key={idx} public_id={data.public_id} className="overflow-hidden rounded-sm" />
+        );
       })}
     </div>
   );

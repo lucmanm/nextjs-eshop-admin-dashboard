@@ -11,15 +11,16 @@ type SettingNameProps = {
 type SettingName = "banners" | "store images";
 
 const SettingNamePage = async ({ params }: SettingNameProps) => {
-  // Normalize and validate the setting name
-  const decodedSettingName = decodeURIComponent(params.settingName).toLowerCase();
 
-  if (!["banners", "store images"].includes(decodedSettingName)) {
+  // Normalize and validate the setting name
+  const decodedSettingName = decodeURI(params.settingName);
+
+  if (!["Banners", "store images"].includes(decodedSettingName)) {
     return notFound();
   }
 
   switch (decodedSettingName) {
-    case "banners":
+    case "Banners":
       return (
         <main className="w-full p-2 md:p-6">
           <BannerPage />
