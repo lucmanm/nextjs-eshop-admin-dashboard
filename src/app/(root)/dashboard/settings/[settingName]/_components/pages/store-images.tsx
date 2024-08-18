@@ -19,12 +19,13 @@ const storeImageData = [
     name: "Vat Logo",
   },
 ];
+
 export const StoreImages = () => {
   return (
     <section className="grid col-span-2 md:grid-cols-6">
       {storeImageData.map((data, idx) => (
         <div key={idx}>
-          <span className="font-bold max-sm:text-xs px-4 py-2">{data.name}</span>
+          <span className="font-bold max-sm:text-xs px-4 py-2 text-sm">{data.name}</span>
           <CloudinaryImage
             src={imageUrl}
             alt="dummy Image"
@@ -37,7 +38,7 @@ export const StoreImages = () => {
 
       <Separator className="col-span-2 md:col-span-6 h-1 rounded-sm shadow my-6" />
       <div className="grid col-span-2 grid-cols-2 md:grid-cols-6 md:col-span-6">
-        <span className="font-bold max-sm:text-xs px-4 py-2 md:col-span-6 col-span-2">
+        <span className="font-bold max-sm:text-xs px-4 py-2 md:col-span-6 col-span-2 text-sm">
           Payment Gateway Logo
         </span>
         {Array.from({ length: 7 }).map((_, idx) => (

@@ -25,7 +25,7 @@ export const SettingsCard = ({ item }: { item: TSettingsCardProps }) => {
     >
       <div>{item.icon}</div>
       <div className="w-full overflow-hidden">
-        <p className="max-sm:text-sm font-bold">{rtl ? item.nameAr : item.nameEn}</p>
+        <p className="max-sm:text-sm font-bold capitalize">{rtl ? item.nameAr : item.nameEn}</p>
         <p className="max-sm:text-xs truncate">{rtl ? item.descriptionAr : item.descriptionEn}</p>
       </div>
     </Link>
