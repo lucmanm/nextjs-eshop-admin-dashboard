@@ -14,7 +14,8 @@ export const ButtonWithIcon = React.forwardRef<HTMLButtonElement, ButtonWithIcon
     return (
       <Button size="sm" className={cn("flex gap-2 drop-shadow-md hover:bg-blue-800", className)} ref={ref} {...props}>
         {icon}
-        <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">{label}</span>
+        <span className="sm:whitespace-nowrap">{label}</span>
+        {/* sr-only sm:not-sr-only  */}
       </Button>
     );
   }
