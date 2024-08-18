@@ -1,39 +1,26 @@
 import { notFound } from "next/navigation";
 import { BannerPage } from "./_components/pages/banner";
-import { StoreImages } from "./_components/pages/store-images";
+// import { StoreImages } from "./_components/pages/store-images";
 
 type SettingNameProps = {
   params: {
     settingName: string;
   };
 };
+type TSettingName = "Banners" | "images" | "details";
 
-type SettingName = "banners" | "store images";
+// function isTSettingName(value: string): value is TSettingName {
+//   return value === "Banners" || value === "images" || value === "details";
+// }
 
 const SettingNamePage = async ({ params }: SettingNameProps) => {
-
   // Normalize and validate the setting name
-  const decodedSettingName = decodeURI(params.settingName);
+  const decodedSettingName = decodeURI(params.settingName) as TSettingName;
 
-  if (!["Banners", "store images"].includes(decodedSettingName)) {
+  if (decodedSettingName === "Banners") {
+    return <BannerPage />;
+  } else {
     return notFound();
-  }
-
-  switch (decodedSettingName) {
-    case "Banners":
-      return (
-        <main className="w-full p-2 md:p-6">
-          <BannerPage />
-        </main>
-      );
-    case "store images":
-      return (
-        <main className="w-full p-2 md:p-6">
-          <StoreImages />
-        </main>
-      );
-    default:
-      return notFound();
   }
 };
 
