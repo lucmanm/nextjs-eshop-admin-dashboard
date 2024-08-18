@@ -8,18 +8,17 @@ type SettingNameProps = {
   };
 };
 
-type TSettingName = "Banners" | "store images";
+export type TSettingName = "banners" | "store images";
 
 const SettingNamePage = async ({ params }: SettingNameProps) => {
-  // Normalize and validate the setting name
-  const decodedSettingName = decodeURI(params.settingName) as TSettingName;
+  const decodedSettingName = decodeURI(params.settingName).toLowerCase() as TSettingName;
 
   if (!["Banners", "store images"].includes(decodedSettingName)) {
     return notFound();
   }
 
   switch (decodedSettingName) {
-    case "Banners":
+    case "banners":
       return (
         <main className="w-full p-2 md:p-6">
           <BannerPage />

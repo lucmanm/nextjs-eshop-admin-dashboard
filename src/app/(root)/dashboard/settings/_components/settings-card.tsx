@@ -18,7 +18,7 @@ export const SettingsCard = ({ item }: { item: TSettingsCardProps }) => {
 
   return (
     <Link
-      href={`/dashboard/settings/${item.nameEn}`}
+      href={`/dashboard/settings/${item.nameEn.toLowerCase()}`}
       className={cn(
         "flex border items-center p-3 lsg:p-4 gap-4 rounded-lg shadow-sm overflow-hidden"
       )}
