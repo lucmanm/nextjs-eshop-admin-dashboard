@@ -19,17 +19,9 @@ const SettingNamePage = async ({ params }: SettingNameProps) => {
 
   switch (decodedSettingName) {
     case "banners":
-      return (
-        <main className="w-full p-2 md:p-6">
-          <BannerPage />
-        </main>
-      );
+      return <BannerPage />;
     case "store images":
-      return (
-        <main className="w-full p-2 md:p-6">
-          <StoreImages />
-        </main>
-      );
+      return <StoreImages />;
     default:
       return notFound();
   }
