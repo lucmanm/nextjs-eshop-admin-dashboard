@@ -13,7 +13,7 @@ export type TSettingName = "banners" | "store images";
 const SettingNamePage = async ({ params }: SettingNameProps) => {
   const decodedSettingName = decodeURI(params.settingName).toLowerCase() as TSettingName;
 
-  if (!["Banners", "store images"].includes(decodedSettingName)) {
+  if (!["banners", "store images"].includes(decodedSettingName)) {
     return notFound();
   }
 
