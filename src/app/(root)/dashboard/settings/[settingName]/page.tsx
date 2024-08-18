@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { BannerPage } from "./_components/pages/banner";
+import { BannerPage } from "./_components/pages/banner-page";
 import { StoreImages } from "./_components/pages/store-images";
 
 type SettingNameProps = {

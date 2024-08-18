@@ -1,4 +1,3 @@
-"use "
 import { ENV } from "@/config/env-variable";
 
 export async function getSliders() {
@@ -10,9 +9,7 @@ export async function getSliders() {
         }
         const result = await response.json()
         return result.data
-
     } catch (error) {
         console.log("FAILED_FETCH_SLIDERS", error);
-
     }
 }
