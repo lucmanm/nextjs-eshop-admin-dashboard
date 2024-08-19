@@ -6,21 +6,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
 import { zStoreInformation } from "@/schemas/storeinfo.schema";
-import { Store } from "lucide-react";
+import React from "react";
 import { useFormContext } from "react-hook-form";
 import { z } from "zod";
 
-type FormFieldInput = {
+type TFormTextareaProps = {
   name: keyof z.infer<typeof zStoreInformation>;
   formLabel?: string;
   className?: string;
   placeholder?: string;
   description?: string;
 };
-export const FormFieldInput = (props: FormFieldInput) => {
+export const FormFieldTextArea = (props: TFormTextareaProps) => {
   const { control } = useFormContext<z.infer<typeof zStoreInformation>>();
   return (
     <FormField
@@ -30,7 +29,7 @@ export const FormFieldInput = (props: FormFieldInput) => {
         <FormItem>
           <FormLabel>{props.formLabel}</FormLabel>
           <FormControl>
-            <Input placeholder={props.placeholder} {...field} className={cn(props.className)} />
+            <Textarea placeholder={props.placeholder} className="resize-none" {...field} />
           </FormControl>
           <FormDescription>{props.description}</FormDescription>
           <FormMessage />

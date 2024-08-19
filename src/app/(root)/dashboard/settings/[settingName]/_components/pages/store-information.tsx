@@ -9,6 +9,7 @@ import { TabTransalation } from "@/components/tab-translation";
 import { ButtonWithIcon } from "@/components/ui/button-w-icon";
 import { Save } from "lucide-react";
 import React from "react";
+import { FormFieldTextArea } from "../ui/form-field-textarea";
 
 export default function StoreInformation() {
   const formMethod = useForm<z.infer<typeof zStoreInformation>>({
@@ -33,11 +34,31 @@ export default function StoreInformation() {
           arTitle="تخزين المعلومات"
           enTitle="Store Information"
           enChildren={
-            <section className="grid md:grid-cols-3 gap-2 md:gap-4">
-              <FormFieldInput name="enStoreName" formLabel="Store Name" />
-              <FormFieldInput name="enAddress" formLabel="Store Address" />
-              <FormFieldInput name="enWorkingTime" formLabel="Wokring Timings" />
-              <FormFieldInput name="enAbout" formLabel="About Us" />
+            <section className="grid md:grid-cols-3 gap-2 md:gap-4 text-sm">
+              <FormFieldInput name="enStoreName" formLabel="Store Name" placeholder="Store names" />
+              <FormFieldInput
+                name="enAddress"
+                formLabel="Store Address"
+                placeholder="Store Address"
+              />
+              <FormFieldTextArea
+                name="enWorkingTime"
+                formLabel="Wokring Timings"
+                placeholder="Working Times"
+              />
+              <FormFieldInput name="enAbout" formLabel="About Us" placeholder="About us" />
+              <FormFieldInput name="enTelephone" formLabel="Telephone" placeholder="Telephone" />
+              <FormFieldInput
+                name="enTaxNumber"
+                formLabel="Tax Certificate Number"
+                placeholder="Tax Certificate Number"
+              />
+              <FormFieldInput
+                name="enCommercialRegister"
+                formLabel="Commercial Number"
+                placeholder="Commercial Registry Number"
+              />
+              <FormFieldInput name="email" formLabel="Email" placeholder="Email" />
             </section>
           }
           arChildren={<FormFieldInput name="arStoreName" formLabel="Arabic Store Name" />}
