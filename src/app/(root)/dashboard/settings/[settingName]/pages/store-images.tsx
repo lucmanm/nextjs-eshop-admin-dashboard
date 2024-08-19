@@ -1,41 +1,29 @@
 'use client';
 import { CloudinaryImage } from '@/components/cloudinary-image';
-import { Button } from '@/components/ui/button';
 import { ButtonWithIcon } from '@/components/ui/button-w-icon';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Form } from '@/components/ui/form';
 import { Separator } from '@/components/ui/separator';
 import { toast } from '@/components/ui/use-toast';
-import { ENV } from '@/config/env-variable';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CirclePlus, Save } from 'lucide-react';
-import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
+import { Save } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { FieldUploadStoreImage } from '../_components/ui/field-upload-store-image';
-import { Fragment } from 'react';
 
 const imageUrl = 'playground-images/icons/dyxiold2kps3jkkmdbjo';
 
-const storeImageData = [
-  { imageTitle: 'Store Logo', name: 'storeLogo' },
-  // { imageTitle: "Store Icon", name: "storeIcon" },
-  // { imageTitle: "Product Default Image", name: "productDefaultImage" },
-  // { imageTitle: "Category Default Image", name: "categoryDefaultImage" },
-  // { imageTitle: "Vat Logo", name: "vatLogo" },
-];
+// const storeImageData = [
+//   { imageTitle: 'Store Logo', name: 'storeLogo' },
+// { imageTitle: "Store Icon", name: "storeIcon" },
+// { imageTitle: "Product Default Image", name: "productDefaultImage" },
+// { imageTitle: "Category Default Image", name: "categoryDefaultImage" },
+// { imageTitle: "Vat Logo", name: "vatLogo" },
+// ];
 
 export const zStoreImages = z.object({
-  storeLogo: z.string().min(1, { message: 'Missing file store logo' }).optional(),
-  // storeIcon: z.string().min(1, { message: "Missing file store icon" }).optional(),
+  storeLogo: z.string().min(1, { message: 'Missing file store logo' }).optional().nullable(),
+  storeIcon: z.string().min(1, { message: 'Missing file store icon' }).optional().nullable(),
+  // vatLogo: z.string().min(1, { message: 'Missing file VAT logo' }).optional(),
   // productDefaultImage: z
   //   .string()
   //   .min(1, { message: "Missing file product default image" })
@@ -44,18 +32,17 @@ export const zStoreImages = z.object({
   //   .string()
   //   .min(1, { message: "Missing file category default image" })
   //   .optional(),
-  // vatLogo: z.string().min(1, { message: "Missing file VAT logo" }).optional(),
 });
 
 export const StoreImages = () => {
   const form = useForm<z.infer<typeof zStoreImages>>({
     resolver: zodResolver(zStoreImages),
     defaultValues: {
-      storeLogo: '',
+      storeLogo: null,
+      storeIcon: null,
+      // vatLogo: '',
       // categoryDefaultImage: "",
       // productDefaultImage: "",
-      // storeIcon: "",
-      // vatLogo: "",
     },
   });
 
@@ -76,10 +63,8 @@ export const StoreImages = () => {
         <section className="col-span-2 grid md:grid-cols-6">
           {/* Cosntiner */}
           <div className="col-span-2 grid grid-cols-2 gap-2 md:col-span-6 md:grid-cols-6 md:gap-4">
-            <div className="size-48">
-              <span className="py-2 text-sm font-bold max-sm:text-xs">Store Logo</span>
-              <FieldUploadStoreImage alt='' name='storeLogo'/>
-            </div>
+            <FieldUploadStoreImage name="storeLogo" alt="Store Logo" />
+            <FieldUploadStoreImage name="storeIcon" alt="Store Icon" />
           </div>
           <Separator className="col-span-2 my-6 rounded-sm md:col-span-6" />
 

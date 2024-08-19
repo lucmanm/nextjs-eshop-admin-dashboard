@@ -1,27 +1,30 @@
-import { CloudinaryImage } from "@/components/cloudinary-image";
-import { Button } from "@/components/ui/button";
-import { FormControl, FormField, FormItem } from "@/components/ui/form";
-import { ENV } from "@/config/env-variable";
-import { CirclePlus } from "lucide-react";
-import { CldUploadWidget, CloudinaryUploadWidgetResults } from "next-cloudinary";
-import { useFormContext } from "react-hook-form";
+import { CloudinaryImage } from '@/components/cloudinary-image';
+import { Button } from '@/components/ui/button';
+import { FormControl, FormField, FormItem } from '@/components/ui/form';
+import { ENV } from '@/config/env-variable';
+import { CirclePlus } from 'lucide-react';
+import { CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
+import { useFormContext } from 'react-hook-form';
+import { z } from 'zod';
+import { zStoreImages } from '../../pages/store-images';
 
 type TFieldUploadStoreImage = {
-  name: string;
+  name: keyof z.infer<typeof zStoreImages>;
   alt: string;
 };
+
 export const FieldUploadStoreImage = ({ name, alt }: TFieldUploadStoreImage) => {
   const { control, getValues } = useFormContext();
   return (
     <div className="size-48">
-      <span className="font-bold max-sm:text-xs py-2 text-sm">Store Logo</span>
+      <span className="py-2 text-sm font-bold max-sm:text-xs">{alt}</span>
       {getValues(name) ? (
         <CloudinaryImage
           src={`${getValues(name)}`}
           alt={alt}
           width={200}
           height={200}
-          className="size-40 shadow border object-cover overflow-hidden rounded-md"
+          className="size-40 overflow-hidden rounded-md border object-cover shadow"
         />
       ) : (
         <FormField
@@ -31,16 +34,17 @@ export const FieldUploadStoreImage = ({ name, alt }: TFieldUploadStoreImage) => 
             return (
               <FormItem>
                 <FormControl>
-                  <div className="flex  flex-col gap-2 md:gap-4">
+                  <div className="flex flex-col gap-2 md:gap-4">
                     <CldUploadWidget
                       uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-                      onSuccess={(results: CloudinaryUploadWidgetResults) => {
-                        if (typeof results.info === "object") {
+                      onSuccess={(results: CloudinaryUploadWidgetResults, { widget }) => {
+                        if (typeof results.info === 'object') {
                           onChange(results.info.secure_url);
+                          widget.close();
                         }
                       }}
                       options={{
-                        sources: ["local", "url", "google_drive"],
+                        sources: ['local', 'url', 'google_drive'],
                       }}
                     >
                       {({ open }) => {
@@ -52,9 +56,9 @@ export const FieldUploadStoreImage = ({ name, alt }: TFieldUploadStoreImage) => 
                         return (
                           <Button
                             onClick={onClick}
-                            className="group flex size-40 bg-neutral-100 shadow border rounded-md border-slate-300"
+                            className="group flex size-40 rounded-md border border-slate-300 bg-neutral-100 shadow"
                           >
-                            <CirclePlus className="max-sm:size-1/6 size-1/2 text-blue-600 group-hover:text-slate-100 " />
+                            <CirclePlus className="size-1/2 text-blue-600 group-hover:text-slate-100 max-sm:size-1/6" />
                           </Button>
                         );
                       }}
