@@ -25,7 +25,7 @@ export const settingsData: ISetting[] = [
     icon: <User />,
   },
   {
-    nameEn: "store information",
+    nameEn: "store images",
     nameAr: "شريط التمرير أو الكاروسيل",
     descriptionEn: "Store Image",
     descriptionAr: "يمكنك تكوين شعار منزلق متجرك",
