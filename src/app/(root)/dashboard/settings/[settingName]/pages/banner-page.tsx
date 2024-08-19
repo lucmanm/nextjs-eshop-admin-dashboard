@@ -1,5 +1,5 @@
 import { getSliders } from "@/actions/getSlider";
-import { BannersContainer } from "../ui/slider-cards";
+import { BannersContainer } from "../_components/forms/form-banners";
 
 export const BannerPage = async () => {
   const data = await getSliders();

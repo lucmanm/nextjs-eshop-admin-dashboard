@@ -6,4 +6,5 @@ export const zStoreInformation = z.object({
     productDefaultsImage: z.string().min(1, { message: "Missing file store icon" }),
     categoryImage: z.string().min(1, { message: "Missing file store icon" }),
     vatLogo: z.string().min(1, { message: "Missing file store icon" }),
+    paymentGatewayLogo: z.array(z.string())
 });

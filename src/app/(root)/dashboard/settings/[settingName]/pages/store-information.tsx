@@ -2,14 +2,14 @@
 import { zStoreInformation } from "@/schemas/storeinfo.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import { FormFieldInput } from "../ui/form-field-input";
+import { FormFieldInput } from "../_components/ui/form-field-input";
 import { toast } from "@/components/ui/use-toast";
 import { z } from "zod";
 import { TabTransalation } from "@/components/tab-translation";
 import { ButtonWithIcon } from "@/components/ui/button-w-icon";
 import { Save } from "lucide-react";
 import React from "react";
-import { FormFieldTextArea } from "../ui/form-field-textarea";
+import { FormFieldTextArea } from "../_components/ui/form-field-textarea";
 
 export default function StoreInformation() {
   const formMethod = useForm<z.infer<typeof zStoreInformation>>({

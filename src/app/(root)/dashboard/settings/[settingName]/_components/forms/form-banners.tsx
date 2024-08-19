@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Save } from "lucide-react";
 import { ButtonWithIcon } from "@/components/ui/button-w-icon";
 import { ZSliderSchema } from "@/schemas/slider.schema";
-import { ImageUploadField } from "./image-upload-field";
+import { ImageUploadField } from "../ui/image-upload-field";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { ENV } from "@/config/env-variable";

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { BannerPage } from "./_components/pages/banner-page";
-import { StoreImages } from "./_components/pages/store-images";
-import StoreInformation from "./_components/pages/store-information";
+import { BannerPage } from "./pages/banner-page";
+import { StoreImages } from "./pages/store-images";
+import StoreInformation from "./pages/store-information";
 import { TSettingName } from "@/constant/settingsData";
 
 type SettingNameProps = {
