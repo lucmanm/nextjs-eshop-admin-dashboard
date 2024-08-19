@@ -1,19 +1,19 @@
-"use client";
-import React from "react";
-import { z } from "zod";
-import { CloudinaryImage } from "@/components/cloudinary-image";
-import { Card } from "@/components/ui/card";
-import { CloseButton } from "@/components/ui/close-btn";
-import { TabTransalation } from "@/components/tab-translation";
-import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Save } from "lucide-react";
-import { ButtonWithIcon } from "@/components/ui/button-w-icon";
-import { ZSliderSchema } from "@/schemas/slider.schema";
-import { ImageUploadField } from "../ui/image-upload-field";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import { ENV } from "@/config/env-variable";
+'use client';
+import { CloudinaryImage } from '@/components/cloudinary-image';
+import { TabTransalation } from '@/components/tab-translation';
+import { ButtonWithIcon } from '@/components/ui/button-w-icon';
+import { Card } from '@/components/ui/card';
+import { CloseButton } from '@/components/ui/close-btn';
+import { ENV } from '@/config/env-variable';
+import { ZSliderSchema } from '@/schemas/slider.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Save } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { z } from 'zod';
+import { ImageUploadField } from '../ui/image-upload-field';
 
 type TSliderProps = {
   items: z.infer<typeof ZSliderSchema>[];
@@ -24,27 +24,27 @@ export const BannersContainer = ({ items }: TSliderProps) => {
   const formMethods = useForm<z.infer<typeof ZSliderSchema>>({
     resolver: zodResolver(ZSliderSchema),
     defaultValues: {
-      arSlider: "",
-      enSlider: "",
+      arSlider: '',
+      enSlider: '',
     },
   });
 
   async function onSubmit(data: z.infer<typeof ZSliderSchema>) {
     try {
       const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/slider`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        toast.success("Banner added Successfully");
+        toast.success('Banner added Successfully');
         router.refresh();
         formMethods.reset();
       }
     } catch (error) {
-      toast.error("ERROR_BANNER_SUBMIT");
+      toast.error('ERROR_BANNER_SUBMIT');
     }
   }
 
@@ -53,13 +53,13 @@ export const BannersContainer = ({ items }: TSliderProps) => {
       <form onSubmit={formMethods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <TabTransalation
           {...{
-            arTitle: "لافتات",
-            arDescription: "",
-            enTitle: "Banners",
-            enDescription: "",
+            arTitle: 'لافتات',
+            arDescription: '',
+            enTitle: 'Banners',
+            enDescription: '',
             enChildren: (
               <React.Fragment>
-                <div className="max-sm:flex max-sm:flex-col md:grid md:grid-cols-4 gap-4">
+                <div className="gap-4 max-sm:flex max-sm:flex-col md:grid md:grid-cols-4">
                   {items.map((item, idx) => (
                     <Card key={idx} className="relative overflow-hidden hover:bg-slate-100/25">
                       <CloseButton />
@@ -72,9 +72,9 @@ export const BannersContainer = ({ items }: TSliderProps) => {
                       />
                     </Card>
                   ))}
-                  {formMethods.getValues("enSlider") ? (
+                  {formMethods.getValues('enSlider') ? (
                     <CloudinaryImage
-                      src={formMethods.getValues("enSlider")}
+                      src={formMethods.getValues('enSlider')}
                       alt="cld sample"
                       className="h-36 overflow-hidden rounded-md object-cover"
                       width={1080}
@@ -88,7 +88,7 @@ export const BannersContainer = ({ items }: TSliderProps) => {
             ),
             arChildren: (
               <React.Fragment>
-                <div className="max-sm:flex max-sm:flex-col md:grid md:grid-cols-4 gap-4">
+                <div className="gap-4 max-sm:flex max-sm:flex-col md:grid md:grid-cols-4">
                   {items.map((item, idx) => (
                     <Card key={idx} className="relative overflow-hidden hover:bg-slate-100/25">
                       <CloseButton />
@@ -101,9 +101,9 @@ export const BannersContainer = ({ items }: TSliderProps) => {
                       />
                     </Card>
                   ))}
-                  {formMethods.getValues("arSlider") ? (
+                  {formMethods.getValues('arSlider') ? (
                     <CloudinaryImage
-                      src={formMethods.getValues("arSlider")}
+                      src={formMethods.getValues('arSlider')}
                       alt="cld sample"
                       className="h-36 overflow-hidden rounded-md object-cover"
                       width={1080}
@@ -122,9 +122,9 @@ export const BannersContainer = ({ items }: TSliderProps) => {
         <ButtonWithIcon
           {...{
             icon: <Save className="h-3.5 w-3.5" />,
-            label: "Save",
-            type: "submit",
-            className: "w-1/6",
+            label: 'Save',
+            type: 'submit',
+            className: 'w-1/6',
           }}
         />
       </form>

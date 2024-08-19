@@ -1,8 +1,8 @@
-import { notFound } from "next/navigation";
-import { BannerPage } from "./pages/banner-page";
-import { StoreImages } from "./pages/store-images";
-import StoreInformation from "./pages/store-information";
-import { TSettingName } from "@/constant/settingsData";
+import { notFound } from 'next/navigation';
+import { BannerPage } from './pages/banner-page';
+import { StoreImages } from './pages/store-images';
+import StoreInformation from './pages/store-information';
+import { TSettingName } from '@/constant/settingsData';
 
 type SettingNameProps = {
   params: {
@@ -11,16 +11,15 @@ type SettingNameProps = {
 };
 
 const SettingNamePage = async ({ params }: SettingNameProps) => {
-
   const decodedSettingName = decodeURI(params.settingName).toLowerCase() as TSettingName;
 
   switch (decodedSettingName) {
-    case "banners":
+    case 'banners':
       return <BannerPage />;
-    case "store images":
-      return <StoreImages />;
-    case "store information":
+    case 'store information':
       return <StoreInformation />;
+    case 'store images':
+      return <StoreImages />;
     default:
       return notFound();
   }
