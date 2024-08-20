@@ -18,7 +18,7 @@ const Page = () => {
           </TabPanel>
         ))}
       </TabPanels>
-      <TabList className="flex justify-center gap-2 py-1">
+      <TabList className="flex justify-center gap-2 py-2">
         {images.map((image) => (
           <Tab key={image} className="size-20">
             <CloudImage
