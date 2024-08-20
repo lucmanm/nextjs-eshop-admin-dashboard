@@ -1,10 +1,8 @@
-"use client";
+'use client';
 
-import { z } from "zod";
+import { z } from 'zod';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -13,29 +11,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
-import { ImageIcon, Save } from "lucide-react";
-import { CldImage, CldUploadWidget, CloudinaryUploadWidgetResults } from "next-cloudinary";
-import { ENV } from "@/config/env-variable";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { toast } from '@/components/ui/use-toast';
+import { ENV } from '@/config/env-variable';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ImageIcon, Save } from 'lucide-react';
+import { CldImage, CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
+import { useForm } from 'react-hook-form';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Image from 'next/image';
+import { FieldInput } from './ui/field-input';
 
-const zProductSchema = z.object({
+export const zProductSchema = z.object({
   images: z.string().array(),
   model: z.string().min(2, {
-    message: "Input field model Required",
+    message: 'Input field model Required',
   }),
+  description: z.string().min(1, { message: 'Missing input field description' }),
+  price: z.string().min(1, { message: 'Missing input field price' }),
 });
 
 export function FormProduct() {
@@ -43,13 +39,15 @@ export function FormProduct() {
     resolver: zodResolver(zProductSchema),
     defaultValues: {
       images: [],
-      model: "",
+      model: '',
+      description: '',
+
     },
   });
 
   function onSubmit(data: z.infer<typeof zProductSchema>) {
     toast({
-      title: "You submitted the following values:",
+      title: 'You submitted the following values:',
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -58,14 +56,14 @@ export function FormProduct() {
     });
   }
 
-  const images = form.watch("images");
+  const images = form.watch('images');
 
   return (
     <div>
       {images.length >= 0 && (
-        <div className="flex gap-2 md:gap-4 p-2 md:p-4 flex-wrap">
+        <div className="flex flex-wrap gap-2 p-2 md:gap-4 md:p-4">
           {images.map((data) => (
-            <Card key={data} className="overflow-hidden size-28">
+            <Card key={data} className="size-28 overflow-hidden">
               <CldImage alt={`${data}`} src={`${data}`} height={500} width={500} />
             </Card>
           ))}
@@ -75,7 +73,7 @@ export function FormProduct() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <Tabs defaultValue="english" className="">
             {/* Tabs buttons */}
-            <TabsList className="grid grid-cols-2 w-80">
+            <TabsList className="grid w-80 grid-cols-2">
               <TabsTrigger value="english" className="gap-2 md:gap-4">
                 <Image
                   className="rounded-full"
@@ -115,20 +113,20 @@ export function FormProduct() {
                         <FormItem>
                           <FormLabel />
                           <FormControl>
-                            <div className="flex  flex-col gap-2 md:gap-4">
+                            <div className="flex flex-col gap-2 md:gap-4">
                               {/* Upload botton */}
                               <CldUploadWidget
                                 uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
                                 onSuccess={(results: CloudinaryUploadWidgetResults) => {
-                                  if (typeof results.info === "object") {
+                                  if (typeof results.info === 'object') {
                                     onChange([
-                                      ...form.getValues("images"),
+                                      ...form.getValues('images'),
                                       results.info.secure_url,
                                     ]);
                                   }
                                 }}
                                 options={{
-                                  sources: ["local", "url", "google_drive"],
+                                  sources: ['local', 'url', 'google_drive'],
                                 }}
                               >
                                 {({ open }) => {
@@ -141,9 +139,9 @@ export function FormProduct() {
                                     <Button
                                       variant="outline"
                                       onClick={onClick}
-                                      className="flex  gap-4 size-28 flex-col"
+                                      className="flex size-28 flex-col gap-4"
                                     >
-                                      <ImageIcon className="text-slate-950 size-4 md:size-8" />
+                                      <ImageIcon className="size-4 text-slate-950 md:size-8" />
                                       <span className="max-sm:text-xs">Upload Image</span>
                                     </Button>
                                   );
@@ -156,19 +154,17 @@ export function FormProduct() {
                       );
                     }}
                   />
-                  <FormField
-                    control={form.control}
+                  <FieldInput
+                    inputLabel="Model"
                     name="model"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Model</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Model" {...field} />
-                        </FormControl>
-                        <FormDescription>Input model or series of the product</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    placeholder="Product Model"
+                    description="Enter the product model of the item"
+                  />
+                  <FieldInput
+                    inputLabel="Description"
+                    name="description"
+                    placeholder="Product Description"
+                    description="Enter the product description of the item"
                   />
                 </CardContent>
               </Card>
@@ -190,20 +186,20 @@ export function FormProduct() {
                         <FormItem>
                           <FormLabel />
                           <FormControl>
-                            <div className="flex  flex-col gap-2 md:gap-4">
+                            <div className="flex flex-col gap-2 md:gap-4">
                               {/* Upload botton */}
                               <CldUploadWidget
                                 uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
                                 onSuccess={(results: CloudinaryUploadWidgetResults) => {
-                                  if (typeof results.info === "object") {
+                                  if (typeof results.info === 'object') {
                                     onChange([
-                                      ...form.getValues("images"),
+                                      ...form.getValues('images'),
                                       results.info.secure_url,
                                     ]);
                                   }
                                 }}
                                 options={{
-                                  sources: ["local", "url", "google_drive"],
+                                  sources: ['local', 'url', 'google_drive'],
                                 }}
                               >
                                 {({ open }) => {
@@ -216,9 +212,9 @@ export function FormProduct() {
                                     <Button
                                       variant="outline"
                                       onClick={onClick}
-                                      className="flex  gap-4 size-28 flex-col"
+                                      className="flex size-28 flex-col gap-4"
                                     >
-                                      <ImageIcon className="text-slate-950 size-4 md:size-8" />
+                                      <ImageIcon className="size-4 text-slate-950 md:size-8" />
                                       <span className="max-sm:text-xs">Upload Image</span>
                                     </Button>
                                   );
@@ -249,7 +245,7 @@ export function FormProduct() {
               </Card>
             </TabsContent>
           </Tabs>
-          <Button type="submit" className="gap-2 w-36 self-start hover:bg-green-600 font-semibold">
+          <Button type="submit" className="w-36 gap-2 self-start font-semibold hover:bg-green-600">
             <Save size={18} />
             Submit
           </Button>
