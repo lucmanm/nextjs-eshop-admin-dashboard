@@ -10,8 +10,8 @@ export const CloudImage = ({ public_id, ...props }: CloudImageProps) => {
   return (
     <Card>
       <CldImage
-        width="200"
-        height="200"
+        width="400"
+        height="400"
         src={public_id}
         sizes="100vw"
         alt="Description of my image"
