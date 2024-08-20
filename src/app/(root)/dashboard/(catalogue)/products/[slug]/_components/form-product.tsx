@@ -24,6 +24,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Image from 'next/image';
 import { FieldInput } from './ui/field-input';
+import { TabTransalation } from '@/components/tab-translation';
+import { Fragment } from 'react';
 
 export const zProductSchema = z.object({
   images: z.string().array(),
@@ -31,7 +33,7 @@ export const zProductSchema = z.object({
     message: 'Input field model Required',
   }),
   description: z.string().min(1, { message: 'Missing input field description' }),
-  price: z.string().min(1, { message: 'Missing input field price' }),
+  price: z.number().min(1, { message: 'Missing input field price' }),
 });
 
 export function FormProduct() {
@@ -41,7 +43,7 @@ export function FormProduct() {
       images: [],
       model: '',
       description: '',
-
+      price: 0.00,
     },
   });
 
@@ -71,40 +73,14 @@ export function FormProduct() {
       )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <Tabs defaultValue="english" className="">
-            {/* Tabs buttons */}
-            <TabsList className="grid w-80 grid-cols-2">
-              <TabsTrigger value="english" className="gap-2 md:gap-4">
-                <Image
-                  className="rounded-full"
-                  width={24}
-                  height={24}
-                  alt="United States"
-                  src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg"
-                />
-                <span>English</span>
-              </TabsTrigger>
-              <TabsTrigger value="arabic" className="gap-2 md:gap-4">
-                <Image
-                  className="rounded-full"
-                  width={24}
-                  height={24}
-                  alt="United States"
-                  src="http://purecatamphetamine.github.io/country-flag-icons/3x2/SA.svg"
-                />
-                <span>Arabic</span>
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="english">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="font-bold">Create Products</CardTitle>
-                  <CardDescription>
-                    Enter all the rquired filed mention on below describes about your product
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-2">
+          <TabTransalation
+            {...{
+              enTitle: 'Create Product',
+              enDescription: 'Field all the required filed to add product',
+              arTitle: 'إنشاء المنتج',
+              arDescription: 'حقل جميع الحقل المطلوب لإضافة المنتج',
+              enChildren: (
+                <Fragment>
                   <FormField
                     control={form.control}
                     name="images"
@@ -166,18 +142,16 @@ export function FormProduct() {
                     placeholder="Product Description"
                     description="Enter the product description of the item"
                   />
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="arabic">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Password</CardTitle>
-                  <CardDescription>
-                    Change your password here. After saving, youll be logged out.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-2">
+                  <FieldInput
+                    inputLabel="Price"
+                    name="price"
+                    placeholder="0.00"
+                    description="Enter the product price"
+                  />
+                </Fragment>
+              ),
+              arChildren: (
+                <Fragment>
                   <FormField
                     control={form.control}
                     name="images"
@@ -227,24 +201,22 @@ export function FormProduct() {
                       );
                     }}
                   />
-                  <FormField
-                    control={form.control}
+                  <FieldInput
+                    inputLabel="Model"
                     name="model"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Model</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Model" {...field} />
-                        </FormControl>
-                        <FormDescription>Input model or series of the product</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    placeholder="Product Model"
+                    description="Enter the product model of the item"
                   />
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
+                  <FieldInput
+                    inputLabel="Description"
+                    name="description"
+                    placeholder="Product Description"
+                    description="Enter the product description of the item"
+                  />
+                </Fragment>
+              ),
+            }}
+          />
           <Button type="submit" className="w-36 gap-2 self-start font-semibold hover:bg-green-600">
             <Save size={18} />
             Submit
