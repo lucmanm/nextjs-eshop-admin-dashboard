@@ -1,5 +1,5 @@
-"use client";
-import { Button } from "@/components/ui/button";
+'use client';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -7,13 +7,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { File, ListFilter, PlusCircle } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useStoreModal } from "@/hook/useStoreModal";
-import { useLocale } from "next-intl";
-import { isRtlLang } from "rtl-detect";
-import { ButtonWithIcon } from "@/components/ui/button-w-icon";
+} from '@/components/ui/dropdown-menu';
+import { File, ListFilter, PlusCircle } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useStoreModal } from '@/hook/useStoreModal';
+import { useLocale } from 'next-intl';
+import { isRtlLang } from 'rtl-detect';
+import { ButtonWithIcon } from '@/components/ui/button-w-icon';
 
 export const ProductRightMenu = () => {
   const router = useRouter();
@@ -28,8 +28,10 @@ export const ProductRightMenu = () => {
   const openModal = () => {
     toggle();
     setHeaderData({
-      title: rtl ? "إضافة العلامة التجارية" : "Add Brand",
-      description: rtl ? "أدخل العلامة التجارية للمنتج" : "Enter Product Brand",
+      arTitle: 'إضافة العلامة التجارية',
+      enTitle: 'Add Brand',
+      enDescription: 'Enter Product Brand',
+      arDescription: 'أدخل العلامة التجارية للمنتج',
     });
   };
 
@@ -55,18 +57,17 @@ export const ProductRightMenu = () => {
         <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">Export</span>
       </Button>
 
-
       <ButtonWithIcon
         {...{
           icon: <PlusCircle className="h-3.5 w-3.5" />,
-          label: "Create Product",
+          label: 'Create Product',
           onClick: () => onClick(),
         }}
       />
       <ButtonWithIcon
         {...{
           icon: <PlusCircle className="h-3.5 w-3.5" />,
-          label: "Add Brand",
+          label: 'Add Brand',
           onClick: () => openModal(),
         }}
       />

@@ -15,9 +15,7 @@ import { toast } from '@/components/ui/use-toast';
 import { useStoreModal } from '@/hook/useStoreModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save } from 'lucide-react';
-import { useLocale } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { isRtlLang } from 'rtl-detect';
 import { z } from 'zod';
 
 const brandSchema = z.object({
@@ -26,8 +24,8 @@ const brandSchema = z.object({
 });
 export function FormBrand() {
   const { toggle, headerData } = useStoreModal((sate) => sate);
-  const locale = useLocale();
-  const rtl = isRtlLang(locale);
+  // Desctructure the headerData
+  const { arTitle, enTitle, arDescription, enDescription } = headerData;
 
   const form = useForm<z.infer<typeof brandSchema>>({
     resolver: zodResolver(brandSchema),
@@ -51,8 +49,11 @@ export function FormBrand() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
         <TabTransalation
           {...{
-            enDesctription: headerData.description,
-            enTitle: headerData.title,
+            enDescription,
+            enTitle,
+            arDescription,
+            arTitle,
+
             // English  input
             enChildren: (
               <FormField

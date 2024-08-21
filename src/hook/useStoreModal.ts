@@ -1,22 +1,27 @@
 import { create } from "zustand";
 
+type THeaderData = {
+    enTitle: string
+    enDescription?: string
+    arTitle: string
+    arDescription?: string
+}
+
 type TStoreModalProps = {
     isOpen: boolean;
     toggle: () => void;
-    headerData: {
-        title: string
-        description: string
-    }
-    setHeaderData: (data: { title: string; description: string }) => void,
+    headerData: THeaderData
+    setHeaderData: (data: THeaderData) => void,
 }
 
 export const useStoreModal = create<TStoreModalProps>((set) => ({
     isOpen: false,
     toggle: () => set((state) => ({ isOpen: !state.isOpen })),
     headerData: {
-        title: "",
-        description: ""
-
+        enTitle: "",
+        enDescription: "",
+        arTitle: "",
+        arDescription: ""
     },
     setHeaderData: (data) => set({ headerData: data }),
 }));

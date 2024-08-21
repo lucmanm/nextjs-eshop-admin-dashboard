@@ -1,6 +1,6 @@
-import React from "react";
+import { MoreHorizontal } from "lucide-react";
 import Image from "next/image";
-import { File, ListFilter, MoreHorizontal, PlusCircle } from "lucide-react";
+import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 
@@ -15,12 +15,10 @@ import {
 } from "@/components/ui/card";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {
   Table,
