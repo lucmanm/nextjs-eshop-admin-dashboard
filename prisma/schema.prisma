@@ -41,21 +41,24 @@ model Product {
   isActive      Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  imageId       String
-  image         Image    @relation(fields: [id], references: [id])
   categoryId    String
-  category      Category @relation(fields: [id], references: [id])
+  category      Category @relation(fields: [categoryId], references: [id])
+  images         Image[]
 
+  @@index([categoryId])
   @@map("products")
 }
 
 model Image {
   id        String    @id @default(cuid())
+  productId String
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
   imageUrl  String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Product   Product[]
 
+  @@index([productId])
   @@map("images")
 }
 
