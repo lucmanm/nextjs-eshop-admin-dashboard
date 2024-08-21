@@ -1,3 +1,4 @@
+'use client';
 import { TabTransalation } from '@/components/tab-translation';
 import { ButtonWithIcon } from '@/components/ui/button-w-icon';
 import { DialogFooter } from '@/components/ui/dialog';
@@ -11,19 +12,23 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { toast } from '@/components/ui/use-toast';
+import { ENV } from '@/config/env-variable';
 import { useStoreModal } from '@/hook/useStoreModal';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { z } from 'zod';
 
 export const ZBrandSchema = z.object({
   enName: z.string().min(1, { message: 'Missing input required English Brand Name' }),
-  arName: z.string().min(1, { message: 'Missing input required Arabic Brand Name' }),
+  arName: z.string().min(1, { message: 'مفقود الإدخال المطلوب اسم العلامة التجارية العربية' }),
 });
 export function FormBrand() {
-  const { toggle, headerData } = useStoreModal((sate) => sate);
+  const router = useRouter();
+
+  const { toggle, headerData } = useStoreModal();
   // Desctructure the headerData
   const { arTitle, enTitle, arDescription, enDescription } = headerData;
 
@@ -34,16 +39,31 @@ export function FormBrand() {
       enName: '',
     },
   });
-  const onSubmit = (data: z.infer<typeof ZBrandSchema>) => {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  };
+
+  async function onSubmit(data: z.infer<typeof ZBrandSchema>) {
+    try {
+      const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast.success('Successfully Added.');
+        router.refresh();
+        form.reset();
+        toggle()
+      } else {
+        toggle()
+        toast.error('Data Subimtted ERROR');
+      }
+    } catch (error) {
+      toast.error('ERROR_BRAND_FORM_SUBMITION');
+    }
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
@@ -53,8 +73,6 @@ export function FormBrand() {
             enTitle,
             arDescription,
             arTitle,
-
-            // English  input
             enChildren: (
               <FormField
                 control={form.control}
@@ -79,7 +97,7 @@ export function FormBrand() {
                   <FormItem>
                     <FormLabel>اسم العلامة التجارية</FormLabel>
                     <FormControl>
-                      <Input placeholder="Brand Name" {...field} />
+                      <Input placeholder="اسم العلامة التجارية" {...field} />
                     </FormControl>
                     <FormDescription>أدخل اسم العلامة التجارية باللغة العربية</FormDescription>
                     <FormMessage />

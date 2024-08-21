@@ -31,6 +31,7 @@ export const BannersContainer = ({ items }: TSliderProps) => {
 
   async function onSubmit(data: z.infer<typeof ZSliderSchema>) {
     try {
+
       const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/slider`, {
         method: 'POST',
         headers: {
@@ -38,11 +39,13 @@ export const BannersContainer = ({ items }: TSliderProps) => {
         },
         body: JSON.stringify(data),
       });
+
       if (response.ok) {
         toast.success('Banner added Successfully');
         router.refresh();
         formMethods.reset();
       }
+
     } catch (error) {
       toast.error('ERROR_BANNER_SUBMIT');
     }

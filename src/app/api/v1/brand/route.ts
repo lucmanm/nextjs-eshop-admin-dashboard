@@ -6,7 +6,12 @@ import { z } from "zod";
 export async function POST(request: Request) {
     try {
         const body = await request.json()
-        const { enName, arName } = ZBrandSchema.parse(body);
+
+        console.log(body.enName);
+
+        const { enName, arName } = ZBrandSchema.parse(body)
+
+
         const checkBrandName = await prisma.brand.findFirst({
             where: {
                 OR: [
@@ -15,20 +20,24 @@ export async function POST(request: Request) {
                 ]
             }
         })
+
         if (checkBrandName) {
-            return NextResponse.json({ message: "This brand already exits" })
+            return NextResponse.json({ message: "This brand already exits" }, { status: 500 })
         }
-        const response = await prisma.brand.createMany({
+
+        const response = await prisma.brand.create({
             data: {
-                arName, enName, logoUrl: ""
+                arName,
+                enName,
+                logoUrl: ""
             }
         })
 
-        return NextResponse.json({ message: "Slider created successfully", results: response });
+        return NextResponse.json({ message: "Created successfully", results: response }, { status: 200 });
 
     } catch (error) {
         if (error instanceof z.ZodError) {
-            return NextResponse.json({ message: "You have an error submittion~", errors: error.errors });
+            return NextResponse.json({ message: "You have an error submittion brand~", errors: error.errors });
         }
     }
 }
