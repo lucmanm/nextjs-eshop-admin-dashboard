@@ -8,7 +8,7 @@ export function Modal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={toggle}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] pt-12">
         <FormBrand />
       </DialogContent>
     </Dialog>

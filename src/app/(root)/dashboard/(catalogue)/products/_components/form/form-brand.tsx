@@ -18,7 +18,7 @@ import { Save } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const brandSchema = z.object({
+export const ZBrandSchema = z.object({
   enName: z.string().min(1, { message: 'Missing input required English Brand Name' }),
   arName: z.string().min(1, { message: 'Missing input required Arabic Brand Name' }),
 });
@@ -27,14 +27,14 @@ export function FormBrand() {
   // Desctructure the headerData
   const { arTitle, enTitle, arDescription, enDescription } = headerData;
 
-  const form = useForm<z.infer<typeof brandSchema>>({
-    resolver: zodResolver(brandSchema),
+  const form = useForm<z.infer<typeof ZBrandSchema>>({
+    resolver: zodResolver(ZBrandSchema),
     defaultValues: {
       arName: '',
       enName: '',
     },
   });
-  const onSubmit = (data: z.infer<typeof brandSchema>) => {
+  const onSubmit = (data: z.infer<typeof ZBrandSchema>) => {
     toast({
       title: 'You submitted the following values:',
       description: (
