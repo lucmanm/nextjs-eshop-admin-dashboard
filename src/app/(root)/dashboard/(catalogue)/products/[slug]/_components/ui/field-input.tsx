@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Control } from 'react-hook-form';
 import { z } from 'zod';
 import { zProductSchema } from '../form-product';
+import { HTMLInputTypeAttribute } from 'react';
 
 type TFieldInput = {
   control?: Control;
@@ -17,6 +18,7 @@ type TFieldInput = {
   inputLabel: string;
   placeholder: string;
   description?: string;
+  type?: HTMLInputTypeAttribute | undefined;
 };
 export const FieldInput = (props: TFieldInput) => {
   return (
@@ -27,7 +29,7 @@ export const FieldInput = (props: TFieldInput) => {
         <FormItem>
           <FormLabel>{props.inputLabel}</FormLabel>
           <FormControl>
-            <Input placeholder={props.placeholder} {...field} />
+            <Input type={props.type ?? 'text'} placeholder={props.placeholder} {...field} />
           </FormControl>
           <FormDescription>{props.description}</FormDescription>
           <FormMessage />

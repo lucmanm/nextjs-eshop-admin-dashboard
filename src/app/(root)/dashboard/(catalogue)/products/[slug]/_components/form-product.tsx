@@ -143,6 +143,7 @@ export function FormProduct() {
                     description="Enter the product description of the item"
                   />
                   <FieldInput
+                    type="number"
                     inputLabel="Price"
                     name="price"
                     placeholder="0.00"
