@@ -10,8 +10,6 @@ type TStoreModalProps = {
     setHeaderData: (data: { title: string; description: string }) => void,
 }
 
-
-
 export const useStoreModal = create<TStoreModalProps>((set) => ({
     isOpen: false,
     toggle: () => set((state) => ({ isOpen: !state.isOpen })),
