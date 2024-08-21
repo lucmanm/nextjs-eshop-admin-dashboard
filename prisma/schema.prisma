@@ -43,20 +43,19 @@ model Product {
   updatedAt     DateTime @updatedAt
   categoryId    String
   category      Category @relation(fields: [categoryId], references: [id])
-  images         Image[]
+  images        Image[]
 
   @@index([categoryId])
   @@map("products")
 }
 
 model Image {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   productId String
-  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   imageUrl  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Product   Product[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([productId])
   @@map("images")
@@ -68,7 +67,7 @@ model Category {
   imageUrl  String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Product   Product[]
+  products  Product[]
 
   @@map("categories")
 }
