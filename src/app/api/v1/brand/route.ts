@@ -7,9 +7,7 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
 
-
         const { enName, arName } = ZBrandSchema.parse(body);
-        console.log(enName, arName)
 
         const checkBrandName = await prisma.brand.findFirst({
             where: {

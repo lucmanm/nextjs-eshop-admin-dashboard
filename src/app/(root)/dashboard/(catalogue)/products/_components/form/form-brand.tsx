@@ -1,4 +1,5 @@
 'use client';
+import { createBrand } from '@/actions/brand.action';
 import { TabTransalation } from '@/components/tab-translation';
 import { ButtonWithIcon } from '@/components/ui/button-w-icon';
 import { DialogFooter } from '@/components/ui/dialog';
@@ -38,27 +39,8 @@ export function FormBrand() {
   });
 
   async function onSubmit(data: z.infer<typeof ZBrandSchema>) {
-    try {
-      const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        toast.success('Successfully Added.');
-        router.refresh();
-        form.reset();
-        toggle();
-      } else {
-        toggle();
-        toast.error('Data Subimtted ERROR');
-      }
-    } catch (error) {
-      toast.error('ERROR_BRAND_FORM_SUBMITION');
-    }
+    const reponse = await createBrand(data);
+    toast(reponse?.message);
   }
 
   return (
