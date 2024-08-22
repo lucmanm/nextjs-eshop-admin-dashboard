@@ -40,7 +40,8 @@ export function FormBrand() {
 
   async function onSubmit(data: z.infer<typeof ZBrandSchema>) {
     const reponse = await createBrand(data);
-    if (reponse?.status === 200) {
+
+    if (reponse?.status === 201) {
       toast.success(reponse?.message);
     } else {
       toast.warning(reponse?.message);
@@ -62,7 +63,7 @@ export function FormBrand() {
                 name="enName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Brand Name </FormLabel>
+                    <FormLabel>Brand Name</FormLabel>
                     <FormControl>
                       <Input placeholder="Brand Name" {...field} />
                     </FormControl>

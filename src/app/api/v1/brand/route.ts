@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 
         const { enName, arName } = ZBrandSchema.parse(body);
 
-        const checkBrandName = await prisma.brand.findFirst({
+        const checkBrandName = await prisma.brand.findMany({
             where: {
                 OR: [
                     { arName: { equals: arName } },
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
         });
 
         if (checkBrandName) {
-            return Response.json({ message: "This brand already exists" }, { statusText: "Conflect" });
+            return Response.json({ message: "This brand already exists" });
         }
 
         const results = await prisma.brand.create({
@@ -28,7 +28,8 @@ export async function POST(request: Request) {
                 enName: enName.toLowerCase(),
             }
         });
-        return Response.json({ message: "Created successfully", results }, { status: 200 });
+
+        return Response.json({ message: "Created successfully", results }, { status: 201 });
 
     } catch (error) {
         if (error instanceof z.ZodError) {
