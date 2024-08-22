@@ -14,12 +14,14 @@ import { useStoreModal } from '@/hook/useStoreModal';
 import { useLocale } from 'next-intl';
 import { isRtlLang } from 'rtl-detect';
 import { ButtonWithIcon } from '@/components/ui/button-w-icon';
+import { FormBrand } from './form/form-brand';
+import { FormCategory } from './form/form-category';
 
 type onOpenModalData = 'addBrand' | 'addCategory';
 
 export const ProductRightMenu = () => {
   const router = useRouter();
-  const { toggle, setHeaderData } = useStoreModal((state) => state);
+  const { toggle, setHeaderData, children, setChildren } = useStoreModal((state) => state);
   const locale = useLocale();
   const rtl = isRtlLang(locale);
 
@@ -45,6 +47,12 @@ export const ProductRightMenu = () => {
 
     if (headerData[values]) {
       setHeaderData(headerData[values]);
+      if (values === 'addBrand') {
+        setChildren(<FormBrand />);
+      } else if (values === 'addCategory') {
+        setChildren(<FormCategory />);
+      }
+
       toggle();
     }
   };

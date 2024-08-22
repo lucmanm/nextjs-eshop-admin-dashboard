@@ -12,6 +12,8 @@ type TStoreModalProps = {
     toggle: () => void;
     headerData: THeaderData
     setHeaderData: (data: THeaderData) => void,
+    children: React.ReactNode
+    setChildren: (node: React.ReactNode) => void;
 }
 
 export const useStoreModal = create<TStoreModalProps>((set) => ({
@@ -24,4 +26,6 @@ export const useStoreModal = create<TStoreModalProps>((set) => ({
         arDescription: ""
     },
     setHeaderData: (data) => set({ headerData: data }),
+    children: null,
+    setChildren: (node) => set({ children: node }),
 }));
