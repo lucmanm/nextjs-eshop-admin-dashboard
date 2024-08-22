@@ -19,6 +19,8 @@ export async function createBrand(values: z.infer<typeof ZBrandSchema>) {
         }
 
     } catch (error) {
-        console.log(error);
+        if (error instanceof z.ZodError) {
+            return { message: "You have an error in submitting the brand", errors: error.errors, status: 501 };
+        }
     }
 }

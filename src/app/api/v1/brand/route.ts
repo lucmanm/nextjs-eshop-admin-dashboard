@@ -19,13 +19,13 @@ export async function POST(request: Request) {
         });
 
         if (checkBrandName) {
-            return Response.json({ message: "This brand already exists" }, { status: 200});
+            return Response.json({ message: "This brand already exists" }, { statusText: "Conflect" });
         }
 
         const results = await prisma.brand.create({
             data: {
                 arName,
-                enName,
+                enName: enName.toLowerCase(),
                 logoUrl: ""
             }
         });
