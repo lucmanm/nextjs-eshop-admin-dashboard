@@ -30,13 +30,14 @@ export const BannersContainer = ({ items }: TSliderProps) => {
   });
 
   async function onSubmit(data: z.infer<typeof ZSliderSchema>) {
+    // TODO you are using localhost
     try {
-
-      const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/slider`, {
+      const response = await fetch(`http://localhost:3000/api/v1/slider`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        next: { revalidate: 0 },
         body: JSON.stringify(data),
       });
 
@@ -45,7 +46,6 @@ export const BannersContainer = ({ items }: TSliderProps) => {
         router.refresh();
         formMethods.reset();
       }
-
     } catch (error) {
       toast.error('ERROR_BANNER_SUBMIT');
     }

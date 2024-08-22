@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { ENV } from '@/config/env-variable';
 import { useStoreModal } from '@/hook/useStoreModal';
+import { ZBrandSchema } from '@/schemas/brand.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -21,10 +22,6 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
 
-export const ZBrandSchema = z.object({
-  enName: z.string().min(1, { message: 'Missing input required English Brand Name' }),
-  arName: z.string().min(1, { message: 'مفقود الإدخال المطلوب اسم العلامة التجارية العربية' }),
-});
 export function FormBrand() {
   const router = useRouter();
 
@@ -42,7 +39,7 @@ export function FormBrand() {
 
   async function onSubmit(data: z.infer<typeof ZBrandSchema>) {
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/brand`, {
+      const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
