@@ -26,7 +26,6 @@ export async function POST(request: Request) {
             data: {
                 arName,
                 enName: enName.toLowerCase(),
-                logoUrl: ""
             }
         });
         return Response.json({ message: "Created successfully", results }, { status: 200 });

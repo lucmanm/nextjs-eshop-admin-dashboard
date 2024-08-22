@@ -1,9 +1,10 @@
-import React, { ReactElement } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import Image from "next/image";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { useLocale } from "next-intl";
-import { isRtlLang } from "rtl-detect";
+import { useLocale } from 'next-intl';
+import Image from 'next/image';
+import React from 'react';
+import { isRtlLang } from 'rtl-detect';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Language } from '@/constant/languages';
 
 type TabTransalationProps = {
   enTitle?: string;
@@ -26,7 +27,7 @@ export const TabTransalation = (props: TabTransalationProps) => {
             width={24}
             height={24}
             alt="United States"
-            src="http://purecatamphetamine.github.io/country-flag-icons/3x2/US.svg"
+            src={Language['0'].image}
           />
           {rtl ? <span>إنجليزي</span> : <span>English</span>}
         </TabsTrigger>
@@ -36,7 +37,7 @@ export const TabTransalation = (props: TabTransalationProps) => {
             width={24}
             height={24}
             alt="United States"
-            src="http://purecatamphetamine.github.io/country-flag-icons/3x2/SA.svg"
+            src={Language['1'].image}
           />
           {rtl ? <span>عربي</span> : <span>Arabic</span>}
         </TabsTrigger>
