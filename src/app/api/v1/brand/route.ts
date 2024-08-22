@@ -35,7 +35,5 @@ export async function POST(request: Request) {
         if (error instanceof z.ZodError) {
             return Response.json({ message: "You have an error in submitting the brand", errors: error.errors }, { status: 400 });
         }
-        // Handle any other errors
-        // return Response.json({ message: "An unexpected error occurred", error: error.message }, { status: 500 });
     }
 }
