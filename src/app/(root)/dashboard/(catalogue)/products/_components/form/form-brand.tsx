@@ -40,7 +40,11 @@ export function FormBrand() {
 
   async function onSubmit(data: z.infer<typeof ZBrandSchema>) {
     const reponse = await createBrand(data);
-    toast(reponse?.message);
+    if (reponse?.status === 200) {
+      toast.success(reponse?.message);
+    } else {
+      toast.warning(reponse?.message);
+    }
   }
 
   return (
@@ -92,12 +96,14 @@ export function FormBrand() {
             {...{
               icon: <Save className="size-4" />,
               label: 'Save',
+              type: 'submit',
             }}
           />
           <ButtonWithIcon
             {...{
               icon: <Save className="size-4" />,
               label: 'Cancel',
+              type: 'button',
               onClick: () => toggle(),
               className: 'bg-red-600 gap-2',
             }}

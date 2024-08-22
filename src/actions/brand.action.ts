@@ -5,7 +5,7 @@ import { z } from "zod";
 
 export async function createBrand(values: z.infer<typeof ZBrandSchema>) {
     try {
-        const res = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand`, {
+        const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -13,13 +13,10 @@ export async function createBrand(values: z.infer<typeof ZBrandSchema>) {
             body: JSON.stringify(values),
         });
 
-        if (res.ok) {
-            const response = await res.json()
-            return response
+        if (response.ok) {
+            const results = await response.json()
+            return { message: results.message, status: response.status, statusText: response.statusText }
         }
-        // else {
-        //     return { message: "MUSKILA BAI" }
-        // }
 
     } catch (error) {
         console.log(error);
