@@ -42,7 +42,7 @@ export function FormBrand() {
 
   async function onSubmit(data: z.infer<typeof ZBrandSchema>) {
     try {
-      const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand`, {
+      const response = await fetch(`http://localhost:3000/api/v1/brand`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,9 +54,9 @@ export function FormBrand() {
         toast.success('Successfully Added.');
         router.refresh();
         form.reset();
-        toggle()
+        toggle();
       } else {
-        toggle()
+        toggle();
         toast.error('Data Subimtted ERROR');
       }
     } catch (error) {

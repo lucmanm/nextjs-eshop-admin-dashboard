@@ -82,5 +82,5 @@ model Brand {
   logoUrl   String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Product   Product[]
+  products  Product[]
 }

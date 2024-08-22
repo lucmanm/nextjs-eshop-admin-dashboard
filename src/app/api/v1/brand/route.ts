@@ -5,12 +5,11 @@ import { z } from "zod";
 
 export async function POST(request: Request) {
     try {
-        const body = await request.json()
+        const body = await request.json();
 
         console.log(body.enName);
 
-        const { enName, arName } = ZBrandSchema.parse(body)
-
+        const { enName, arName } = ZBrandSchema.parse(body);
 
         const checkBrandName = await prisma.brand.findFirst({
             where: {
@@ -19,10 +18,10 @@ export async function POST(request: Request) {
                     { enName: { equals: enName } }
                 ]
             }
-        })
+        });
 
         if (checkBrandName) {
-            return NextResponse.json({ message: "This brand already exits" }, { status: 500 })
+            return NextResponse.json({ message: "This brand already exists" }, { status: 400 });
         }
 
         const response = await prisma.brand.create({
@@ -31,13 +30,15 @@ export async function POST(request: Request) {
                 enName,
                 logoUrl: ""
             }
-        })
+        });
 
         return NextResponse.json({ message: "Created successfully", results: response }, { status: 200 });
 
     } catch (error) {
         if (error instanceof z.ZodError) {
-            return NextResponse.json({ message: "You have an error submittion brand~", errors: error.errors });
+            return NextResponse.json({ message: "You have an error in submitting the brand", errors: error.errors }, { status: 400 });
         }
+        // Handle any other errors
+        // return NextResponse.json({ message: "An unexpected error occurred", error: error.message }, { status: 500 });
     }
 }
