@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { ZBrandSchema } from "@/schemas/brand.schema";
-import { NextResponse } from "next/server";
 import { z } from "zod";
 
 export async function POST(request: Request) {
@@ -9,7 +8,7 @@ export async function POST(request: Request) {
 
         const { enName, arName } = ZBrandSchema.parse(body);
 
-        const checkBrandName = await prisma.brand.findMany({
+        const checkBrandName = await prisma.brand.findFirst({
             where: {
                 OR: [
                     { arName: { equals: arName } },
