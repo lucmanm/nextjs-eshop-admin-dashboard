@@ -1,10 +1,5 @@
-import { MoreHorizontal } from "lucide-react";
-import Image from "next/image";
-import React from "react";
-
-import { Badge } from "@/components/ui/badge";
-
-import { Button } from "@/components/ui/button";
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -12,14 +7,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
@@ -27,15 +22,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ProductRightMenu } from "./_components/products-right-menu";
+} from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { MoreHorizontal } from 'lucide-react';
+import Image from 'next/image';
+import React from 'react';
+import { ProductRightMenu } from './_components/products-right-menu';
 
 export default async function Page() {
   return (
     <React.Fragment>
-      <main className="flex flex-1 items-center justify-center rounded-lg ">
-        <div className="grid flex-1 items-start gap-4  md:gap-8">
+      <main className="flex flex-1 items-center justify-center rounded-lg">
+        <div className="grid flex-1 items-start gap-4 md:gap-8">
           <Tabs defaultValue="products">
             <div className="flex items-center">
               <TabsList>

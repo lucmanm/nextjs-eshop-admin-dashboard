@@ -15,9 +15,11 @@ import { useLocale } from 'next-intl';
 import { isRtlLang } from 'rtl-detect';
 import { ButtonWithIcon } from '@/components/ui/button-w-icon';
 
+type onOpenModalData = 'addBrand' | 'addCategory';
+
 export const ProductRightMenu = () => {
   const router = useRouter();
-  const { toggle, setHeaderData } = useStoreModal((sate) => sate);
+  const { toggle, setHeaderData } = useStoreModal((state) => state);
   const locale = useLocale();
   const rtl = isRtlLang(locale);
 
@@ -25,14 +27,26 @@ export const ProductRightMenu = () => {
     router.push(`/dashboard/products/create product`);
   };
 
-  const openModal = () => {
-    toggle();
-    setHeaderData({
-      arTitle: 'إضافة العلامة التجارية',
-      enTitle: 'Add Brand',
-      enDescription: 'Enter Product Brand',
-      arDescription: 'أدخل العلامة التجارية للمنتج',
-    });
+  const openModal = (values: onOpenModalData) => {
+    const headerData = {
+      addBrand: {
+        arTitle: 'إضافة العلامة التجارية',
+        enTitle: 'Add Brand',
+        enDescription: 'Enter Product Brand',
+        arDescription: 'أدخل العلامة التجارية للمنتج',
+      },
+      addCategory: {
+        arTitle: 'إضافة الفئة',
+        enTitle: 'Add Category',
+        enDescription: 'Enter Product Category',
+        arDescription: 'أدخل الفئة للمنتج',
+      },
+    };
+
+    if (headerData[values]) {
+      setHeaderData(headerData[values]);
+      toggle();
+    }
   };
 
   return (
@@ -68,7 +82,14 @@ export const ProductRightMenu = () => {
         {...{
           icon: <PlusCircle className="h-3.5 w-3.5" />,
           label: 'Add Brand',
-          onClick: () => openModal(),
+          onClick: () => openModal('addBrand'),
+        }}
+      />
+      <ButtonWithIcon
+        {...{
+          icon: <PlusCircle className="h-3.5 w-3.5" />,
+          label: 'Add Category',
+          onClick: () => openModal('addCategory'),
         }}
       />
     </div>

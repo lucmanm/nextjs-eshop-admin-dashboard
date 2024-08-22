@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, Fragment, SetStateAction } from "react";
 
 import { sideMenu } from "@/constant/sidebar-menu";
 import { useLocale } from "next-intl";
@@ -37,7 +37,7 @@ export const Navigation: React.FC<TNavigationProps> = ({ setIsOpen, isOpen }) =>
             onClick={() => onClickLink(path)}
           >
             {icons}
-            <>{rtl ? nameAr : nameEn}</>
+            <Fragment>{rtl ? nameAr : nameEn}</Fragment>
 
             {count && (
               <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">

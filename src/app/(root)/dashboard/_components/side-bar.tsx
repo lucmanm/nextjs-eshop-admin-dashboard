@@ -1,10 +1,10 @@
-"use client";
-import Link from "next/link";
-import { Package2 } from "lucide-react";
-import { useLocale } from "next-intl";
-import { isRtlLang } from "rtl-detect";
-import { Navigation } from "./navigation";
-import { useState } from "react";
+'use client';
+import Link from 'next/link';
+import { Package2 } from 'lucide-react';
+import { useLocale } from 'next-intl';
+import { isRtlLang } from 'rtl-detect';
+import { Navigation } from './navigation';
+import { useState } from 'react';
 
 export function Sidebar() {
   const [isOpen, setIsOpenn] = useState(false);
