@@ -1,5 +1,5 @@
 'use client';
-import { createBrand } from '@/actions/brand.action';
+import { createCategory } from '@/actions/category.action';
 import { TabTransalation } from '@/components/tab-translation';
 import { ButtonWithIcon } from '@/components/ui/button-w-icon';
 import { DialogFooter } from '@/components/ui/dialog';
@@ -37,8 +37,8 @@ export function FormCategory() {
     },
   });
 
-  async function onSubmit(data: z.infer<typeof ZBrandSchema>) {
-    const reponse = await createBrand(data);
+  async function onSubmit(values: z.infer<typeof ZBrandSchema>) {
+    const reponse = await createCategory(values);
 
     if (reponse?.status === 201) {
       toast.success(reponse?.message);
