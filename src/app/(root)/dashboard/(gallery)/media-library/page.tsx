@@ -1,6 +1,5 @@
 import { getCloundinaryImages } from '@/webhook/cloudinary';
-import { CloudImage } from '@dashboard/_components/cld-image';
-import { useRouter } from 'next/navigation';
+import { CloudImage } from './_components/cld-image';
 
 const Page = async () => {
   const results = await getCloundinaryImages();

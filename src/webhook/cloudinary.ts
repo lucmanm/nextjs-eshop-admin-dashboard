@@ -31,6 +31,5 @@ export const deleteCloundinaryImage = async (public_id: string) => {
     await cloudinary.v2.uploader.destroy(public_id);
   } catch (error) {
     console.log("ERROR_DELETE_IMAGES_CLD",error);
-
   }
 };
