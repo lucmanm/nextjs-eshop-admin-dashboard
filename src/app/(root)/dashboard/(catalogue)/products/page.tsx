@@ -23,11 +23,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import { ProductRightMenu } from './_components/products-right-menu';
+import { TabList } from './_components/tablist';
 
 export default async function Page() {
   return (
@@ -36,15 +37,8 @@ export default async function Page() {
         <div className="grid flex-1 items-start gap-4 md:gap-8">
           <Tabs defaultValue="products">
             <div className="flex items-center">
-              <TabsList>
-                <TabsTrigger value="products">Products</TabsTrigger>
-                <TabsTrigger value="brand">Brands</TabsTrigger>
-                <TabsTrigger value="category">Category</TabsTrigger>
-                <TabsTrigger value="archived" className="hidden sm:flex">
-                  Archived
-                </TabsTrigger>
-              </TabsList>
-
+              {/* Tablist */}
+              <TabList />
               {/* Product Right menus and options */}
               <ProductRightMenu />
             </div>
