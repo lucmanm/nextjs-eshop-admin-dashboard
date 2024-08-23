@@ -7,9 +7,7 @@ export function Modal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={toggle}>
-      <DialogContent className="sm:max-w-[425px] pt-12">
-        {children}
-      </DialogContent>
+      <DialogContent className="w-[420px] pt-12 rounded-md">{children}</DialogContent>
     </Dialog>
   );
 }

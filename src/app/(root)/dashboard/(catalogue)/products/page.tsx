@@ -27,8 +27,8 @@ import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
-import { ProductRightMenu } from './_components/products-right-menu';
 import { TabList } from './_components/tablist';
+import { RighSideOptions } from './_components/rightp-side-options';
 
 export default async function Page() {
   return (
@@ -40,7 +40,7 @@ export default async function Page() {
               {/* Tablist */}
               <TabList />
               {/* Product Right menus and options */}
-              <ProductRightMenu />
+              <RighSideOptions />
             </div>
             <TabsContent value="category">
               <span>category Data Here</span>
