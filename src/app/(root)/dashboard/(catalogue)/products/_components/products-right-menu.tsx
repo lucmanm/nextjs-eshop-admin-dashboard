@@ -21,7 +21,7 @@ type onOpenModalData = 'addBrand' | 'addCategory';
 
 export const ProductRightMenu = () => {
   const router = useRouter();
-  const { toggle, setHeaderData, children, setChildren } = useStoreModal((state) => state);
+  const { toggle, setHeaderData, setChildren } = useStoreModal((state) => state);
   const locale = useLocale();
   const rtl = isRtlLang(locale);
 
@@ -52,7 +52,6 @@ export const ProductRightMenu = () => {
       } else if (values === 'addCategory') {
         setChildren(<FormCategory />);
       }
-
       toggle();
     }
   };

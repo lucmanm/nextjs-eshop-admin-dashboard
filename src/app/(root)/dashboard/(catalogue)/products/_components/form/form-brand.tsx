@@ -46,6 +46,9 @@ export function FormBrand() {
     } else {
       toast.warning(reponse?.message);
     }
+    router.refresh()
+    form.reset()
+    toggle()
   }
 
   return (
@@ -65,7 +68,11 @@ export function FormBrand() {
                   <FormItem>
                     <FormLabel>Brand Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Brand Name" {...field} />
+                      <Input
+                        placeholder="Brand Name"
+                        {...field}
+                        disabled={form.formState.isSubmitting}
+                      />
                     </FormControl>
                     <FormDescription>Enter brand name in english language</FormDescription>
                     <FormMessage />
@@ -81,7 +88,11 @@ export function FormBrand() {
                   <FormItem>
                     <FormLabel>اسم العلامة التجارية</FormLabel>
                     <FormControl>
-                      <Input placeholder="اسم العلامة التجارية" {...field} />
+                      <Input
+                        placeholder="اسم العلامة التجارية"
+                        {...field}
+                        disabled={form.formState.isSubmitting}
+                      />
                     </FormControl>
                     <FormDescription>أدخل اسم العلامة التجارية باللغة العربية</FormDescription>
                     <FormMessage />
@@ -98,6 +109,7 @@ export function FormBrand() {
               icon: <Save className="size-4" />,
               label: 'Save',
               type: 'submit',
+              disabled: form.formState.isSubmitting,
             }}
           />
           <ButtonWithIcon
@@ -107,6 +119,7 @@ export function FormBrand() {
               type: 'button',
               onClick: () => toggle(),
               className: 'bg-red-600 gap-2',
+              disabled: form.formState.isSubmitting,
             }}
           />
         </DialogFooter>

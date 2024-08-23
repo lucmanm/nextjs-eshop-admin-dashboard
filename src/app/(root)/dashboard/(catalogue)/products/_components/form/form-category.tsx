@@ -45,6 +45,9 @@ export function FormCategory() {
     } else {
       toast.warning(reponse?.message);
     }
+    router.refresh();
+    form.reset();
+    toggle()
   }
 
   return (
@@ -62,11 +65,15 @@ export function FormCategory() {
                 name="enName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Brand Name</FormLabel>
+                    <FormLabel>Category Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Brand Name" {...field} />
+                      <Input
+                        placeholder="Category Name"
+                        {...field}
+                        disabled={form.formState.isSubmitting}
+                      />
                     </FormControl>
-                    <FormDescription>Enter brand name in english language</FormDescription>
+                    <FormDescription>Enter category name in English language</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -78,11 +85,15 @@ export function FormCategory() {
                 name="arName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>اسم العلامة التجارية</FormLabel>
+                    <FormLabel>اسم الفئة</FormLabel>
                     <FormControl>
-                      <Input placeholder="اسم العلامة التجارية" {...field} />
+                      <Input
+                        placeholder="اسم الفئة"
+                        {...field}
+                        disabled={form.formState.isSubmitting}
+                      />
                     </FormControl>
-                    <FormDescription>أدخل اسم العلامة التجارية باللغة العربية</FormDescription>
+                    <FormDescription>أدخل اسم الفئة باللغة العربية</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -97,6 +108,7 @@ export function FormCategory() {
               icon: <Save className="size-4" />,
               label: 'Save',
               type: 'submit',
+              disabled: form.formState.isSubmitting,
             }}
           />
           <ButtonWithIcon
@@ -106,6 +118,7 @@ export function FormCategory() {
               type: 'button',
               onClick: () => toggle(),
               className: 'bg-red-600 gap-2',
+              disabled: form.formState.isSubmitting,
             }}
           />
         </DialogFooter>
