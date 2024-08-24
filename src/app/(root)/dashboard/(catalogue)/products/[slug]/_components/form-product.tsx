@@ -20,10 +20,14 @@ export const zProductSchema = z.object({
   model: z.string().min(2, {
     message: 'Input field model Required',
   }),
-  description: z.string().min(1, { message: 'Missing input field description' }),
+  enDescription: z.string().min(1, { message: 'Missing input field description' }),
+  arDescription: z.string().min(1, { message: 'Missing input description' }),
   price: z.number().min(1, { message: 'Missing input field price' }),
   salePrice: z.number().min(1, { message: 'Missing input field sale price' }),
-  inventory: z.number().min(1, { message: 'Missing input field inventory' }),
+  stock: z.number().min(1, { message: 'Missing input field inventory' }),
+  isActive: z.boolean().default(false),
+  categoryId: z.string().min(1, { message: 'Missing input field category' }),
+  brandId: z.string().min(1, { message: 'Missing input field category' }),
 });
 
 export function FormProduct() {
@@ -32,9 +36,14 @@ export function FormProduct() {
     defaultValues: {
       images: [],
       model: '',
-      description: '',
+      enDescription: '',
+      arDescription: '',
+      brandId: '',
+      categoryId: '',
+      isActive: false,
       price: 0.0,
       salePrice: 0.0,
+      stock: 0,
     },
   });
 
@@ -89,7 +98,6 @@ export function FormProduct() {
                       name="salePrice"
                       placeholder="0.00"
                       description="Enter the product price"
-
                     />
                   </div>
                   <ProductImage images={images} className="md:col-span-3" />
@@ -114,7 +122,10 @@ export function FormProduct() {
               ),
             }}
           />
-          <Button type="submit" className="w-36 h-7 gap-2 self-start font-semibold hover:bg-green-600">
+          <Button
+            type="submit"
+            className="h-7 w-36 gap-2 self-start font-semibold hover:bg-green-600"
+          >
             <Save size={18} />
             Submit
           </Button>
