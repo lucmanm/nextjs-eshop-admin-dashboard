@@ -25,7 +25,7 @@ export const FieldInputTextArea = (props: TFieldInput) => {
       name={props.name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{props.inputLabel}</FormLabel>
+          <FormLabel className='max-sm:text-xs'>{props.inputLabel}</FormLabel>
           <FormControl>
             <Textarea placeholder={props.placeholder} {...field} className="resize-none" />
           </FormControl>

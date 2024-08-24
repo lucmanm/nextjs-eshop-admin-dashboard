@@ -27,7 +27,7 @@ export const FieldInput = (props: TFieldInput) => {
       name={props.name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{props.inputLabel}</FormLabel>
+          <FormLabel className="max-sm:text-xs">{props.inputLabel}</FormLabel>
           <FormControl>
             <Input type={props.type ?? 'text'} placeholder={props.placeholder} {...field} />
           </FormControl>

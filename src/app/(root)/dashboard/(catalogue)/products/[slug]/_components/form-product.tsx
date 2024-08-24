@@ -23,6 +23,7 @@ export const zProductSchema = z.object({
   description: z.string().min(1, { message: 'Missing input field description' }),
   price: z.number().min(1, { message: 'Missing input field price' }),
   salePrice: z.number().min(1, { message: 'Missing input field sale price' }),
+  inventory: z.number().min(1, { message: 'Missing input field inventory' }),
 });
 
 export function FormProduct() {
@@ -61,7 +62,7 @@ export function FormProduct() {
               arTitle: 'إنشاء المنتج',
               arDescription: 'حقل جميع الحقل المطلوب لإضافة المنتج',
               enChildren: (
-                <div className="flex flex-col gap-4 md:grid md:grid-cols-12">
+                <div className="flex flex-col-reverse gap-4 md:grid md:grid-cols-12">
                   <div className="md:col-span-9">
                     <FieldInput
                       inputLabel="Model"
@@ -88,6 +89,7 @@ export function FormProduct() {
                       name="salePrice"
                       placeholder="0.00"
                       description="Enter the product price"
+
                     />
                   </div>
                   <ProductImage images={images} className="md:col-span-3" />
@@ -112,7 +114,7 @@ export function FormProduct() {
               ),
             }}
           />
-          <Button type="submit" className="w-36 gap-2 self-start font-semibold hover:bg-green-600">
+          <Button type="submit" className="w-36 h-7 gap-2 self-start font-semibold hover:bg-green-600">
             <Save size={18} />
             Submit
           </Button>
