@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 export const getCloundinaryImages = async () => {
   const response = (await cloudinary.v2.search
-    .expression('resource_type:image AND folder:eshop')
+    .expression('resource_type:image AND folder:eshop AND !tags=slider')
     .sort_by('public_id', 'desc')
     .max_results(10)
     .execute()) as { resources: TImage[] };

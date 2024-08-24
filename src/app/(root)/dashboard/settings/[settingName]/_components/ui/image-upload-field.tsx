@@ -12,6 +12,7 @@ import { z } from 'zod';
 type SliderFieldProps = {
   name: 'enSlider' | 'arSlider';
 };
+
 export const ImageUploadField = ({ name }: SliderFieldProps) => {
   const { control } = useFormContext<z.infer<typeof ZSliderSchema>>();
   return (
