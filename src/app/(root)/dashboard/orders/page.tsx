@@ -23,7 +23,7 @@ const Page = () => {
           <Tab key={image} className="size-20">
             <CloudImage
               public_id={image}
-              className=" overflow-hidden rounded-md object-cover p-1.5"
+              className="overflow-hidden rounded-md object-cover p-1.5"
             />
           </Tab>
         ))}

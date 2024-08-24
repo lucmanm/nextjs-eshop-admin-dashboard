@@ -3,26 +3,17 @@
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
 import { toast } from '@/components/ui/use-toast';
-import { ENV } from '@/config/env-variable';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ImageIcon, Save } from 'lucide-react';
-import { CldImage, CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
-import { useForm } from 'react-hook-form';
+import { Save } from 'lucide-react';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { TabTransalation } from '@/components/tab-translation';
-import { Card } from '@/components/ui/card';
 import { Fragment } from 'react';
+import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
+import { FieldUpload } from './ui/field-upload';
 
 export const zProductSchema = z.object({
   images: z.string().array(),
@@ -61,16 +52,7 @@ export function FormProduct() {
 
   return (
     <div>
-      {images.length >= 0 && (
-        <div className="flex flex-wrap gap-2 p-2 md:gap-4 md:p-4">
-          {images.map((data) => (
-            <Card key={data} className="size-28 overflow-hidden">
-              <CldImage alt={`${data}`} src={`${data}`} height={500} width={500} />
-            </Card>
-          ))}
-        </div>
-      )}
-      <Form {...form}>
+      <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <TabTransalation
             {...{
@@ -79,136 +61,41 @@ export function FormProduct() {
               arTitle: 'إنشاء المنتج',
               arDescription: 'حقل جميع الحقل المطلوب لإضافة المنتج',
               enChildren: (
-                <Fragment>
-                  <FormField
-                    control={form.control}
-                    name="images"
-                    render={({ field: { onChange } }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel />
-                          <FormControl>
-                            <div className="flex flex-col gap-2 md:gap-4">
-                              {/* Upload botton */}
-                              <CldUploadWidget
-                                uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-                                onSuccess={(results: CloudinaryUploadWidgetResults) => {
-                                  if (typeof results.info === 'object') {
-                                    onChange([
-                                      ...form.getValues('images'),
-                                      results.info.secure_url,
-                                    ]);
-                                  }
-                                }}
-                                options={{
-                                  sources: ['local', 'url', 'google_drive'],
-                                }}
-                              >
-                                {({ open }) => {
-                                  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-                                    e.preventDefault();
-                                    open();
-                                  };
-
-                                  return (
-                                    <Button
-                                      variant="outline"
-                                      onClick={onClick}
-                                      className="flex size-28 flex-col gap-4"
-                                    >
-                                      <ImageIcon className="size-4 text-slate-950 md:size-8" />
-                                      <span className="max-sm:text-xs">Upload Image</span>
-                                    </Button>
-                                  );
-                                }}
-                              </CldUploadWidget>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <FieldInput
-                    inputLabel="Model"
-                    name="model"
-                    placeholder="Product Model"
-                    description="Enter the product model of the item"
-                  />
-                  <FieldInputTextArea
-                    inputLabel="Description"
-                    name="description"
-                    placeholder="Product Description"
-                    description="Enter the product description of the item"
-
-                  />
-                  <FieldInput
-                    type="number"
-                    inputLabel="Price"
-                    name="price"
-                    placeholder="0.00"
-                    description="Enter the product price"
-                  />
-                  <FieldInput
-                    type="number"
-                    inputLabel="Sale Price"
-                    name="salePrice"
-                    placeholder="0.00"
-                    description="Enter the product price"
-                  />
-                </Fragment>
+                <div className="flex flex-col gap-4 md:grid md:grid-cols-12">
+                  <div className="md:col-span-9">
+                    <FieldInput
+                      inputLabel="Model"
+                      name="model"
+                      placeholder="Product Model"
+                      description="Enter the product model of the item"
+                    />
+                    <FieldInputTextArea
+                      inputLabel="Description"
+                      name="description"
+                      placeholder="Product Description"
+                      description="Enter the product description of the item"
+                    />
+                    <FieldInput
+                      type="number"
+                      inputLabel="Price"
+                      name="price"
+                      placeholder="0.00"
+                      description="Enter the product price"
+                    />
+                    <FieldInput
+                      type="number"
+                      inputLabel="Sale Price"
+                      name="salePrice"
+                      placeholder="0.00"
+                      description="Enter the product price"
+                    />
+                  </div>
+                  <ProductImage images={images} className="md:col-span-3" />
+                </div>
               ),
               arChildren: (
                 <Fragment>
-                  <FormField
-                    control={form.control}
-                    name="images"
-                    render={({ field: { onChange } }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel />
-                          <FormControl>
-                            <div className="flex flex-col gap-2 md:gap-4">
-                              {/* Upload botton */}
-                              <CldUploadWidget
-                                uploadPreset={ENV.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
-                                onSuccess={(results: CloudinaryUploadWidgetResults) => {
-                                  if (typeof results.info === 'object') {
-                                    onChange([
-                                      ...form.getValues('images'),
-                                      results.info.secure_url,
-                                    ]);
-                                  }
-                                }}
-                                options={{
-                                  sources: ['local', 'url', 'google_drive'],
-                                }}
-                              >
-                                {({ open }) => {
-                                  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-                                    e.preventDefault();
-                                    open();
-                                  };
-
-                                  return (
-                                    <Button
-                                      variant="outline"
-                                      onClick={onClick}
-                                      className="flex size-28 flex-col gap-4"
-                                    >
-                                      <ImageIcon className="size-4 text-slate-950 md:size-8" />
-                                      <span className="max-sm:text-xs">Upload Image</span>
-                                    </Button>
-                                  );
-                                }}
-                              </CldUploadWidget>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
+                  <FieldUpload />
                   <FieldInput
                     inputLabel="Model"
                     name="model"
@@ -230,7 +117,7 @@ export function FormProduct() {
             Submit
           </Button>
         </form>
-      </Form>
+      </FormProvider>
     </div>
   );
 }
