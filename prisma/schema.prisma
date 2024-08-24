@@ -37,15 +37,19 @@ model Product {
   id            String   @id @default(cuid())
   model         String   @unique
   enDescription String   @unique
-  price         Float    @default(0.0)
+  arDescription String   @unique
+  price         Decimal  @default(0.0)
+  stock         Int      @default(0)
+  salePrice     Decimal? @default(0.0)
   isActive      Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
   categoryId    String
   category      Category @relation(fields: [categoryId], references: [id], onUpdate: Cascade)
   images        Image[]
   brandId       String
   brand         Brand    @relation(fields: [brandId], references: [id], onUpdate: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([categoryId])
   @@index([brandId])
