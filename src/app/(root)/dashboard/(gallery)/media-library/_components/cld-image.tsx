@@ -1,6 +1,6 @@
 'use client';
 import { Card } from '@/components/ui/card';
-import { deleteCloundinaryImage, setFavorateCloundinaryImage } from '@/webhook/cloudinary';
+import { deleteCloundinaryImage, setTagNameCloundinaryImage } from '@/webhook/cloudinary';
 import { Heart, X } from 'lucide-react';
 import { CldImage, CldImageProps } from 'next-cloudinary';
 import { useRouter } from 'next/navigation';
@@ -27,7 +27,7 @@ export const CloudImage = ({ public_id, isFavorate, ...props }: CloudImageProps)
 
   const handleSetFavorate = useCallback(async () => {
     try {
-      await setFavorateCloundinaryImage(public_id);
+      await setTagNameCloundinaryImage('favorite', public_id);
       toast.success('Favorited Successfully.');
       router.refresh();
     } catch (error) {

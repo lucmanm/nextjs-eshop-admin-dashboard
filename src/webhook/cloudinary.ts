@@ -22,14 +22,14 @@ export const searchCloundinaryImages = async () => {
     .execute();
 };
 
-export const setFavorateCloundinaryImage = async (public_id: string) => {
-  await cloudinary.v2.uploader.add_tag('favorite', [public_id]);
+export const setTagNameCloundinaryImage = async (tag_name: string, public_id: string) => {
+  await cloudinary.v2.uploader.add_tag(tag_name, [public_id]);
 };
 
 export const deleteCloundinaryImage = async (public_id: string) => {
   try {
     await cloudinary.v2.uploader.destroy(public_id);
   } catch (error) {
-    console.log("ERROR_DELETE_IMAGES_CLD",error);
+    console.log("ERROR_DELETE_IMAGES_CLD", error);
   }
 };
