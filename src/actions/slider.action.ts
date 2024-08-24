@@ -4,7 +4,6 @@ import { ZSliderSchema } from "@/schemas/slider.schema";
 import { z } from "zod";
 
 export async function getSliders() {
-    'use server'
     try {
         const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/slider`)
         if (!response.ok) {
