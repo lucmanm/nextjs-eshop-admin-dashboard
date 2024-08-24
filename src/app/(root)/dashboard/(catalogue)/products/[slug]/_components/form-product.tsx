@@ -6,13 +6,11 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { ENV } from '@/config/env-variable';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,12 +18,11 @@ import { ImageIcon, Save } from 'lucide-react';
 import { CldImage, CldUploadWidget, CloudinaryUploadWidgetResults } from 'next-cloudinary';
 import { useForm } from 'react-hook-form';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Image from 'next/image';
-import { FieldInput } from './ui/field-input';
 import { TabTransalation } from '@/components/tab-translation';
+import { Card } from '@/components/ui/card';
 import { Fragment } from 'react';
+import { FieldInput } from './ui/field-input';
+import { FieldInputTextArea } from './ui/field-input-textarea';
 
 export const zProductSchema = z.object({
   images: z.string().array(),
@@ -34,6 +31,7 @@ export const zProductSchema = z.object({
   }),
   description: z.string().min(1, { message: 'Missing input field description' }),
   price: z.number().min(1, { message: 'Missing input field price' }),
+  salePrice: z.number().min(1, { message: 'Missing input field sale price' }),
 });
 
 export function FormProduct() {
@@ -43,7 +41,8 @@ export function FormProduct() {
       images: [],
       model: '',
       description: '',
-      price: 0.00,
+      price: 0.0,
+      salePrice: 0.0,
     },
   });
 
@@ -136,16 +135,24 @@ export function FormProduct() {
                     placeholder="Product Model"
                     description="Enter the product model of the item"
                   />
-                  <FieldInput
+                  <FieldInputTextArea
                     inputLabel="Description"
                     name="description"
                     placeholder="Product Description"
                     description="Enter the product description of the item"
+
                   />
                   <FieldInput
                     type="number"
                     inputLabel="Price"
                     name="price"
+                    placeholder="0.00"
+                    description="Enter the product price"
+                  />
+                  <FieldInput
+                    type="number"
+                    inputLabel="Sale Price"
+                    name="salePrice"
                     placeholder="0.00"
                     description="Enter the product price"
                   />
