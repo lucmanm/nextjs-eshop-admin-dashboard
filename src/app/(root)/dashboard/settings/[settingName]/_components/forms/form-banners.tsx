@@ -1,10 +1,10 @@
 'use client';
+import { createSlider } from '@/actions/slider.action';
 import { CloudinaryImage } from '@/components/cloudinary-image';
 import { TabTransalation } from '@/components/tab-translation';
 import { ButtonWithIcon } from '@/components/ui/button-w-icon';
 import { Card } from '@/components/ui/card';
 import { CloseButton } from '@/components/ui/close-btn';
-import { ENV } from '@/config/env-variable';
 import { ZSliderSchema } from '@/schemas/slider.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save } from 'lucide-react';
@@ -30,24 +30,12 @@ export const BannersContainer = ({ items }: TSliderProps) => {
   });
 
   async function onSubmit(data: z.infer<typeof ZSliderSchema>) {
-    // TODO you are using localhost
-    try {
-      const response = await fetch(`http://localhost:3000/api/v1/slider`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        next: { revalidate: 0 },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        toast.success('Banner added Successfully');
-        router.refresh();
-        formMethods.reset();
-      }
-    } catch (error) {
-      toast.error('ERROR_BANNER_SUBMIT');
+    const result = await createSlider(data);
+    if (result.status === 201) {
+      router.refresh();
+      formMethods.reset();
+    } else {
+      toast.warning('ERROR_SUBMITTION_SLIDER');
     }
   }
 
