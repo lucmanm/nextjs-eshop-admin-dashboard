@@ -43,14 +43,14 @@ export const adminData = [
     icon: <User />,
   },
   {
-    nameEn: "Import",
+    nameEn: "Import Products",
     nameAr: "يستورد",
     descriptionEn: "Company Information for front page data",
     descriptionAr: "معلومات الشركة لبيانات الصفحة الأولى ",
     icon: <Import />,
   },
   {
-    nameEn: "Export",
+    nameEn: "Export Products",
     nameAr: "يصدّر",
     descriptionEn: "User Account who are managing this application",
     descriptionAr: "حساب المستخدم الذين يديرون هذا التطبيق",
