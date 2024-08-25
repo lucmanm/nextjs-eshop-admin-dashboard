@@ -9,11 +9,11 @@ import { Save } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { TabTransalation } from '@/components/tab-translation';
-import { Fragment } from 'react';
 import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
-import { FieldUpload } from './ui/field-upload';
+import { getBrand } from '@/actions/brand.action';
+import { Combobox } from './combobox';
 
 export const zProductSchema = z.object({
   images: z.string().array(),
@@ -30,7 +30,8 @@ export const zProductSchema = z.object({
   brandId: z.string().min(1, { message: 'Missing input field category' }),
 });
 
-export function FormProduct() {
+export async function FormProduct () {
+
   const form = useForm<z.infer<typeof zProductSchema>>({
     resolver: zodResolver(zProductSchema),
     defaultValues: {
@@ -85,6 +86,48 @@ export function FormProduct() {
                       placeholder="Product Description"
                       description="Enter the product description of the item"
                     />
+                    <Combobox/>
+                    <FieldInput
+                      type="number"
+                      inputLabel="Price"
+                      name="price"
+                      placeholder="0.00"
+                      description="Enter the product price"
+                    />
+                    <FieldInput
+                      type="number"
+                      inputLabel="Sale Price"
+                      name="salePrice"
+                      placeholder="0.00"
+                      description="Enter the product Sale price"
+                    />
+                    <FieldInput
+                      type="number"
+                      inputLabel="Stock Availability"
+                      name="stock"
+                      placeholder="0"
+                      description="Enter the stock available of the product"
+                    />
+                  </div>
+
+                  <ProductImage images={images} className="md:col-span-3" />
+                </div>
+              ),
+              arChildren: (
+                <div className="flex flex-col-reverse gap-4 md:grid md:grid-cols-12">
+                  <div className="md:col-span-9">
+                    <FieldInput
+                      inputLabel="Model"
+                      name="model"
+                      placeholder="Product Model"
+                      description="Enter the product model of the item"
+                    />
+                    <FieldInputTextArea
+                      inputLabel="Description"
+                      name="arDescription"
+                      placeholder="Product Description"
+                      description="Enter the product description of the item"
+                    />
                     <FieldInput
                       type="number"
                       inputLabel="Price"
@@ -109,46 +152,6 @@ export function FormProduct() {
                   </div>
                   <ProductImage images={images} className="md:col-span-3" />
                 </div>
-              ),
-              arChildren: (
-                <div className="flex flex-col-reverse gap-4 md:grid md:grid-cols-12">
-                <div className="md:col-span-9">
-                  <FieldInput
-                    inputLabel="Model"
-                    name="model"
-                    placeholder="Product Model"
-                    description="Enter the product model of the item"
-                  />
-                  <FieldInputTextArea
-                    inputLabel="Description"
-                    name="arDescription"
-                    placeholder="Product Description"
-                    description="Enter the product description of the item"
-                  />
-                  <FieldInput
-                    type="number"
-                    inputLabel="Price"
-                    name="price"
-                    placeholder="0.00"
-                    description="Enter the product price"
-                  />
-                  <FieldInput
-                    type="number"
-                    inputLabel="Sale Price"
-                    name="salePrice"
-                    placeholder="0.00"
-                    description="Enter the product Sale price"
-                  />
-                  <FieldInput
-                    type="number"
-                    inputLabel="Stock Availability"
-                    name="stock"
-                    placeholder="0"
-                    description="Enter the stock available of the product"
-                  />
-                </div>
-                <ProductImage images={images} className="md:col-span-3" />
-              </div>
               ),
             }}
           />

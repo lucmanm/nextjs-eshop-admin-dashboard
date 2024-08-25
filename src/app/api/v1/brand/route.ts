@@ -36,3 +36,16 @@ export async function POST(request: Request) {
         }
     }
 }
+
+
+export async function GET(request: Request) {
+    try {
+        const results = await prisma.brand.findMany();
+        return Response.json({ message: "Success", results }, { status: 200 });
+
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            return Response.json({ message: "You have an error in getting the brand", errors: error.errors }, { status: 400 });
+        }
+    }
+}
