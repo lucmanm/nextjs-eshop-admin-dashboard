@@ -81,7 +81,7 @@ export function FormProduct() {
                     />
                     <FieldInputTextArea
                       inputLabel="Description"
-                      name="description"
+                      name="enDescription"
                       placeholder="Product Description"
                       description="Enter the product description of the item"
                     />
@@ -97,28 +97,58 @@ export function FormProduct() {
                       inputLabel="Sale Price"
                       name="salePrice"
                       placeholder="0.00"
-                      description="Enter the product price"
+                      description="Enter the product Sale price"
+                    />
+                    <FieldInput
+                      type="number"
+                      inputLabel="Stock Availability"
+                      name="stock"
+                      placeholder="0"
+                      description="Enter the stock available of the product"
                     />
                   </div>
                   <ProductImage images={images} className="md:col-span-3" />
                 </div>
               ),
               arChildren: (
-                <Fragment>
-                  <FieldUpload />
+                <div className="flex flex-col-reverse gap-4 md:grid md:grid-cols-12">
+                <div className="md:col-span-9">
                   <FieldInput
                     inputLabel="Model"
                     name="model"
                     placeholder="Product Model"
                     description="Enter the product model of the item"
                   />
-                  <FieldInput
+                  <FieldInputTextArea
                     inputLabel="Description"
-                    name="description"
+                    name="arDescription"
                     placeholder="Product Description"
                     description="Enter the product description of the item"
                   />
-                </Fragment>
+                  <FieldInput
+                    type="number"
+                    inputLabel="Price"
+                    name="price"
+                    placeholder="0.00"
+                    description="Enter the product price"
+                  />
+                  <FieldInput
+                    type="number"
+                    inputLabel="Sale Price"
+                    name="salePrice"
+                    placeholder="0.00"
+                    description="Enter the product Sale price"
+                  />
+                  <FieldInput
+                    type="number"
+                    inputLabel="Stock Availability"
+                    name="stock"
+                    placeholder="0"
+                    description="Enter the stock available of the product"
+                  />
+                </div>
+                <ProductImage images={images} className="md:col-span-3" />
+              </div>
               ),
             }}
           />
