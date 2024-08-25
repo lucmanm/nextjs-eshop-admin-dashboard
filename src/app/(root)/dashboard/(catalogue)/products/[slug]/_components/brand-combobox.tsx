@@ -15,21 +15,30 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import { Control, useFormContext } from 'react-hook-form';
 
-export function Combobox() {
-
-
+type TCombobox = {
+  control?: Control;
+  name: string;
+  formLabel?: string;
+  data?: {
+    enName: string;
+    arName: string;
+  }[];
+};
+export function BrandCombobox(props: TCombobox) {
+  const form = useFormContext();
   return (
     <FormField
       control={form.control}
-      name="language"
+      name={props.name}
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>Language</FormLabel>
+          {props.formLabel && <FormLabel>{props.formLabel}</FormLabel>}
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>
@@ -43,8 +52,8 @@ export function Combobox() {
                   )}
                 >
                   {field.value
-                    ? languages.find((language) => language.value === field.value)?.label
-                    : 'Select language'}
+                    ? props.data?.find((data) => data.enName === field.value)?.enName
+                    : 'Select Brand'}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
               </FormControl>
@@ -53,23 +62,24 @@ export function Combobox() {
               <Command>
                 <CommandInput placeholder="Search language..." />
                 <CommandList>
-                  <CommandEmpty>No language found.</CommandEmpty>
+                  <CommandEmpty>No brand found.</CommandEmpty>
                   <CommandGroup>
-                    {languages.map((language) => (
+                    {props.data?.map((brand) => (
                       <CommandItem
-                        value={language.label}
-                        key={language.value}
+                        value={brand.enName}
+                        key={brand.enName}
                         onSelect={() => {
-                          form.setValue('language', language.value);
+                          form.setValue('brandId', brand.enName);
                         }}
+                        className="cursor-pointer"
                       >
                         <Check
                           className={cn(
                             'mr-2 h-4 w-4',
-                            language.value === field.value ? 'opacity-100' : 'opacity-0'
+                            brand.enName === field.value ? 'opacity-100' : 'opacity-0'
                           )}
                         />
-                        {language.label}
+                        {brand.enName}
                       </CommandItem>
                     ))}
                   </CommandGroup>
@@ -77,9 +87,7 @@ export function Combobox() {
               </Command>
             </PopoverContent>
           </Popover>
-          <FormDescription>
-            This is the language that will be used in the dashboard.
-          </FormDescription>
+          <FormDescription>Select the brand of this product.</FormDescription>
           <FormMessage />
         </FormItem>
       )}
