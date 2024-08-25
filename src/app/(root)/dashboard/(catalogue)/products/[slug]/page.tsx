@@ -1,15 +1,16 @@
 import { getBrand } from '@/actions/brand.action';
 import React from 'react';
 import { FormProduct } from './_components/form-product';
+import { getCategory } from '@/actions/category.action';
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const slug = decodeURI(params.slug);
 
   const brandData = await getBrand();
-
+  const categoryData = await getCategory();
   return (
     <React.Fragment>
-      <FormProduct {...{ brand: brandData?.results }} />
+      <FormProduct {...{ brands: brandData?.results, categories: categoryData?.results }} />
     </React.Fragment>
   );
 };

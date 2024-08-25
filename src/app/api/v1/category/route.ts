@@ -36,3 +36,17 @@ export async function POST(request: Request) {
         }
     }
 }
+
+export async function GET(request: Request) {
+    try {
+
+        const results = await prisma.category.findMany();
+
+        return Response.json({ message: "Created successfully", results }, { status: 201 });
+
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            return Response.json({ message: "You have an error in query the category", errors: error.errors }, { status: 400 });
+        }
+    }
+}

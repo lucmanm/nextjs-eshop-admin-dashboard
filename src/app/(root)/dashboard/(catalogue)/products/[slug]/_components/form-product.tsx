@@ -5,33 +5,17 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Check, ChevronsUpDown, Save } from 'lucide-react';
+import { Save } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { TabTransalation } from '@/components/tab-translation';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
 import { ZBrandSchema } from '@/schemas/brand.schema';
+import { BrandCombobox } from './brand-combobox';
 import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
-import { BrandCombobox } from './brand-combobox';
+import { ZCategorySchema } from '@/schemas/category.schema';
+import { CaetogoryCombobox } from './category-combobox';
 
 export const zProductSchema = z.object({
   images: z.string().array(),
@@ -48,10 +32,11 @@ export const zProductSchema = z.object({
   brandId: z.string().min(1, { message: 'Missing input field category' }),
 });
 type TFormProduct = {
-  brand: z.infer<typeof ZBrandSchema>[];
+  brands: z.infer<typeof ZBrandSchema>[];
+  categories: z.infer<typeof ZCategorySchema>[];
 };
 export function FormProduct(props: TFormProduct) {
-  const { brand } = props;
+  const { brands, categories } = props;
 
   const form = useForm<z.infer<typeof zProductSchema>>({
     resolver: zodResolver(zProductSchema),
@@ -83,7 +68,7 @@ export function FormProduct(props: TFormProduct) {
   const images = form.watch('images');
 
   return (
-    <div>
+    <div className='py-8'>
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <TabTransalation
@@ -110,8 +95,15 @@ export function FormProduct(props: TFormProduct) {
                     <BrandCombobox
                       {...{
                         name: 'brandId',
-                        data: brand,
+                        data: brands,
                         formLabel: 'Brand',
+                      }}
+                    />
+                    <CaetogoryCombobox
+                      {...{
+                        name: 'categoryId',
+                        data: categories,
+                        formLabel: 'Product Category',
                       }}
                     />
 
