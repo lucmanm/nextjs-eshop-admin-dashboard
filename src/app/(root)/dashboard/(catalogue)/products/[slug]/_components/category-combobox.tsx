@@ -68,7 +68,7 @@ export function CaetogoryCombobox(props: TCombobox) {
                         value={brand.enName}
                         key={brand.enName}
                         onSelect={() => {
-                          form.setValue('brandId', brand.enName);
+                          form.setValue(`${props.name}`, brand.enName);
                         }}
                         className="cursor-pointer"
                       >

@@ -19,6 +19,7 @@ type TFieldInput = {
   placeholder: string;
   description?: string;
   type?: HTMLInputTypeAttribute | undefined;
+  onChange?: () => void
 };
 export const FieldInput = (props: TFieldInput) => {
   return (
@@ -29,7 +30,11 @@ export const FieldInput = (props: TFieldInput) => {
         <FormItem>
           <FormLabel className="max-sm:text-xs">{props.inputLabel}</FormLabel>
           <FormControl>
-            <Input type={props.type ?? 'text'} placeholder={props.placeholder} {...field} />
+            <Input
+              {...field}
+              type={props.type ?? 'text'}
+              placeholder={props.placeholder}
+            />
           </FormControl>
           <FormDescription>{props.description}</FormDescription>
           <FormMessage />

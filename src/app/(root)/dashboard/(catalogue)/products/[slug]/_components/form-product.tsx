@@ -10,12 +10,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { TabTransalation } from '@/components/tab-translation';
 import { ZBrandSchema } from '@/schemas/brand.schema';
+import { ZCategorySchema } from '@/schemas/category.schema';
 import { BrandCombobox } from './brand-combobox';
+import { CaetogoryCombobox } from './category-combobox';
 import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
-import { ZCategorySchema } from '@/schemas/category.schema';
-import { CaetogoryCombobox } from './category-combobox';
 
 export const zProductSchema = z.object({
   images: z.string().array(),
@@ -31,10 +31,12 @@ export const zProductSchema = z.object({
   categoryId: z.string().min(1, { message: 'Missing input field category' }),
   brandId: z.string().min(1, { message: 'Missing input field category' }),
 });
+
 type TFormProduct = {
   brands: z.infer<typeof ZBrandSchema>[];
   categories: z.infer<typeof ZCategorySchema>[];
 };
+
 export function FormProduct(props: TFormProduct) {
   const { brands, categories } = props;
 
@@ -68,7 +70,7 @@ export function FormProduct(props: TFormProduct) {
   const images = form.watch('images');
 
   return (
-    <div className='py-8'>
+    <div className="py-8">
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <TabTransalation
@@ -108,22 +110,22 @@ export function FormProduct(props: TFormProduct) {
                     />
 
                     <FieldInput
+                      inputLabel=" Price"
                       type="number"
-                      inputLabel="Price"
                       name="price"
                       placeholder="0.00"
                       description="Enter the product price"
                     />
+
                     <FieldInput
-                      type="number"
                       inputLabel="Sale Price"
                       name="salePrice"
                       placeholder="0.00"
                       description="Enter the product Sale price"
                     />
+
                     <FieldInput
-                      type="number"
-                      inputLabel="Stock Availability"
+                      inputLabel="Stock Available"
                       name="stock"
                       placeholder="0"
                       description="Enter the stock available of the product"
@@ -148,23 +150,34 @@ export function FormProduct(props: TFormProduct) {
                       placeholder="Product Description"
                       description="Enter the product description of the item"
                     />
+                    <BrandCombobox
+                      {...{
+                        name: 'brandId',
+                        data: brands,
+                        formLabel: 'Brand',
+                      }}
+                    />
+                    <CaetogoryCombobox
+                      {...{
+                        name: 'categoryId',
+                        data: categories,
+                        formLabel: 'Product Category',
+                      }}
+                    />
                     <FieldInput
-                      type="number"
-                      inputLabel="Price"
+                      inputLabel=" Price"
                       name="price"
                       placeholder="0.00"
                       description="Enter the product price"
                     />
                     <FieldInput
-                      type="number"
                       inputLabel="Sale Price"
                       name="salePrice"
                       placeholder="0.00"
                       description="Enter the product Sale price"
                     />
                     <FieldInput
-                      type="number"
-                      inputLabel="Stock Availability"
+                      inputLabel="Stock Available"
                       name="stock"
                       placeholder="0"
                       description="Enter the stock available of the product"
@@ -177,7 +190,7 @@ export function FormProduct(props: TFormProduct) {
           />
           <Button
             type="submit"
-            className="h-7 w-36 gap-2 self-start font-semibold hover:bg-green-600"
+            className="w-36 gap-2 self-start font-semibold hover:bg-green-600 max-sm:h-7"
           >
             <Save size={18} />
             Submit
