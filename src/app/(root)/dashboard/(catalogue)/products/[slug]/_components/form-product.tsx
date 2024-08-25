@@ -5,15 +5,32 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Save } from 'lucide-react';
+import { Check, ChevronsUpDown, Save } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { TabTransalation } from '@/components/tab-translation';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+import { ZBrandSchema } from '@/schemas/brand.schema';
 import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
-import { getBrand } from '@/actions/brand.action';
-import { Combobox } from './combobox';
 
 export const zProductSchema = z.object({
   images: z.string().array(),
@@ -29,8 +46,12 @@ export const zProductSchema = z.object({
   categoryId: z.string().min(1, { message: 'Missing input field category' }),
   brandId: z.string().min(1, { message: 'Missing input field category' }),
 });
-
-export async function FormProduct () {
+type TFormProduct = {
+  brand: z.infer<typeof ZBrandSchema>[];
+};
+export function FormProduct(props: TFormProduct) {
+  const { brand } = props;
+  brand.map((data) => console.log(data.arName));
 
   const form = useForm<z.infer<typeof zProductSchema>>({
     resolver: zodResolver(zProductSchema),
@@ -86,7 +107,68 @@ export async function FormProduct () {
                       placeholder="Product Description"
                       description="Enter the product description of the item"
                     />
-                    <Combobox/>
+                    <FormField
+                      control={form.control}
+                      name="brandId"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                          <FormLabel>Brand</FormLabel>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  role="combobox"
+                                  className={cn(
+                                    'w-[200px] justify-between max-sm:h-7 max-sm:text-xs',
+                                    !field.value && 'text-muted-foreground'
+                                  )}
+                                >
+                                  {field.value
+                                    ? brand.find((language) => language.enName === field.value)
+                                        ?.enName
+                                    : 'Select Brand'}
+                                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                              <Command>
+                                <CommandInput placeholder="Search language..." />
+                                <CommandList>
+                                  <CommandEmpty>No language found.</CommandEmpty>
+                                  <CommandGroup>
+                                    {brand.map((brand) => (
+                                      <CommandItem
+                                        value={brand.enName}
+                                        key={brand.enName}
+                                        onSelect={() => {
+                                          form.setValue('brandId', brand.enName);
+                                        }}
+                                        className="cursor-pointer"
+                                      >
+                                        <Check
+                                          className={cn(
+                                            'mr-2 h-4 w-4',
+                                            brand.enName === field.value
+                                              ? 'opacity-100'
+                                              : 'opacity-0'
+                                          )}
+                                        />
+                                        {brand.enName}
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </CommandList>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+                          <FormDescription>Select the brand of this product.</FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                     <FieldInput
                       type="number"
                       inputLabel="Price"

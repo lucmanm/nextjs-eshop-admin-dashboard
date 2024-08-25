@@ -1,11 +1,5 @@
-'use client';
-
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   Command,
@@ -16,50 +10,18 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import {
-  Form,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { toast } from '@/components/ui/use-toast';
-
-const languages = [
-  { label: 'English', value: 'en' },
-  { label: 'French', value: 'fr' },
-  { label: 'German', value: 'de' },
-  { label: 'Spanish', value: 'es' },
-  { label: 'Portuguese', value: 'pt' },
-  { label: 'Russian', value: 'ru' },
-  { label: 'Japanese', value: 'ja' },
-  { label: 'Korean', value: 'ko' },
-  { label: 'Chinese', value: 'zh' },
-] as const;
-
-const FormSchema = z.object({
-  language: z.string({
-    required_error: 'Please select a language.',
-  }),
-});
+import { cn } from '@/lib/utils';
 
 export function Combobox() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-  });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
 
   return (
     <FormField
@@ -76,7 +38,7 @@ export function Combobox() {
                   variant="outline"
                   role="combobox"
                   className={cn(
-                    'w-[200px] justify-between sm:h-7 sm:text-xs',
+                    'w-[200px] justify-between max-sm:h-7 max-sm:text-xs',
                     !field.value && 'text-muted-foreground'
                   )}
                 >
