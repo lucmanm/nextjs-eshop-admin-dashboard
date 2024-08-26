@@ -2,6 +2,7 @@ import React from 'react';
 import TableData from './_components/table-data';
 
 export default async function Page() {
+  // NEXT 1 Add products, category and brands table
   return (
     <React.Fragment>
       <main className="flex flex-1 items-center justify-center rounded-lg">
