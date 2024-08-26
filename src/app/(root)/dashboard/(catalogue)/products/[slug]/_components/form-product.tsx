@@ -17,7 +17,7 @@ import { CaetogoryCombobox } from './category-combobox';
 import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
-import { createProduct } from '@/actions/getProducts';
+import { createProduct } from '@/actions/porduct.schema';
 
 type TFormProduct = {
   brands: z.infer<typeof ZBrandSchema>[];
@@ -45,7 +45,7 @@ export function FormProduct(props: TFormProduct) {
 
   async function onSubmit(data: z.infer<typeof ZProductSchema>) {
     try {
-      await createProduct(data)
+      await createProduct(data);
       toast({
         title: 'You submitted the following values:',
         description: (

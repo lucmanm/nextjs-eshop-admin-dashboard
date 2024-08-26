@@ -1,19 +1,33 @@
+import { prisma } from "@/lib/prisma";
 import { ZProductSchema } from "@/schemas/product.schema";
 import { z } from "zod";
 
-export async function POST(request: Request) {
+export async function POST(request: Request, res: Response) {
     try {
         const body = await request.json()
         const { arDescription, brandId, categoryId, enDescription, images, isActive, model, price, salePrice, stock } = ZProductSchema.parse(body);
-        console.log("ROUTE_DATA", arDescription, brandId, categoryId, enDescription, images, isActive, model, price, salePrice, stock);
 
+        const createProductStatus = await prisma.product.create({
+            data: {
+                arDescription,
+                enDescription,
+                model,
+                brandId,
+                images: {
+                    createMany: {
+                        data: images.map((image: string) => ({
+                            imageUrl: image
+                        }))
+                    }
+                },
+                price,
+                isActive,
+                stock,
+                categoryId,
+                salePrice,
+            }
+        });
 
-        // const response = await prisma.slider.create({
-        //     data: {
-        //         enSlider,
-        //         arSlider
-        //     }
-        // });
         return Response.json({ message: "Slider created successfully" });
 
     } catch (error) {
