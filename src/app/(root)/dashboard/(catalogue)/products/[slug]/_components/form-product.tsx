@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Save } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { createProduct } from '@/actions/product.action';
 import { TabTransalation } from '@/components/tab-translation';
 import { ZBrandSchema } from '@/schemas/brand.schema';
 import { ZCategorySchema } from '@/schemas/category.schema';
@@ -17,7 +18,6 @@ import { CaetogoryCombobox } from './category-combobox';
 import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
-import { createProduct } from '@/actions/product.action';
 
 type TFormProduct = {
   brands: z.infer<typeof ZBrandSchema>[];
@@ -45,17 +45,19 @@ export function FormProduct(props: TFormProduct) {
 
   async function onSubmit(data: z.infer<typeof ZProductSchema>) {
     try {
-      const response = await createProduct(data);
-      console.log(response);
-
-      toast({
-        title: 'You submitted the following values:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-          </pre>
-        ),
-      });
+      const result = await createProduct(data);
+      if (result?.message) {
+        toast({
+          title: 'You submitted the following values:',
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+            </pre>
+          ),
+        });
+      } else {
+        console.log('ERROR ON SUBMIT');
+      }
     } catch (error) {
       if (error instanceof z.ZodError) {
         return Response.json({
