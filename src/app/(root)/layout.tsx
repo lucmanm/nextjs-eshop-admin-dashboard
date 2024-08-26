@@ -36,7 +36,7 @@ export default async function RootLayout({
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
         <Toaster />
-        <ToastContainer position="top-center" />
+        <ToastContainer position="top-center" style={{fontSize: 12, fontWeight: "lighter"}}/>
       </body>
     </html>
   );

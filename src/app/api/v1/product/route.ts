@@ -3,21 +3,35 @@ import { ZProductSchema } from "@/schemas/product.schema";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-export async function POST(req: Request, res: NextResponse) {
+export async function POST(req: Request) {
     try {
         const body = await req.json()
         const { arDescription, brandId, categoryId, enDescription, images, isActive, model, price, salePrice, stock } = ZProductSchema.parse(body);
 
-        // const checkModel = await prisma.product.findUnique({
-        //     where: { model }
-        // })
+        const existingProduct = await prisma.product.findFirst({
+            where: {
+                OR: [
+                    { model },
+                    { enDescription },
+                    { arDescription }
+                ]
+            }
+        });
 
-        // if (checkModel) {
-        //     return Response.json({ message: `Model already exist` });
-        // }
+        if (existingProduct) {
+            if (existingProduct.model === model) {
+                return NextResponse.json({ message: `Model "${model}" already exists.` });
+            }
+            if (existingProduct.enDescription === enDescription) {
+                return NextResponse.json({ message: `English description "${enDescription}" already exists.` });
+            }
+            if (existingProduct.arDescription === arDescription) {
+                return NextResponse.json({ message: `Arabic description "${arDescription}" already exists.` });
+            }
+        }
 
 
-        const createProductStatus = await prisma.product.create({
+        await prisma.product.create({
             data: {
                 arDescription,
                 enDescription,
@@ -38,7 +52,7 @@ export async function POST(req: Request, res: NextResponse) {
             }
         });
 
-        return NextResponse.json({ message: "Slider created successfully" });
+        return NextResponse.json({ message: "Product created successfully" });
 
     } catch (error) {
         if (error instanceof z.ZodError) {

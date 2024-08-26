@@ -3,7 +3,6 @@
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { toast } from '@/components/ui/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -18,6 +17,7 @@ import { CaetogoryCombobox } from './category-combobox';
 import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
+import { toast } from '@/components/ui/use-toast';
 
 type TFormProduct = {
   brands: z.infer<typeof ZBrandSchema>[];
@@ -45,18 +45,14 @@ export function FormProduct(props: TFormProduct) {
 
   async function onSubmit(data: z.infer<typeof ZProductSchema>) {
     try {
-      const result = await createProduct(data);
+      const result = await createProduct<string>(data);
       if (result?.message) {
-        toast({
-          title: 'You submitted the following values:',
-          description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-            </pre>
-          ),
-        });
+        toast({ title: `${result.message}`, style: { borderColor: '#10b981' } });
       } else {
-        console.log('ERROR ON SUBMIT');
+        toast({
+          title: `ERROR_FORM_SUBMIT`,
+          style: { borderColor: '#f8fafc', backgroundColor: '#991b1b', color: '#f8fafc' },
+        });
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
