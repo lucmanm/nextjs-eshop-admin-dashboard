@@ -18,10 +18,15 @@ export async function getProducts() {
 
 export async function createProduct(data: z.infer<typeof ZProductSchema>) {
     try {
-        await fetch('/api/v1/product', {
+        const response = await fetch('/api/v1/product', {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify(data)
         })
+        const results = await response.json()
+        console.log(results.message);
 
     } catch (error) {
         console.log("ERROR_GET_PRODUCTS", error);

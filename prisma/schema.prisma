@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -37,19 +31,18 @@ model Product {
   id            String   @id @default(cuid())
   model         String   @unique
   enDescription String   @unique
-  arDescription String   @unique
   price         Decimal  @default(0.0)
-  stock         Int      @default(0)
-  salePrice     Decimal? @default(0.0)
   isActive      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
   categoryId    String
+  brandId       String
+  salePrice     Decimal? @default(0.0)
+  stock         Int      @default(0)
+  arDescription String   @unique
   category      Category @relation(fields: [categoryId], references: [id], onUpdate: Cascade)
   images        Image[]
-  brandId       String
   brand         Brand    @relation(fields: [brandId], references: [id], onUpdate: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@index([categoryId])
   @@index([brandId])
@@ -59,10 +52,10 @@ model Product {
 model Image {
   id        String   @id @default(cuid())
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   imageUrl  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@index([productId])
   @@map("images")
@@ -70,11 +63,11 @@ model Image {
 
 model Category {
   id        String    @id @default(cuid())
-  enName    String    @unique
-  arName    String    @unique
   imageUrl  String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  arName    String    @unique
+  enName    String    @unique
   products  Product[]
 
   @@map("categories")
@@ -82,10 +75,10 @@ model Category {
 
 model Brand {
   id        String    @id @default(cuid())
-  enName    String    @unique
-  arName    String    @unique
   logoUrl   String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  arName    String    @unique
+  enName    String    @unique
   products  Product[]
 }
