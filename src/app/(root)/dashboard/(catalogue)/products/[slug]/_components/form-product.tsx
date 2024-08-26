@@ -47,6 +47,7 @@ export function FormProduct(props: TFormProduct) {
     try {
       const result = await createProduct<string>(data);
       if (result?.message) {
+        // TODO Reuse this
         toast({ title: `${result.message}`, style: { borderColor: '#10b981' } });
       } else {
         toast({
