@@ -9,12 +9,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { Control } from 'react-hook-form';
 import { z } from 'zod';
-import { zProductSchema } from '../form-product';
+import { ZProductSchema } from '../form-product';
 import { HTMLInputTypeAttribute } from 'react';
 
 type TFieldInput = {
   control?: Control;
-  name: keyof z.infer<typeof zProductSchema>;
+  name: keyof z.infer<typeof ZProductSchema>;
   inputLabel: string;
   placeholder: string;
   description?: string;

@@ -9,11 +9,11 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Control } from 'react-hook-form';
 import { z } from 'zod';
-import { zProductSchema } from '../form-product';
+import { ZProductSchema } from '../form-product';
 
 type TFieldInput = {
   control?: Control;
-  name: keyof z.infer<typeof zProductSchema>;
+  name: keyof z.infer<typeof ZProductSchema>;
   inputLabel: string;
   placeholder: string;
   description?: string;

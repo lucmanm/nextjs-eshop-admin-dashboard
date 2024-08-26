@@ -11,26 +11,13 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { TabTransalation } from '@/components/tab-translation';
 import { ZBrandSchema } from '@/schemas/brand.schema';
 import { ZCategorySchema } from '@/schemas/category.schema';
+import { ZProductSchema } from '@/schemas/product.schema';
 import { BrandCombobox } from './brand-combobox';
 import { CaetogoryCombobox } from './category-combobox';
 import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
-
-export const zProductSchema = z.object({
-  images: z.string().array(),
-  model: z.string().min(2, {
-    message: 'Input field model Required',
-  }),
-  enDescription: z.string().min(1, { message: 'Missing input field description' }),
-  arDescription: z.string().min(1, { message: 'Missing input description' }),
-  price: z.coerce.number().min(1, { message: 'Missing input field price' }),
-  salePrice: z.coerce.number().min(1, { message: 'Missing input field sale price' }),
-  stock: z.coerce.number().min(1, { message: 'Missing input field inventory' }),
-  isActive: z.boolean().default(false),
-  categoryId: z.string().min(1, { message: 'Missing input field category' }),
-  brandId: z.string().min(1, { message: 'Missing input field category' }),
-});
+import { createProduct } from '@/actions/getProducts';
 
 type TFormProduct = {
   brands: z.infer<typeof ZBrandSchema>[];
@@ -40,8 +27,8 @@ type TFormProduct = {
 export function FormProduct(props: TFormProduct) {
   const { brands, categories } = props;
 
-  const form = useForm<z.infer<typeof zProductSchema>>({
-    resolver: zodResolver(zProductSchema),
+  const form = useForm<z.infer<typeof ZProductSchema>>({
+    resolver: zodResolver(ZProductSchema),
     defaultValues: {
       images: [],
       model: '',
@@ -56,15 +43,25 @@ export function FormProduct(props: TFormProduct) {
     },
   });
 
-  function onSubmit(data: z.infer<typeof zProductSchema>) {
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit(data: z.infer<typeof ZProductSchema>) {
+    try {
+      await createProduct(data)
+      toast({
+        title: 'You submitted the following values:',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        ),
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return Response.json({
+          message: 'You have an error submittion product~',
+          errors: error.errors,
+        });
+      }
+    }
   }
 
   const images = form.watch('images');
