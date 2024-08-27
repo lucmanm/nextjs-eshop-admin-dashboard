@@ -1,8 +1,11 @@
-"use client";
+'use client';
 
-import { TProduct } from "@/types/products";
-import { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
+import { TProduct } from '@/types/products';
+import { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import Image from 'next/image';
+import { Button } from '../ui/button';
+import { Checkbox } from '../ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,22 +13,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { Checkbox } from "../ui/checkbox";
-import { DataTableColumnHeader } from "./column-header";
+} from '../ui/dropdown-menu';
+import { DataTableColumnHeader } from './column-header';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
 export const columns: ColumnDef<TProduct>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={
-          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
+          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
@@ -41,10 +41,10 @@ export const columns: ColumnDef<TProduct>[] = [
   },
 
   {
-    header: "Image",
-    accessorKey: "images",
+    header: 'Image',
+    accessorKey: 'images',
     cell: ({ row }) => {
-      const images = row.getValue("images") as string[];
+      const images = row.getValue('images') as string[];
       return (
         <div className="text-right font-medium">
           <Image
@@ -52,25 +52,23 @@ export const columns: ColumnDef<TProduct>[] = [
             alt="product image"
             width={50}
             height={50}
-            className="object-cover size-12"
+            className="size-12 object-cover"
           />
         </div>
       );
     },
   },
   {
-    accessorKey: "sku",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Sku" />
-    ),
+    accessorKey: 'sku',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="SKU" />,
   },
   {
-    accessorKey: "description",
+    accessorKey: 'description',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Description
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -79,21 +77,21 @@ export const columns: ColumnDef<TProduct>[] = [
     },
   },
   {
-    header: () => <div className="text-right">Amount</div>,
-    accessorKey: "price",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Price" />,
+    accessorKey: 'price',
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("price"));
-      const formatted = new Intl.NumberFormat("en-SA", {
-        style: "currency",
-        currency: "SAR",
+      const amount = parseFloat(row.getValue('price'));
+      const formatted = new Intl.NumberFormat('en-SA', {
+        style: 'currency',
+        currency: 'SAR',
       }).format(amount);
 
       return <div className="text-right font-medium">{formatted}</div>;
     },
   },
   {
-    header: () => <div className="text-right w-fit">Action</div>,
-    id: "actions",
+    header: () => <div className="w-fit text-right">Action</div>,
+    id: 'actions',
     cell: ({ row }) => {
       const payment = row.original;
 
