@@ -7,9 +7,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { ZProductSchema } from '@/schemas/product.schema';
 import { Control } from 'react-hook-form';
 import { z } from 'zod';
-import { ZProductSchema } from '../form-product';
 
 type TFieldInput = {
   control?: Control;
@@ -25,7 +25,7 @@ export const FieldInputTextArea = (props: TFieldInput) => {
       name={props.name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className='max-sm:text-xs'>{props.inputLabel}</FormLabel>
+          <FormLabel className="max-sm:text-xs">{props.inputLabel}</FormLabel>
           <FormControl>
             <Textarea placeholder={props.placeholder} {...field} className="resize-none" />
           </FormControl>
