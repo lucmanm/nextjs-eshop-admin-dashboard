@@ -2,6 +2,30 @@ import { prisma } from "@/lib/prisma";
 import { ZProductSchema } from "@/schemas/product.schema";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+export async function GET(req: Request) {
+    try {
+        const results = await prisma.product.findMany({
+            include: {
+                images: true,
+                brand: true,
+                category: true
+            }
+        });
+
+        return NextResponse.json({ results, message: "Success" }, { status: 200 });
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            return NextResponse.json(
+                { message: "You have an error getting product data~", errors: error.errors },
+                { status: 400 }
+            );
+        }
+        return NextResponse.json(
+            { message: "An unexpected error occurred" },
+            { status: 500 }
+        );
+    }
+}
 
 export async function POST(req: Request) {
     try {
@@ -60,3 +84,4 @@ export async function POST(req: Request) {
         }
     }
 }
+

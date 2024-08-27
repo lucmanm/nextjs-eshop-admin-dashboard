@@ -28,7 +28,7 @@ export async function POST(request: Request) {
             }
         });
 
-        return Response.json({ message: "Created successfully", results }, { status: 201 });
+        return Response.json({ message: "Created successfully", results }, { status: 200 });
 
     } catch (error) {
         if (error instanceof z.ZodError) {
@@ -41,8 +41,7 @@ export async function GET(request: Request) {
     try {
 
         const results = await prisma.category.findMany();
-
-        return Response.json({ message: "Created successfully", results }, { status: 201 });
+        return Response.json({ message: "Created successfully", results }, { status: 200 });
 
     } catch (error) {
         if (error instanceof z.ZodError) {

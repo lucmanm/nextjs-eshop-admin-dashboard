@@ -3,20 +3,22 @@ import { ENV } from "@/config/env-variable";
 import { ZProductSchema } from "@/schemas/product.schema";
 import { z } from "zod";
 
-// export async function getProducts() {
-//     try {
-//         const response = await fetch(`${process.env.PUBLIC_DUMMY_ECOMMERCE_API}`)
-//         if (!response.ok) {
-//             throw new Error("FAILED_FETCH_PRODUCTS");
-//         }
+export async function getProducts() {
+    try {
+        const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/product`)
+        if (!response.ok) {
+            throw new Error("FAILED_FETCH_PRODUCTS");
+        }
 
-//         const result = await response.json()
-//         return result.products
+        const data = await response.json()
+        return data.results
 
-//     } catch (error) {
-//         console.log("ERROR_GET_PRODUCTS", error);
-//     }
-// }
+    } catch (error) {
+        console.log("ERROR_GET_PRODUCTS", error);
+    }
+}
+
+
 
 type Result<T> = {
     message: T;
