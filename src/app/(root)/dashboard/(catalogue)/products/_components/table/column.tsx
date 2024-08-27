@@ -1,6 +1,8 @@
 'use client';
 
+import { DataTableColumnHeader } from '@/components/table/column-header';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,12 +11,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
-import { Checkbox } from '@/components/ui/checkbox';
-import { DataTableColumnHeader } from '@/components/table/column-header';
-import Image from 'next/image';
+import { Switch } from '@/components/ui/switch';
 import { defaultProductImage } from '@/constant/default-images';
+import { ColumnDef } from '@tanstack/react-table';
+import { MoreHorizontal } from 'lucide-react';
+import Image from 'next/image';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -29,7 +30,15 @@ export type Payment = {
   sku: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export type Product = {
+  id: string;
+  model: string;
+  enDescription: string;
+  price: number;
+  stock: number;
+  isActive: boolean;
+};
+export const columns: ColumnDef<Product>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -79,7 +88,7 @@ export const columns: ColumnDef<Payment>[] = [
   },
 
   {
-    accessorKey: 'products',
+    accessorKey: 'enDescription',
     header: 'Products',
   },
   {
@@ -106,8 +115,13 @@ export const columns: ColumnDef<Payment>[] = [
     header: 'Stock',
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'isActive',
     header: 'Status',
+    cell: ({ row }) => {
+      const isActive = row.getValue('isActive');
+
+      return <Switch checked={isActive === 'true'} />;
+    },
   },
   {
     id: 'actions',

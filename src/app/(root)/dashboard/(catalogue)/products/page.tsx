@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { RighSideOptions } from './_components/rightp-side-options';
-import { columns, Payment } from './_components/table/column';
+import { columns, Payment, Product } from './_components/table/column';
 import { DataTable } from './_components/table/data-table';
 import { TabList } from './_components/tablist';
 import { getProducts } from '@/actions/product.action';
@@ -131,8 +131,8 @@ const data: Payment[] = [
 ];
 
 export default async function Page() {
-  const result = await getProducts();
-  console.log(result);
+
+  const result: Product[] = await getProducts();
 
   return (
     <React.Fragment>
@@ -146,11 +146,11 @@ export default async function Page() {
               <RighSideOptions />
             </div>
             <TabsContent value="products">
-              <DataTable columns={columns} data={data} />
+              <DataTable columns={columns} data={result} />
             </TabsContent>
-            <TabsContent value="brands">
+            {/* <TabsContent value="brands">
               <DataTable columns={columns} data={data} />
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </div>
       </main>
