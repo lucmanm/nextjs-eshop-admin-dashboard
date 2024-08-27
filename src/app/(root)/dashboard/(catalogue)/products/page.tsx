@@ -2,6 +2,9 @@ import React from 'react';
 import TableData from './_components/table-data';
 import { DataTable } from './_components/table/data-table';
 import { columns, Payment } from './_components/table/column';
+import { TabList } from './_components/tablist';
+import { RighSideOptions } from './_components/rightp-side-options';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 
 const data: Payment[] = [
   {
@@ -117,12 +120,24 @@ const data: Payment[] = [
 ];
 
 export default async function Page() {
-
   return (
     <React.Fragment>
       <main className="flex flex-1 items-center justify-center rounded-lg">
         <div className="grid flex-1 items-start gap-4 md:gap-8">
-          <DataTable columns={columns} data={data} />
+          <Tabs defaultValue="products">
+            <div className="flex items-center">
+              {/* Tablist */}
+              <TabList />
+              {/* Product Right menus and options */}
+              <RighSideOptions />
+            </div>
+            <TabsContent value="products">
+              <DataTable columns={columns} data={data} />
+            </TabsContent>
+            <TabsContent value="brands">
+              <DataTable columns={columns} data={data} />
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
     </React.Fragment>

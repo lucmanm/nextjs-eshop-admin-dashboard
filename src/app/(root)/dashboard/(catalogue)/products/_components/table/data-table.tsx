@@ -26,6 +26,7 @@ import {
 
 import { DataTablePagination } from '@/components/table/data-table-pagination';
 import { DataTableViewOptions } from '@/components/table/data-table-view-options';
+import { RighSideOptions } from '../rightp-side-options';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -70,6 +71,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           onChange={(event) => table.getColumn('model')?.setFilterValue(event.target.value)}
           className="max-w-sm"
         />
+
         <DataTableViewOptions table={table} />
       </div>
       <div className="rounded-md border">
@@ -116,7 +118,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <DataTablePagination table={table} />
-
       </div>
     </div>
   );
