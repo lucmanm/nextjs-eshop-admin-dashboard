@@ -1,45 +1,58 @@
 import React from 'react';
 import TableData from './_components/table-data';
 import { DataTable } from './_components/table/data-table';
-import { columns } from './_components/table/column';
-
-export type Payment = {
-  id: string;
-  amount: number;
-  status: 'pending' | 'processing' | 'success' | 'failed';
-  email: string;
-};
+import { columns, Payment } from './_components/table/column';
 
 const data: Payment[] = [
   {
     id: 'm5gr84i9',
-    amount: 316,
+    model: 'model1',
+    image: 'image1',
+    price: 316,
     status: 'success',
-    email: 'ken99@yahoo.com',
+    products: 'Product 1',
+    stock: 2,
+    sku: '59011',
   },
   {
     id: '3u1reuv4',
-    amount: 242,
+    model: 'model2',
+    image: 'image1',
+    price: 242,
     status: 'success',
-    email: 'Abe45@gmail.com',
+    products: 'Product 2',
+    stock: 2,
+    sku: '59011',
   },
   {
     id: 'derv1ws0',
-    amount: 837,
+    model: 'model3',
+    image: 'image1',
+    price: 837,
     status: 'processing',
-    email: 'Monserrat44@gmail.com',
+    products: 'Product 3',
+    stock: 2,
+    sku: '59011',
   },
   {
     id: '5kma53ae',
-    amount: 874,
+    model: 'model4',
+    image: 'image1',
+    price: 874,
     status: 'success',
-    email: 'Silas22@gmail.com',
+    products: 'Product 4',
+    stock: 2,
+    sku: '59011',
   },
   {
     id: 'bhqecj4p',
-    amount: 721,
+    model: 'model5',
+    image: 'image1',
+    price: 721,
     status: 'failed',
-    email: 'carmella@hotmail.com',
+    products: 'Product 5',
+    stock: 2,
+    sku: '59011',
   },
 ];
 
