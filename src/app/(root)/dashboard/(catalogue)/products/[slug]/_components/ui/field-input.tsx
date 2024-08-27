@@ -9,8 +9,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Control } from 'react-hook-form';
 import { z } from 'zod';
-import { ZProductSchema } from '../form-product';
 import { HTMLInputTypeAttribute } from 'react';
+import { ZProductSchema } from '@/schemas/product.schema';
 
 type TFieldInput = {
   control?: Control;
