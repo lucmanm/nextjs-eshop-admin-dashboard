@@ -54,10 +54,70 @@ const data: Payment[] = [
     stock: 2,
     sku: '59011',
   },
+  {
+    id: 'bhqecj4p',
+    model: 'model5',
+    image: 'image1',
+    price: 721,
+    status: 'failed',
+    products: 'Product 5',
+    stock: 2,
+    sku: '59011',
+  },
+  {
+    id: 'bhqecj4p',
+    model: 'model5',
+    image: 'image1',
+    price: 721,
+    status: 'failed',
+    products: 'Product 5',
+    stock: 2,
+    sku: '59011',
+  },
+  {
+    id: 'bhqecj4p',
+    model: 'model5',
+    image: 'image1',
+    price: 721,
+    status: 'failed',
+    products: 'Product 5',
+    stock: 2,
+    sku: '59011',
+  },
+  {
+    id: 'bhqecj4p',
+    model: 'model5',
+    image: 'image1',
+    price: 721,
+    status: 'failed',
+    products: 'Product 5',
+    stock: 2,
+    sku: '59011',
+  },
+  {
+    id: 'bhqecj4p',
+    model: 'model5',
+    image: 'image1',
+    price: 721,
+    status: 'failed',
+    products: 'Product 5',
+    stock: 2,
+    sku: '59011',
+  },
+  {
+    id: 'bhqecj4p',
+    model: 'model5',
+    image: 'image1',
+    price: 721,
+    status: 'failed',
+    products: 'Product 5',
+    stock: 2,
+    sku: '59011',
+  },
 ];
 
 export default async function Page() {
-  // NEXT 1 Add products, category and brands table
+
   return (
     <React.Fragment>
       <main className="flex flex-1 items-center justify-center rounded-lg">
