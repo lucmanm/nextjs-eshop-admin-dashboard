@@ -13,6 +13,8 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/table/column-header';
+import Image from 'next/image';
+import { defaultProductImage } from '@/constant/default-images';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -60,6 +62,20 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'image',
     header: 'Image',
+    cell: ({ row }) => {
+      // const images = row.getValue('images') as string[];
+      return (
+        <div className="text-right font-medium">
+          <Image
+            src={defaultProductImage}
+            alt="product image"
+            width={50}
+            height={50}
+            className="size-12 object-cover"
+          />
+        </div>
+      );
+    },
   },
 
   {
