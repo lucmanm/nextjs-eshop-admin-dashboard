@@ -23,7 +23,7 @@ type TFormProduct = {
   brands: z.infer<typeof ZBrandSchema>[];
   categories: z.infer<typeof ZCategorySchema>[];
 };
-
+// CONTINUE THE DATA FOR YOU NEED TO SUBMIT FOR PRODUCT IS ID'S OF BRAND AND CATEGORY
 export function FormProduct(props: TFormProduct) {
   const { brands, categories } = props;
 
