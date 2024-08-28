@@ -8,9 +8,11 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
   const brandData = await getBrand();
   const categoryData = await getCategory();
+
+
   return (
     <React.Fragment>
-      <FormProduct {...{ brands: brandData?.results, categories: categoryData?.results }} />
+      <FormProduct {...{ brands: brandData, categories: categoryData }} />
     </React.Fragment>
   );
 };

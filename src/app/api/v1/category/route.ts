@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { ZCategorySchema } from "@/schemas/category.schema";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 
 export async function POST(request: Request) {
@@ -41,11 +42,11 @@ export async function GET(request: Request) {
     try {
 
         const results = await prisma.category.findMany();
-        return Response.json({ message: "Created successfully", results }, { status: 200 });
+        return NextResponse.json({ message: "Created successfully", results }, { status: 200 });
 
     } catch (error) {
         if (error instanceof z.ZodError) {
-            return Response.json({ message: "You have an error in query the category", errors: error.errors }, { status: 400 });
+            return NextResponse.json({ message: "You have an error in query the category", errors: error.errors }, { status: 400 });
         }
     }
 }

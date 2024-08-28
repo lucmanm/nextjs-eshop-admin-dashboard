@@ -1,7 +1,6 @@
 "use server"
 import { ENV } from "@/config/env-variable";
 import { ZBrandSchema } from "@/schemas/brand.schema";
-import { toast } from "react-toastify";
 import { z } from "zod";
 
 export async function createBrand(values: z.infer<typeof ZBrandSchema>) {

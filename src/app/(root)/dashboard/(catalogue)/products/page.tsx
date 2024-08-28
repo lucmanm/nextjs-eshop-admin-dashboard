@@ -7,10 +7,12 @@ import { columns as brandColumns, TBrandColumns } from './_components/table/bran
 import { DataTable } from './_components/table/data-table';
 import { columns as productColumn, TProductColumn } from './_components/table/product-column';
 import { TabList } from './_components/tablist';
+import { getCategory } from '@/actions/category.action';
 
 export default async function Page() {
   const result: TProductColumn[] = await getProducts();
   const brandResult: TBrandColumns[] = await getBrand();
+  const categoryResult= await getCategory();
 
   return (
     <React.Fragment>
@@ -28,6 +30,9 @@ export default async function Page() {
             </TabsContent>
             <TabsContent value="brands">
               <DataTable columns={brandColumns} data={brandResult} />
+            </TabsContent>
+            <TabsContent value="category">
+              <DataTable columns={brandColumns} data={categoryResult} />
             </TabsContent>
           </Tabs>
         </div>

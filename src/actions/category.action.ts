@@ -6,8 +6,12 @@ import { z } from "zod";
 export async function getCategory() {
     try {
         const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/category`)
-        const data = await response.json()
-        return { results: data.results }
+        if (response.status === 200) {
+            const data = await response.json()
+            return data.results
+        } else {
+            return { message: "ERROR_FETCH_CATEGORY" }
+        }
 
     } catch (error) {
         if (error instanceof z.ZodError) {
