@@ -3,15 +3,14 @@ import { getProducts } from '@/actions/product.action';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import React from 'react';
 import { RighSideOptions } from './_components/rightp-side-options';
-import { columns as brandColumns } from './_components/table/brand-column';
+import { columns as brandColumns, TBrandColumns } from './_components/table/brand-column';
 import { DataTable } from './_components/table/data-table';
 import { columns as productColumn, TProductColumn } from './_components/table/product-column';
 import { TabList } from './_components/tablist';
 
 export default async function Page() {
   const result: TProductColumn[] = await getProducts();
-  const brandResult = await getBrand();
-  console.log(brandResult);
+  const brandResult: TBrandColumns[] = await getBrand();
 
   return (
     <React.Fragment>

@@ -16,14 +16,14 @@ import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
 
-export type Brand = {
+export type TBrandColumns = {
   id: string;
   logoUrl: string | null;
   arName: string;
   enName: number;
 };
 
-export const columns: ColumnDef<Brand>[] = [
+export const columns: ColumnDef<TBrandColumns>[] = [
   {
     id: 'select',
     header: ({ table }) => (
