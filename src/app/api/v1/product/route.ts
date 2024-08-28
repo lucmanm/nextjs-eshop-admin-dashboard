@@ -37,6 +37,10 @@ export async function POST(request: Request) {
         const body = await request.json()
         const { arDescription, brandId, categoryId, enDescription, images, isActive, model, price, salePrice, stock } = ZProductSchema.parse(body);
 
+        // const checkCategory = await prisma.category.findUnique({
+        //     where:{id: categoryId}
+        // })
+
         const existingProduct = await prisma.product.findFirst({
             where: {
                 OR: [

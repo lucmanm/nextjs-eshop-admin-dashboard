@@ -26,7 +26,6 @@ import {
 
 import { DataTablePagination } from '@/components/table/data-table-pagination';
 import { DataTableViewOptions } from '@/components/table/data-table-view-options';
-import { RighSideOptions } from '../rightp-side-options';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

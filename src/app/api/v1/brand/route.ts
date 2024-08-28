@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { ZBrandSchema } from "@/schemas/brand.schema";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 
 export async function POST(request: Request) {
@@ -41,7 +42,7 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
     try {
         const results = await prisma.brand.findMany();
-        return Response.json({ message: "Success", results }, { status: 200 });
+        return NextResponse.json({ message: "success", results }, { status: 200 });
 
     } catch (error) {
         if (error instanceof z.ZodError) {

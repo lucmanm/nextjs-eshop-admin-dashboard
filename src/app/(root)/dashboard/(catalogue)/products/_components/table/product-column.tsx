@@ -17,20 +17,8 @@ import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
-  model: string;
-  image: string;
-  products: string;
-  price: number;
-  stock: number;
-  status: 'pending' | 'processing' | 'success' | 'failed';
-  sku: string;
-};
 
-export type Product = {
+export type TProductColumn = {
   id: string;
   model: string;
   enDescription: string;
@@ -38,7 +26,8 @@ export type Product = {
   stock: number;
   isActive: boolean;
 };
-export const columns: ColumnDef<Product>[] = [
+
+export const columns: ColumnDef<TProductColumn>[] = [
   {
     id: 'select',
     header: ({ table }) => (
