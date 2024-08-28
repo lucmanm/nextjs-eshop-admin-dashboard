@@ -6,12 +6,13 @@ import { z } from "zod";
 export async function getProducts() {
     try {
         const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/product`)
-        if (!response.ok) {
-            throw new Error("FAILED_FETCH_PRODUCTS");
+        if (response.status === 200) {
+            const data = await response.json()
+            return data.results
+        } else {
+            throw new Error("ERROR_REPONSE")
         }
 
-        const data = await response.json()
-        return data.results
 
     } catch (error) {
         console.log("ERROR_GET_PRODUCTS", error);

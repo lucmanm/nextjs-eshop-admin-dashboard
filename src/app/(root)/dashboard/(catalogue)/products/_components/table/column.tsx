@@ -120,7 +120,7 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       // CONTINUE need to work sitch by submit
       const isActive = row.getValue('isActive');
-      return <Switch checked={isActive === 'true'} />;
+      return <Switch checked={isActive === 'true'} value={'true'} />;
     },
   },
   {

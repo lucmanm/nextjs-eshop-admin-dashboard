@@ -5,13 +5,13 @@ import { columns, Payment, Product } from './_components/table/column';
 import { DataTable } from './_components/table/data-table';
 import { TabList } from './_components/tablist';
 import { getProducts } from '@/actions/product.action';
+import { defaultProductImage } from '@/constant/default-images';
 
 const data: Payment[] = [
   {
     id: 'm5gr84i9',
     model: 'model1',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 316,
     status: 'success',
     products: 'Product 1',
@@ -21,8 +21,7 @@ const data: Payment[] = [
   {
     id: '3u1reuv4',
     model: 'model2',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 242,
     status: 'success',
     products: 'Product 2',
@@ -32,8 +31,7 @@ const data: Payment[] = [
   {
     id: 'derv1ws0',
     model: 'model3',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 837,
     status: 'processing',
     products: 'Product 3',
@@ -43,8 +41,7 @@ const data: Payment[] = [
   {
     id: '5kma53ae',
     model: 'model4',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 874,
     status: 'success',
     products: 'Product 4',
@@ -54,8 +51,7 @@ const data: Payment[] = [
   {
     id: 'bhqecj4p',
     model: 'model5',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 721,
     status: 'failed',
     products: 'Product 5',
@@ -65,8 +61,7 @@ const data: Payment[] = [
   {
     id: 'bhqecj4p',
     model: 'model5',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 721,
     status: 'failed',
     products: 'Product 5',
@@ -76,8 +71,7 @@ const data: Payment[] = [
   {
     id: 'bhqecj4p',
     model: 'model5',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 721,
     status: 'failed',
     products: 'Product 5',
@@ -87,8 +81,7 @@ const data: Payment[] = [
   {
     id: 'bhqecj4p',
     model: 'model5',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 721,
     status: 'failed',
     products: 'Product 5',
@@ -98,8 +91,7 @@ const data: Payment[] = [
   {
     id: 'bhqecj4p',
     model: 'model5',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 721,
     status: 'failed',
     products: 'Product 5',
@@ -109,8 +101,7 @@ const data: Payment[] = [
   {
     id: 'bhqecj4p',
     model: 'model5',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 721,
     status: 'failed',
     products: 'Product 5',
@@ -120,8 +111,7 @@ const data: Payment[] = [
   {
     id: 'bhqecj4p',
     model: 'model5',
-    image:
-      'https://res.cloudinary.com/dzdcszrob/image/upload/v1721464840/playground-images/icons/mqfen1cbhqcpggyowiwr.png',
+    image: defaultProductImage,
     price: 721,
     status: 'failed',
     products: 'Product 5',
@@ -131,7 +121,6 @@ const data: Payment[] = [
 ];
 
 export default async function Page() {
-
   const result: Product[] = await getProducts();
 
   return (
