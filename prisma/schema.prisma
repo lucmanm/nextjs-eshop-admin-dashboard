@@ -40,9 +40,9 @@ model Product {
   salePrice     Decimal? @default(0.0)
   stock         Int      @default(0)
   arDescription String   @unique
-  category      Category @relation(fields: [categoryId], references: [id], onUpdate: Cascade)
+  category      Category @relation(fields: [categoryId], references: [id])
   images        Image[]
-  brand         Brand    @relation(fields: [brandId], references: [id], onUpdate: Cascade)
+  brand         Brand    @relation(fields: [brandId], references: [id])
 
   @@index([categoryId])
   @@index([brandId])
@@ -55,7 +55,7 @@ model Image {
   imageUrl  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onUpdate: Cascade)
 
   @@index([productId])
   @@map("images")

@@ -2,17 +2,21 @@ import { prisma } from "@/lib/prisma";
 import { ZProductSchema } from "@/schemas/product.schema";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-export async function GET(req: Request) {
+export async function GET(request: Request) {
     try {
+
         const results = await prisma.product.findMany({
             include: {
                 images: true,
-                brand: true,
-                category: true
+                brand: true
+            },
+            orderBy: {
+                createdAt: "asc"
             }
         });
 
-        return NextResponse.json({ results, message: "Success" }, { status: 200 });
+        return Response.json({ results, message: "success" }, { status: 200 });
+
     } catch (error) {
         if (error instanceof z.ZodError) {
             return NextResponse.json(
@@ -27,9 +31,9 @@ export async function GET(req: Request) {
     }
 }
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
     try {
-        const body = await req.json()
+        const body = await request.json()
         const { arDescription, brandId, categoryId, enDescription, images, isActive, model, price, salePrice, stock } = ZProductSchema.parse(body);
 
         const existingProduct = await prisma.product.findFirst({
@@ -53,7 +57,7 @@ export async function POST(req: Request) {
                 return NextResponse.json({ message: `Arabic description "${arDescription}" already exists.` });
             }
         }
-
+//ERROR you are going to get an error here becuase you are inserting data not according to the category or brand
 
         await prisma.product.create({
             data: {
