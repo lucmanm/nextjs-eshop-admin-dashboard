@@ -14,6 +14,7 @@ export default async function Page() {
   const { results: brandResult } = await getBrands();
   const categoryResult = await getCategory();
 
+
   return (
     <React.Fragment>
       <main className="flex flex-1 items-center justify-center rounded-lg">

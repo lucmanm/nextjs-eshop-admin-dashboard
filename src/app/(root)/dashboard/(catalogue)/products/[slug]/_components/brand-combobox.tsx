@@ -26,6 +26,7 @@ type TCombobox = {
   name: string;
   formLabel?: string;
   data?: {
+    id?: string;
     enName: string;
     arName: string;
   }[];
@@ -52,7 +53,7 @@ export function BrandCombobox(props: TCombobox) {
                   )}
                 >
                   {field.value
-                    ? props.data?.find((data) => data.enName === field.value)?.enName
+                    ? props.data?.find((data) => data.id === field.value)?.enName
                     : 'Select Brand'}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -66,17 +67,17 @@ export function BrandCombobox(props: TCombobox) {
                   <CommandGroup>
                     {props.data?.map((brand) => (
                       <CommandItem
-                        value={brand.enName}
+                        value={brand.id}
                         key={brand.enName}
                         onSelect={() => {
-                          form.setValue(`${props.name}`, brand.enName);
+                          form.setValue(`${props.name}`, brand.id);
                         }}
                         className="cursor-pointer"
                       >
                         <Check
                           className={cn(
                             'mr-2 h-4 w-4',
-                            brand.enName === field.value ? 'opacity-100' : 'opacity-0'
+                            brand.id === field.value ? 'opacity-100' : 'opacity-0'
                           )}
                         />
                         {brand.enName}

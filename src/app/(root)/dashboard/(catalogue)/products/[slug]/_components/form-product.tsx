@@ -45,16 +45,18 @@ export function FormProduct(props: TFormProduct) {
 
   async function onSubmit(data: z.infer<typeof ZProductSchema>) {
     try {
-      const result = await createProduct<string>(data);
-      if (result?.message) {
-        // TODO Reuse this
-        toast({ title: `${result.message}`, style: { borderColor: '#10b981' } });
-      } else {
-        toast({
-          title: `ERROR_FORM_SUBMIT`,
-          style: { borderColor: '#f8fafc', backgroundColor: '#991b1b', color: '#f8fafc' },
-        });
-      }
+      console.log("TEST_LOG", data);
+
+      // const result = await createProduct<string>(data);
+      // if (result?.message) {
+      //   // TODO Reuse this
+      //   toast({ title: `${result.message}`, style: { borderColor: '#10b981' } });
+      // } else {
+      //   toast({
+      //     title: `ERROR_FORM_SUBMIT`,
+      //     style: { borderColor: '#f8fafc', backgroundColor: '#991b1b', color: '#f8fafc' },
+      //   });
+      // }
     } catch (error) {
       if (error instanceof z.ZodError) {
         return Response.json({
