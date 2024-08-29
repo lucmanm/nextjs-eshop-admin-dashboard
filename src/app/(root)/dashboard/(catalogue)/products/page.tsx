@@ -1,4 +1,4 @@
-import { getBrand } from '@/actions/brand.action';
+import { getBrands } from '@/actions/brand.action';
 import { getProducts } from '@/actions/product.action';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import React from 'react';
@@ -11,8 +11,8 @@ import { getCategory } from '@/actions/category.action';
 
 export default async function Page() {
   const result: TProductColumn[] = await getProducts();
-  const brandResult: TBrandColumns[] = await getBrand();
-  const categoryResult= await getCategory();
+  const { results: brandResult } = await getBrands();
+  const categoryResult = await getCategory();
 
   return (
     <React.Fragment>

@@ -1,4 +1,4 @@
-import { getBrand } from '@/actions/brand.action';
+import { getBrands } from '@/actions/brand.action';
 import React from 'react';
 import { FormProduct } from './_components/form-product';
 import { getCategory } from '@/actions/category.action';
@@ -6,7 +6,7 @@ import { getCategory } from '@/actions/category.action';
 const Page = async ({ params }: { params: { slug: string } }) => {
   const slug = decodeURI(params.slug);
 
-  const brandData = await getBrand();
+  const brandData = await getBrands();
   const categoryData = await getCategory();
 
 

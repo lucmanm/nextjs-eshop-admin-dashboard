@@ -24,12 +24,14 @@ export async function createBrand(values: z.infer<typeof ZBrandSchema>) {
         }
     }
 }
-export async function getBrand() {
+
+
+export async function getBrands() {
     try {
         const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand`)
         if (response.status === 200) {
             const data = await response.json()
-            return data.results
+            return { message: "success", results: data.results }
         } else {
             return { message: "ERROR_FETCH_BRAND" }
         }
@@ -38,6 +40,28 @@ export async function getBrand() {
     } catch (error) {
         if (error instanceof z.ZodError) {
             return { message: "ERROR_GET_CATCH_BRAND", errors: error.errors, status: 501 };
+        } else {
+            return { message: "ERROR_GET_CATCH_BRAND", }
+        }
+    }
+}
+
+export async function getBrand(id: string) {
+    try {
+        const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand/${data}`)
+        if (response.status === 200) {
+            const data = await response.json()
+            return { message: "success", results: data.results }
+        } else {
+            return { message: "ERROR_FETCH_BRAND" }
+        }
+
+
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            return { message: "ERROR_GET_CATCH_BRAND", errors: error.errors, status: 501 };
+        } else {
+            return { message: "ERROR_GET_CATCH_BRAND", }
         }
     }
 }
