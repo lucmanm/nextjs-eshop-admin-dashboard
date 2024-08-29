@@ -51,7 +51,7 @@ export function CategoryComboBox(props: TCombobox) {
                   )}
                 >
                   {field.value
-                    ? props.data?.find((data) => data.enName === field.value)?.enName
+                    ? props.data?.find((data) => data.id === field.value)?.enName
                     : 'Select Category'}
                   <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
@@ -61,21 +61,21 @@ export function CategoryComboBox(props: TCombobox) {
               <Command>
                 <CommandInput placeholder="Search language..." />
                 <CommandList>
-                  <CommandEmpty>No brand found.</CommandEmpty>
+                  <CommandEmpty>No Data found.</CommandEmpty>
                   <CommandGroup>
                     {props.data?.map((brand) => (
                       <CommandItem
-                        value={brand.enName}
+                        value={brand.id}
                         key={brand.enName}
                         onSelect={() => {
-                          form.setValue(`${props.name}`, brand.enName);
+                          form.setValue(`${props.name}`, brand.id);
                         }}
                         className="cursor-pointer"
                       >
                         <Check
                           className={cn(
                             'mr-2 h-4 w-4',
-                            brand.enName === field.value ? 'opacity-100' : 'opacity-0'
+                            brand.id === field.value ? 'opacity-100' : 'opacity-0'
                           )}
                         />
                         {brand.enName}
