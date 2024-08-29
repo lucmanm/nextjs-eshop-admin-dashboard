@@ -36,10 +36,25 @@ export async function POST(request: Request) {
     try {
         const body = await request.json()
         const { arDescription, brandId, categoryId, enDescription, images, isActive, model, price, salePrice, stock } = ZProductSchema.parse(body);
-        // CONTINUE FILTER ALL THE DATA BEFORE ENTERING
-        // const checkCategory = await prisma.category.findUnique({
-        //     where:{id: categoryId}
-        // })
+
+        // WIP FILTER ALL THE DATA BEFORE ENTERING
+
+        // Brand and Category ID Checking
+        const checkCategory = await prisma.category.findUnique({
+            where: { id: categoryId }
+        })
+
+        if (!checkCategory) {
+            return NextResponse.json({ message: "Error this category not available~" });
+        }
+        // Check the brand if available
+        const checkBrand = await prisma.brand.findUnique({
+            where: { id: brandId }
+        })
+
+        if (!checkBrand) {
+            return NextResponse.json({ message: "Error this brandF not available~" });
+        }
 
         const existingProduct = await prisma.product.findFirst({
             where: {
@@ -50,19 +65,19 @@ export async function POST(request: Request) {
                 ]
             }
         });
+        console.log("TEST_LOG");
 
         if (existingProduct) {
             if (existingProduct.model === model) {
-                return NextResponse.json({ message: `Model "${model}" already exists.` });
+                return NextResponse.json({ message: `Model "${model}" already exists.` }, { status: 409 });
             }
             if (existingProduct.enDescription === enDescription) {
-                return NextResponse.json({ message: `English description "${enDescription}" already exists.` });
+                return NextResponse.json({ message: `English description "${enDescription}" already exists.` }, { status: 409 });
             }
             if (existingProduct.arDescription === arDescription) {
-                return NextResponse.json({ message: `Arabic description "${arDescription}" already exists.` });
+                return NextResponse.json({ message: `Arabic description "${arDescription}" already exists.` }, {status: 409});
             }
         }
-//ERROR you are going to get an error here becuase you are inserting data not according to the category or brand
 
         await prisma.product.create({
             data: {
@@ -85,7 +100,7 @@ export async function POST(request: Request) {
             }
         });
 
-        return NextResponse.json({ message: "Product created successfully" });
+        return NextResponse.json({ message: "Product created successfully" }, { status: 201 });
 
     } catch (error) {
         if (error instanceof z.ZodError) {

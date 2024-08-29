@@ -23,7 +23,7 @@ type TFormProduct = {
   brands: z.infer<typeof ZBrandSchema>[];
   categories: z.infer<typeof ZCategorySchema>[];
 };
-// CONTINUE THE DATA FOR YOU NEED TO SUBMIT FOR PRODUCT IS ID'S OF BRAND AND CATEGORY
+
 export function FormProduct(props: TFormProduct) {
   const { brands, categories } = props;
 
@@ -45,25 +45,12 @@ export function FormProduct(props: TFormProduct) {
 
   async function onSubmit(data: z.infer<typeof ZProductSchema>) {
     try {
-      console.log("TEST_LOG", data);
 
-      // const result = await createProduct<string>(data);
-      // if (result?.message) {
-      //   // TODO Reuse this
-      //   toast({ title: `${result.message}`, style: { borderColor: '#10b981' } });
-      // } else {
-      //   toast({
-      //     title: `ERROR_FORM_SUBMIT`,
-      //     style: { borderColor: '#f8fafc', backgroundColor: '#991b1b', color: '#f8fafc' },
-      //   });
-      // }
+      const result = await createProduct(data);
+      toast({ title: `${result?.message}`, style: { borderColor: '#10b981' } });
+
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        return Response.json({
-          message: 'You have an error submittion product~',
-          errors: error.errors,
-        });
-      }
+      toast({ title: 'CATCH_ERROR_ONSUBMIT', style: { borderColor: '#10b981' } });
     }
   }
 
