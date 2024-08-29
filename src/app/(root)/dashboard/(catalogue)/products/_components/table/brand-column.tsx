@@ -47,7 +47,7 @@ export const columns: ColumnDef<TBrandColumns>[] = [
   },
   {
     accessorKey: 'enName',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Brand Name" />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Brand Name"/>,
   },
   {
     accessorKey: 'logoUrl',
