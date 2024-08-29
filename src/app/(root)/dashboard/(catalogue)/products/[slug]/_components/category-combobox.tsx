@@ -29,7 +29,7 @@ type TCombobox = {
   formLabel?: string;
   data?: z.infer<typeof ZCategorySchema>[];
 };
-export function CaetogoryCombobox(props: TCombobox) {
+export function CategoryComboBox(props: TCombobox) {
   const form = useFormContext();
   return (
     <FormField

@@ -3,19 +3,21 @@ import { ENV } from "@/config/env-variable";
 import { ZCategorySchema } from "@/schemas/category.schema";
 import { z } from "zod";
 
-export async function getCategory() {
+export async function getCategories() {
     try {
         const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/category`)
         if (response.status === 200) {
             const data = await response.json()
-            return data.results
+            return { message: "success", results: data.results }
         } else {
-            return { message: "ERROR_FETCH_CATEGORY" }
+            return { message: "ERROR_FETCH_CATEGORIES" }
         }
 
     } catch (error) {
         if (error instanceof z.ZodError) {
-            return { message: "You have an error in fetching the category", errors: error.errors, status: 501 };
+            return { message: "ERROR_GET_CATCH_CATEGORIES", errors: error.errors, status: 501 };
+        } else {
+            return { message: "ERROR_GET_CATCH_CATEGORIES", }
         }
     }
 }

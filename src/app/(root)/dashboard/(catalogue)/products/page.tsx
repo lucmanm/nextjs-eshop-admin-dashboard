@@ -7,12 +7,12 @@ import { columns as brandColumns, TBrandColumns } from './_components/table/bran
 import { DataTable } from './_components/table/data-table';
 import { columns as productColumn, TProductColumn } from './_components/table/product-column';
 import { TabList } from './_components/tablist';
-import { getCategory } from '@/actions/category.action';
+import { getCategories } from '@/actions/category.action';
 
 export default async function Page() {
   const result: TProductColumn[] = await getProducts();
-  const { results: brandResult } = await getBrands();
-  const categoryResult = await getCategory();
+  const { results: brandData } = await getBrands();
+  const { results: categoriesData }  = await getCategories();
 
 
   return (
@@ -30,10 +30,10 @@ export default async function Page() {
               <DataTable columns={productColumn} data={result} />
             </TabsContent>
             <TabsContent value="brands">
-              <DataTable columns={brandColumns} data={brandResult} />
+              <DataTable columns={brandColumns} data={brandData} />
             </TabsContent>
             <TabsContent value="category">
-              <DataTable columns={brandColumns} data={categoryResult} />
+              <DataTable columns={brandColumns} data={categoriesData} />
             </TabsContent>
           </Tabs>
         </div>

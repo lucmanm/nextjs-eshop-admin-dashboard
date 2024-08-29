@@ -38,7 +38,7 @@ export function BrandCombobox(props: TCombobox) {
       control={form.control}
       name={props.name}
       render={({ field }) => (
-        <FormItem className="flex flex-col">
+        <FormItem className="flex flex-col *:capitalize">
           {props.formLabel && <FormLabel>{props.formLabel}</FormLabel>}
           <Popover>
             <PopoverTrigger asChild>
@@ -59,7 +59,7 @@ export function BrandCombobox(props: TCombobox) {
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[200px] p-0 capitalize">
               <Command>
                 <CommandInput placeholder="Search language..." />
                 <CommandList>

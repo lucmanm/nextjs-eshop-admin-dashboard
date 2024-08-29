@@ -13,7 +13,7 @@ import { ZBrandSchema } from '@/schemas/brand.schema';
 import { ZCategorySchema } from '@/schemas/category.schema';
 import { ZProductSchema } from '@/schemas/product.schema';
 import { BrandCombobox } from './brand-combobox';
-import { CaetogoryCombobox } from './category-combobox';
+import { CategoryComboBox } from './category-combobox';
 import { ProductImage } from './product-images';
 import { FieldInput } from './ui/field-input';
 import { FieldInputTextArea } from './ui/field-input-textarea';
@@ -101,7 +101,7 @@ export function FormProduct(props: TFormProduct) {
                         formLabel: 'Brand',
                       }}
                     />
-                    <CaetogoryCombobox
+                    <CategoryComboBox
                       {...{
                         name: 'categoryId',
                         data: categories,
@@ -157,7 +157,7 @@ export function FormProduct(props: TFormProduct) {
                         formLabel: 'Brand',
                       }}
                     />
-                    <CaetogoryCombobox
+                    <CategoryComboBox
                       {...{
                         name: 'categoryId',
                         data: categories,
