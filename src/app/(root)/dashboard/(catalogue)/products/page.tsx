@@ -7,9 +7,20 @@ import { RighSideOptions } from './_components/rightp-side-options';
 import { columns as brandColumns } from './_components/table/brand-column';
 import { DataTable } from './_components/table/data-table';
 import { columns as productColumn, TProductColumn } from './_components/table/product-column';
-import { TabList } from './_components/tablist';
+import { SearchQueryType, TabList } from './_components/tablist';
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  // Extract the value of the 'search' query parameter
+  const searchValue = searchParams?.search;
+
+  // Handle the case where 'search' might be an array or undefined
+  const searchQuery: SearchQueryType =
+    ((Array.isArray(searchValue) ? searchValue[0] : searchValue) as SearchQueryType) || 'products';
+
   const result: TProductColumn[] = await getProducts();
   const { results: brandData } = await getBrands();
   const { results: categoriesData } = await getCategories();
@@ -25,15 +36,23 @@ export default async function Page() {
               {/* Product Right menus and options */}
               <RighSideOptions />
             </div>
-            <TabsContent value="products">
-              <DataTable columns={productColumn} data={result} />
-            </TabsContent>
-            <TabsContent value="brands">
-              <DataTable columns={brandColumns} data={brandData} />
-            </TabsContent>
-            <TabsContent value="category">
-              <DataTable columns={brandColumns} data={categoriesData} />
-            </TabsContent>
+            {searchQuery === 'products' && (
+              <TabsContent value="products">
+                <DataTable columns={productColumn} data={result} />
+              </TabsContent>
+            )}
+
+            {searchQuery === 'brands' && (
+              <TabsContent value="brands">
+                <DataTable columns={brandColumns} data={brandData} />
+              </TabsContent>
+            )}
+
+            {searchQuery === 'category' && (
+              <TabsContent value="category">
+                <DataTable columns={brandColumns} data={categoriesData} />
+              </TabsContent>
+            )}
           </Tabs>
         </div>
       </main>

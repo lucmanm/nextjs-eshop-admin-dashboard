@@ -1,22 +1,11 @@
 'use client';
 
-import { deleteBrand } from '@/actions/brand.action';
 import { DataTableColumnHeader } from '@/components/table/column-header';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { defaultProductImage } from '@/constant/default-images';
 import { ColumnDef } from '@tanstack/react-table';
-import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
-import { toast } from 'react-toastify';
+import { BrandCellAction } from './components/brand-cell-actions';
 
 export type TBrandColumns = {
   id: string;
@@ -75,33 +64,7 @@ export const columns: ColumnDef<TBrandColumns>[] = [
     cell: ({ row }) => {
       const id = row.original.id;
 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Update</DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={async () => {
-                const response = await deleteBrand(id);
-                if (response.success) {
-                  toast.success(`${response.message}`);
-                }else{
-                  toast.error(`${response.message}`);
-                }
-              }}
-            >
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <BrandCellAction id={id} />;
     },
   },
 ];

@@ -14,8 +14,8 @@ import { useStoreModal } from '@/hook/useStoreModal';
 import { useLocale } from 'next-intl';
 import { isRtlLang } from 'rtl-detect';
 import { ButtonWithIcon } from '@/components/ui/button-w-icon';
-import { FormBrand } from './form/form-brand';
-import { FormCategory } from './form/form-category';
+import { FormBrand } from '../[slug]/_components/form/form-brand';
+import { FormCategory } from '../[slug]/_components/form/form-category';
 
 type onOpenModalData = 'addBrand' | 'addCategory';
 
