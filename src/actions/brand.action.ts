@@ -46,22 +46,35 @@ export async function getBrands() {
     }
 }
 
-export async function getBrand(id: string) {
-    try {
-        const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand/${data}`)
-        if (response.status === 200) {
-            const data = await response.json()
-            return { message: "success", results: data.results }
-        } else {
-            return { message: "ERROR_FETCH_BRAND" }
-        }
+// export async function getBrand(id: string) {
+//     try {
+//         const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand/${data}`)
+//         if (response.status === 200) {
+//             const data = await response.json()
+//             return { message: "success", results: data.results }
+//         } else {
+//             return { message: "ERROR_FETCH_BRAND" }
+//         }
 
+
+//     } catch (error) {
+//         if (error instanceof z.ZodError) {
+//             return { message: "ERROR_GET_CATCH_BRAND", errors: error.errors, status: 501 };
+//         } else {
+//             return { message: "ERROR_GET_CATCH_BRAND", }
+//         }
+//     }
+// }
+
+export async function deleteBrand(id: string) {
+    try {
+        console.log(id);
 
     } catch (error) {
         if (error instanceof z.ZodError) {
-            return { message: "ERROR_GET_CATCH_BRAND", errors: error.errors, status: 501 };
+            return { message: "ERROR_DELETE_CATCHED_BRAND", };
         } else {
-            return { message: "ERROR_GET_CATCH_BRAND", }
+            return { message: "ERROR_DELETE_CATCHED_BRAND", }
         }
     }
 }

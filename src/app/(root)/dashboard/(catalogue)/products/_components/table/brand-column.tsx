@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteBrand } from '@/actions/brand.action';
 import { DataTableColumnHeader } from '@/components/table/column-header';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -70,9 +71,9 @@ export const columns: ColumnDef<TBrandColumns>[] = [
   {
     id: 'actions',
     header: 'Actions',
-    cell: ({ row }) => {
-      const payment = row.original;
-
+    cell: ({ getValue }) => {
+      const id = getValue();
+// WIP get the id off the cells
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -85,7 +86,9 @@ export const columns: ColumnDef<TBrandColumns>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Update</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={async ()=> {
+              await deleteBrand(id as string)
+            }}>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
