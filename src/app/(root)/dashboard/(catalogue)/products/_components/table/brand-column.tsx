@@ -16,6 +16,7 @@ import { defaultProductImage } from '@/constant/default-images';
 import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 export type TBrandColumns = {
   id: string;
@@ -48,7 +49,7 @@ export const columns: ColumnDef<TBrandColumns>[] = [
   },
   {
     accessorKey: 'enName',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Brand Name"/>,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Brand Name" />,
   },
   {
     accessorKey: 'logoUrl',
@@ -71,9 +72,9 @@ export const columns: ColumnDef<TBrandColumns>[] = [
   {
     id: 'actions',
     header: 'Actions',
-    cell: ({ getValue }) => {
-      const id = getValue();
-// WIP get the id off the cells
+    cell: ({ row }) => {
+      const id = row.original.id;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -86,9 +87,18 @@ export const columns: ColumnDef<TBrandColumns>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Update</DropdownMenuItem>
-            <DropdownMenuItem onClick={async ()=> {
-              await deleteBrand(id as string)
-            }}>Delete</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={async () => {
+                const response = await deleteBrand(id);
+                if (response.success) {
+                  toast.success(`${response.message}`);
+                }else{
+                  toast.error(`${response.message}`);
+                }
+              }}
+            >
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

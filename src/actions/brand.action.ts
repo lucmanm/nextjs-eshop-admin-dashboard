@@ -68,13 +68,29 @@ export async function getBrands() {
 
 export async function deleteBrand(id: string) {
     try {
-        console.log(id);
+
+        const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/brand/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+
+        if (!response.ok) {
+            return { success: false, message: "ERROR_DELETE_BRAND" }
+        } else {
+            return { success: true, message: "Successfully Deleted" }
+        }
 
     } catch (error) {
+
+        let errorMessage = "ERROR_DELETE_CATCHED_BRAND";
+
         if (error instanceof z.ZodError) {
-            return { message: "ERROR_DELETE_CATCHED_BRAND", };
-        } else {
-            return { message: "ERROR_DELETE_CATCHED_BRAND", }
+            errorMessage = "ERROR_DELETE_CATCHED_BRAND";
         }
+        return { success: false, message: errorMessage, }
+
+
     }
 }
