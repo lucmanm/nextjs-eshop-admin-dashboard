@@ -4,9 +4,9 @@ import { getProducts } from '@/actions/product.action';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import React from 'react';
 import { RighSideOptions } from './_components/rightp-side-options';
-import { columns as brandColumns } from './_components/table/brand-column';
+import { columns as brandColumns } from './_components/table/columns-brand';
+import { columns as productColumn } from './_components/table/columns-product';
 import { DataTable } from './_components/table/data-table';
-import { columns as productColumn, TProductColumn } from './_components/table/product-column';
 import { SearchQueryType, TabList } from './_components/tablist';
 
 export default async function Page({
