@@ -1,14 +1,10 @@
 import { getBrands } from '@/actions/brand.action';
-import { DataTable } from '@/components/table/data-table'
-import React from 'react'
-import { brandColumns } from './_components/brand-column';
+import { DataTable } from '@/components/table/data-table';
+import React from 'react';
+import { brandColumns } from './_components/columns-brand';
 
 const Page = async () => {
   const { results: brandData } = await getBrands();
-  return (
-    <div>
-      <DataTable columns={brandColumns} data={brandData} />
-    </div>
-  )
-}
-export default Page
+  return <DataTable columns={brandColumns} data={brandData} />;
+};
+export default Page;

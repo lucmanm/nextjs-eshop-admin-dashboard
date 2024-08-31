@@ -11,7 +11,7 @@ export type TBrandColumns = {
   id: string;
   logoUrl: string | null;
   arName: string;
-  enName: number;
+  enName: string;
 };
 
 export const brandColumns: ColumnDef<TBrandColumns>[] = [
