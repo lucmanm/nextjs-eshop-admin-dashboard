@@ -5,6 +5,10 @@ import { brandColumns } from './_components/columns-brand';
 
 const Page = async () => {
   const { results: brandData } = await getBrands();
-  return <DataTable columns={brandColumns} data={brandData} />;
+  return (
+    <div className="capitalize">
+      <DataTable columns={brandColumns} data={brandData} />;
+    </div>
+  );
 };
 export default Page;
