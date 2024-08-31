@@ -11,7 +11,7 @@ export type TBrandColumns = {
   id: string;
   logoUrl: string | null;
   arName: string;
-  enName: number;
+  enName: string;
 };
 
 export const columns: ColumnDef<TBrandColumns>[] = [
@@ -38,20 +38,22 @@ export const columns: ColumnDef<TBrandColumns>[] = [
   },
   {
     accessorKey: 'enName',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Brand Name" className='capitalize'/>,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Brand Name" className="capitalize" />
+    ),
   },
   {
     accessorKey: 'logoUrl',
     header: 'Brand Logo',
     cell: ({ row }) => {
-      // const images = row.getValue('images') as string[];
+      const image = row.getValue('logoUrl');
       return (
         <div className="text-right font-medium">
           <Image
-            src={defaultProductImage}
+            src={`${image ? image : defaultProductImage}`}
             alt="product image"
-            width={50}
-            height={50}
+            width={100}
+            height={100}
             className="size-12 object-cover"
           />
         </div>

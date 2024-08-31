@@ -30,7 +30,7 @@ export default async function Page({
       <main className="flex flex-1 items-center justify-center rounded-lg">
         <div className="grid flex-1 items-start gap-4 md:gap-8">
           <Tabs defaultValue={searchQuery}>
-            <div className="flex items-center">
+            <div className="flex items-center ">
               {/* Tablist */}
               <TabList />
               {/* Product Right menus and options */}
@@ -43,7 +43,7 @@ export default async function Page({
             )}
 
             {searchQuery === 'brands' && (
-              <TabsContent value="brands">
+              <TabsContent value="brands" className='capitalize'>
                 <DataTable columns={brandColumns} data={brandData} />
               </TabsContent>
             )}
