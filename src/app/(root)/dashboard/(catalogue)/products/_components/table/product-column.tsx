@@ -20,6 +20,7 @@ import Image from 'next/image';
 
 export type TProductColumn = {
   id: string;
+  sku?: string
   model: string;
   enDescription: string;
   price: number;
@@ -49,6 +50,7 @@ export const columns: ColumnDef<TProductColumn>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+  // TODO You need to comeback on this becuase sku is not available data you are passing
   {
     accessorKey: 'sku',
     header: 'SKU',
