@@ -41,6 +41,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",
+    "react-pdf": "^9.1.0",
     "react-toastify": "^10.0.5",
     "recharts": "^2.12.7",
     "rtl-detect": "^1.1.2",
