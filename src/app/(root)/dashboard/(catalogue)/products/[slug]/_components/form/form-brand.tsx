@@ -43,12 +43,12 @@ export function FormBrand() {
 
     if (reponse?.status === 201) {
       toast.success(reponse?.message);
+      form.reset()
+      toggle()
+      router.refresh()
     } else {
       toast.warning(reponse?.message);
     }
-    router.refresh()
-    form.reset()
-    toggle()
   }
 
   return (
