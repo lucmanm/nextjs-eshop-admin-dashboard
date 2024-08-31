@@ -3,5 +3,7 @@
   "prisma-smart-formatter.typescriptreact.defaultFormatter": "esbenp.prettier-vscode",
   "prisma-smart-formatter.prisma.defaultFormatter": "Prisma.prisma",
   "i18n-ally.localesPaths": ["../translation"], // E.g. "./messages"
-  "i18n-ally.keystyle": "nested"
+  "i18n-ally.keystyle": "nested",
+  "pieces.cloudCapabilities": "Blended",
+  "pieces.telemetry": true
 }
