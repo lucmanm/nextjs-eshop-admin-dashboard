@@ -6,16 +6,14 @@ import { z } from "zod";
 export async function getProducts() {
     try {
         const response = await fetch(`${ENV.PUBLIC_ESHOP_API}/product`)
-        if (response.status === 200) {
+        if (response.ok) {
             const data = await response.json()
-            return data.results
+            return { message: "success", results: data.results }
         } else {
-            throw new Error("ERROR_REPONSE")
+            return { message: "ERROR_FETCH_PRODUCTS", }
         }
-
-
     } catch (error) {
-        console.log("ERROR_GET_PRODUCTS", error);
+        return { message: "ERROR_FETCH_PRODUCTS", error }
     }
 }
 
@@ -32,10 +30,10 @@ export async function createProduct(data: z.infer<typeof ZProductSchema>) {
 
         if (response.status === 201) {
             const data = await response.json();
-            return { message: data.message };
+            return { message: "Successfully Created"  };
         } else if (response.status === 409) {
             const data = await response.json();
-            return { message: data.message }
+            return { message: `${data.message} this is exist` }
         } else {
             return { message: "ERROR DATA" }
         }
