@@ -29,7 +29,7 @@ export default async function Page({
     <React.Fragment>
       <main className="flex flex-1 items-center justify-center rounded-lg">
         <div className="grid flex-1 items-start gap-4 md:gap-8">
-          <Tabs defaultValue="products">
+          <Tabs defaultValue={searchQuery}>
             <div className="flex items-center">
               {/* Tablist */}
               <TabList />
