@@ -15,27 +15,27 @@ export type TBrandColumns = {
 };
 
 export const brandColumns: ColumnDef<TBrandColumns>[] = [
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  // {
+  //   id: 'select',
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
+  //       }
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     accessorKey: 'enName',
     header: ({ column }) => (
@@ -44,17 +44,17 @@ export const brandColumns: ColumnDef<TBrandColumns>[] = [
   },
   {
     accessorKey: 'logoUrl',
-    header: 'Brand Logo',
+    header: () => <div className="text-center">Logo</div>,
     cell: ({ row }) => {
       const image = row.getValue('logoUrl');
       return (
-        <div className="text-right font-medium">
+        <div className="flex items-center text-right">
           <Image
             src={`${image ? image : defaultProductImage}`}
             alt="product image"
             width={100}
             height={100}
-            className="size-12 object-cover"
+            className="mx-auto size-12 w-fit object-cover"
           />
         </div>
       );
