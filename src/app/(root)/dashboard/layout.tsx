@@ -5,7 +5,7 @@ import { NotificationIcon } from "@dashboard/_components/notifiction-icon";
 import { SearchInput } from "@dashboard/_components/search-input";
 import { MbMenu } from "@dashboard/_components/mb-menu";
 import LocaleSwitcher from "@/components/locale-switcher";
-import { Modal } from "@dashboard/_components/modal";
+import { Modal } from "@/app/(root)/dashboard/_components/modals/modal";
 import { Sidebar } from "@dashboard/_components/side-bar";
 
 export default function DashboardLayout({
