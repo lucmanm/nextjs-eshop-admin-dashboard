@@ -17,6 +17,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { importExcelData } from '@/actions/excel-file.action';
+import { toast } from 'react-toastify';
+import { LoaderCircle } from 'lucide-react';
 
 const FormSchema = z.object({
   excelFile: z
@@ -53,7 +55,16 @@ export function ImportProducts() {
           const sheetData = workbook.Sheets[sheetName];
           const json = XLSX.utils.sheet_to_json(sheetData);
           const excelValues = JSON.parse(JSON.stringify(json));
-          await importExcelData(excelValues);
+          try {
+            const response = await importExcelData(excelValues);
+            if (response?.status === 200) {
+              toast.success(`${response.message}`);
+            } else if (response?.status === 409) {
+              toast.warning(`${response.message}`);
+            }
+          } catch (error) {
+            toast.error('Problem with your file');
+          }
         }
       };
       reader.readAsArrayBuffer(file);
@@ -83,7 +94,14 @@ export function ImportProducts() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          className="gap-4 font-semibold"
+        >
+          {form.formState.isSubmitting && <LoaderCircle className="animate-spin" />}
+          Submit
+        </Button>
       </form>
     </Form>
   );
