@@ -17,10 +17,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import Image from 'next/image';
 
-
 export type TProductColumn = {
   id: string;
-  sku?: string
+  sku?: string;
   model: string;
   enDescription: string;
   price: number;
@@ -81,6 +80,9 @@ export const columns: ColumnDef<TProductColumn>[] = [
   {
     accessorKey: 'enDescription',
     header: 'Products',
+    cell: ({ row }) => {
+      return <div className="line-clamp-3 w-[500px]">{row.getValue('enDescription')}</div>;
+    },
   },
   {
     accessorKey: 'price',

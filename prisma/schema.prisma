@@ -38,7 +38,7 @@ model Warehouse {
 
   @@index([productId])
 }
-
+// TODO this below model is not yet sync
 model Inventory {
   id            String   @id @default(cuid())
   warehouseName String
