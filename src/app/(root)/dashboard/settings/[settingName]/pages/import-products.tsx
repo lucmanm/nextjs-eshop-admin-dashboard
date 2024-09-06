@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { LoaderCircle } from 'lucide-react';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -38,6 +38,7 @@ const FormSchema = z.object({
 });
 
 export function ImportProducts() {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -77,7 +78,7 @@ export function ImportProducts() {
     } finally {
       setIsLoading(false);
       form.reset()
-      redirect('/login')
+      router.push('/dashboard/products')
     }
   }
 
