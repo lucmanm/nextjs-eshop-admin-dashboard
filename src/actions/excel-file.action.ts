@@ -1,4 +1,7 @@
 "use server"
+
+import { prisma } from "@/lib/prisma"
+
 export type TFileData = {
     model: string,
     ar_description: string
@@ -17,6 +20,5 @@ export async function importExcelData(values: TFileData[]) {
 
     } catch (error) {
         console.log("TEST LOG", error);
-
     }
 }
