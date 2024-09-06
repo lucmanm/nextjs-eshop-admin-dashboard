@@ -39,6 +39,16 @@ model Warehouse {
   @@index([productId])
 }
 
+model Inventory {
+  id            String   @id @default(cuid())
+  warehouseName String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  Product       Product? @relation(fields: [productId], references: [id])
+  productId     String?
+  @@index([productId])
+}
+
 model Product {
   id            String      @id @default(cuid())
   warehouse     Warehouse[]
@@ -56,6 +66,7 @@ model Product {
   category      Category    @relation(fields: [categoryId], references: [id])
   images        Image[]
   brand         Brand       @relation(fields: [brandId], references: [id])
+  Inventory     Inventory[]
 
   @@index([categoryId])
   @@index([brandId])

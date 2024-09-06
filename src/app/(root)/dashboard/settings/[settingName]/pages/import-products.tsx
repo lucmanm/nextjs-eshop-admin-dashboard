@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import * as XLSX from 'xlsx';
 import { z } from 'zod';
 
+import { importExcelData } from '@/actions/excel-file.action';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -16,9 +17,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { importExcelData } from '@/actions/excel-file.action';
-import { toast } from 'react-toastify';
 import { LoaderCircle } from 'lucide-react';
+import { redirect } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const FormSchema = z.object({
   excelFile: z
@@ -36,6 +38,7 @@ const FormSchema = z.object({
 });
 
 export function ImportProducts() {
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -45,6 +48,7 @@ export function ImportProducts() {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
+      setIsLoading(true);
       const file = data.excelFile;
       const reader = new FileReader();
       reader.onload = async (e) => {
@@ -70,6 +74,10 @@ export function ImportProducts() {
       reader.readAsArrayBuffer(file);
     } catch (error) {
       console.log('ERROR', error);
+    } finally {
+      setIsLoading(false);
+      form.reset()
+      redirect('/login')
     }
   }
 
@@ -94,12 +102,8 @@ export function ImportProducts() {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          disabled={form.formState.isSubmitting}
-          className="gap-4 font-semibold"
-        >
-          {form.formState.isSubmitting && <LoaderCircle className="animate-spin" />}
+        <Button type="submit" disabled={isLoading} className="gap-4 font-semibold">
+          {isLoading && <LoaderCircle className="animate-spin" />}
           Submit
         </Button>
       </form>

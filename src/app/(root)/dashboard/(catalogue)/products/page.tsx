@@ -31,7 +31,7 @@ export default async function Page({
         <div className="grid flex-1 items-start gap-4 md:gap-8">
           <Tabs defaultValue={searchQuery}>
             <div className="flex items-center ">
-              {/* Tablist */}
+              {/* Products Header  */}
               <TabList />
               {/* Product Right menus and options */}
               <RighSideOptions />
