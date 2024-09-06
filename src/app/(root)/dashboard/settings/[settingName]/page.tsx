@@ -3,6 +3,7 @@ import { BannerPage } from './pages/banner-page';
 import { StoreImages } from './pages/store-images';
 import StoreInformation from './pages/store-information';
 import { TSettingName } from '@/constant/settingsData';
+import { ImportProducts } from './pages/import-products';
 
 type SettingNameProps = {
   params: {
@@ -20,6 +21,8 @@ const SettingNamePage = async ({ params }: SettingNameProps) => {
       return <StoreInformation />;
     case 'store images':
       return <StoreImages />;
+    case 'import products':
+      return <ImportProducts />;
     default:
       return notFound();
   }
