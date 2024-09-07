@@ -13,7 +13,9 @@ export async function GET(request: Request) {
             },
             orderBy: {
                 createdAt: "asc"
-            }
+            },
+            take:30,
+            skip:0
         });
 
         return Response.json({ results, message: "success" }, { status: 200 });
