@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
 datasource db {
@@ -38,6 +39,7 @@ model Warehouse {
 
   @@index([productId])
 }
+
 // TODO this below model is not yet sync
 model Inventory {
   id            String   @id @default(cuid())
@@ -46,31 +48,8 @@ model Inventory {
   updatedAt     DateTime @updatedAt
   Product       Product? @relation(fields: [productId], references: [id])
   productId     String?
+
   @@index([productId])
-}
-
-model Product {
-  id            String      @id @default(cuid())
-  warehouse     Warehouse[]
-  model         String      @unique
-  enDescription String      @unique
-  price         Decimal     @default(0.0)
-  isActive      Boolean     @default(false)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  categoryId    String
-  brandId       String
-  salePrice     Decimal?    @default(0.0)
-  stock         Int         @default(0)
-  arDescription String      @unique
-  category      Category    @relation(fields: [categoryId], references: [id])
-  images        Image[]
-  brand         Brand       @relation(fields: [brandId], references: [id])
-  Inventory     Inventory[]
-
-  @@index([categoryId])
-  @@index([brandId])
-  @@map("products")
 }
 
 model Image {
@@ -105,4 +84,12 @@ model Brand {
   arName    String    @unique
   enName    String    @unique
   products  Product[]
+}
+
+enum Role {
+  ADMIN
+  USER
+  GUEST
+  SALES
+  EDITOR
 }

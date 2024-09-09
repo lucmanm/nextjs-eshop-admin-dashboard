@@ -1,0 +1,23 @@
+model Product {
+  id            String      @id @default(cuid())
+  warehouse     Warehouse[]
+  model         String      @unique
+  enDescription String      @unique
+  price         Decimal     @default(0.0)
+  isActive      Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  categoryId    String
+  brandId       String
+  salePrice     Decimal?    @default(0.0)
+  stock         Int         @default(0)
+  arDescription String      @unique
+  category      Category    @relation(fields: [categoryId], references: [id])
+  images        Image[]
+  brand         Brand       @relation(fields: [brandId], references: [id])
+  Inventory     Inventory[]
+
+  @@index([categoryId])
+  @@index([brandId])
+  @@map("products")
+}
