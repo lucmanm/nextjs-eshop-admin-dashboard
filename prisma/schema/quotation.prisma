@@ -1,6 +1,5 @@
-model Product {
+model Quotation {
   id            String      @id @default(cuid())
-  warehouse     Warehouse[]
   model         String      @unique
   enDescription String      @unique
   price         Decimal     @default(0.0)
@@ -19,5 +18,5 @@ model Product {
 
   @@index([categoryId])
   @@index([brandId])
-  @@map("products")
+  @@map("quotations")
 }

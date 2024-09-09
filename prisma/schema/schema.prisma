@@ -42,48 +42,56 @@ model Warehouse {
 
 // TODO this below model is not yet sync
 model Inventory {
-  id            String   @id @default(cuid())
+  id            String     @id @default(cuid())
   warehouseName String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  Product       Product? @relation(fields: [productId], references: [id])
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  Product       Product?   @relation(fields: [productId], references: [id])
   productId     String?
+  Quotation     Quotation? @relation(fields: [quotationId], references: [id])
+  quotationId   String?
 
   @@index([productId])
+  @@index([quotationId])
 }
 
 model Image {
-  id        String   @id @default(cuid())
-  productId String
-  imageUrl  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  product   Product  @relation(fields: [productId], references: [id], onUpdate: Cascade)
+  id          String     @id @default(cuid())
+  productId   String
+  imageUrl    String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  product     Product    @relation(fields: [productId], references: [id], onUpdate: Cascade)
+  Quotation   Quotation? @relation(fields: [quotationId], references: [id])
+  quotationId String?
 
   @@index([productId])
+  @@index([quotationId])
   @@map("images")
 }
 
 model Category {
-  id        String    @id @default(cuid())
+  id        String      @id @default(cuid())
   imageUrl  String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  arName    String    @unique
-  enName    String    @unique
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  arName    String      @unique
+  enName    String      @unique
   products  Product[]
+  Quotation Quotation[]
 
   @@map("categories")
 }
 
 model Brand {
-  id        String    @id @default(cuid())
+  id        String      @id @default(cuid())
   logoUrl   String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  arName    String    @unique
-  enName    String    @unique
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  arName    String      @unique
+  enName    String      @unique
   products  Product[]
+  Quotation Quotation[]
 }
 
 enum Role {
