@@ -25,8 +25,8 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
     try {
-        const respose = await prisma.slider.findMany()
-        return Response.json({ message: "success", data: respose })
+        const results = await prisma.slider.findMany()
+        return Response.json({ message: "success", results })
     } catch (error) {
         console.log("ERROR_POST_SLIDER", error);
 
