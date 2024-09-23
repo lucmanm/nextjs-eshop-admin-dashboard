@@ -2,10 +2,29 @@ import { prisma } from "@/lib/prisma";
 import { ZProductSchema } from "@/schemas/product.schema";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-export async function GET(request: Request) {
+
+import { type NextRequest } from 'next/server'
+
+export async function GET(request: NextRequest) {
     try {
+        const searchParams = request.nextUrl.searchParams
+        const searchQuery = searchParams.get('search')?.toString()
 
         const results = await prisma.product.findMany({
+            where: {
+                OR: [{
+                    model: {
+                        contains: searchQuery,
+                        mode: "insensitive"
+                    },
+                },
+                {
+                    enDescription: {
+                        contains: searchQuery,
+                        mode: "insensitive"
+                    },
+                }]
+            },
             include: {
                 images: true,
                 brand: true,
@@ -14,8 +33,8 @@ export async function GET(request: Request) {
             orderBy: {
                 createdAt: "asc"
             },
-            take:30,
-            skip:0
+            take: 30,
+            skip: 0
         });
 
         return Response.json({ results, message: "success" }, { status: 200 });
@@ -77,7 +96,7 @@ export async function POST(request: Request) {
                 return NextResponse.json({ message: `English description "${enDescription}" already exists.` }, { status: 409 });
             }
             if (existingProduct.arDescription === arDescription) {
-                return NextResponse.json({ message: `Arabic description "${arDescription}" already exists.` }, {status: 409});
+                return NextResponse.json({ message: `Arabic description "${arDescription}" already exists.` }, { status: 409 });
             }
         }
 
