@@ -7,37 +7,41 @@ import { type NextRequest } from 'next/server'
 
 export async function GET(request: NextRequest) {
     try {
-        const searchParams = request.nextUrl.searchParams
-        const searchQuery = searchParams.get('search')?.toString()
+        const searchParams = request.nextUrl.searchParams;
+        const searchQuery = searchParams.get('search')?.toString() || '';
 
         const results = await prisma.product.findMany({
             where: {
-                OR: [{
-                    model: {
-                        contains: searchQuery,
-                        mode: "insensitive"
-                    },
-                },
-                {
-                    enDescription: {
-                        contains: searchQuery,
-                        mode: "insensitive"
-                    },
-                }]
+                OR: searchQuery
+                    ? [
+                          {
+                              model: {
+                                  contains: searchQuery,
+                                  mode: 'insensitive',
+                              },
+                          },
+                          {
+                              enDescription: {
+                                  contains: searchQuery,
+                                  mode: 'insensitive',
+                              },
+                          },
+                      ]
+                    : undefined, // If no search query, return all products
             },
             include: {
                 images: true,
                 brand: true,
-                category: true
+                category: true,
             },
             orderBy: {
-                createdAt: "asc"
+                createdAt: 'asc',
             },
             take: 30,
-            skip: 0
+            skip: 0,
         });
 
-        return Response.json({ results, message: "success" }, { status: 200 });
+        return NextResponse.json({ results, message: 'success' }, { status: 200 });
 
     } catch (error) {
         if (error instanceof z.ZodError) {
