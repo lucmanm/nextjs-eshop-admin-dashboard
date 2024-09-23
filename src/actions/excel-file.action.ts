@@ -19,8 +19,26 @@ export async function importExcelData(values: z.infer<typeof excelSchema>[]) {
     try {
         const response = await Promise.all(
             values.map(async (value) => {
-                await prisma.product.create({
-                    data: {
+                await prisma.product.upsert({
+                    where: { model: value.model }, // Adjust the unique identifier as needed
+                    update: {
+                        arDescription: value.ar_description,
+                        enDescription: value.en_description,
+                        price: value.unit_price,
+                        stock: Number(value.web_showroom),
+                        category: {
+                            connectOrCreate: {
+                                create: {
+                                    arName: value.group_name,
+                                    enName: value.group_name
+                                },
+                                where: {
+                                    enName: value.group_name
+                                }
+                            }
+                        }
+                    },
+                    create: {
                         arDescription: value.ar_description,
                         enDescription: value.en_description,
                         model: value.model,
@@ -38,10 +56,9 @@ export async function importExcelData(values: z.infer<typeof excelSchema>[]) {
                             }
                         }
                     }
-                })
+                });
             })
-        )
-
+        );
 
         if (response) {
             return { message: "Successfully Uploaded", status: 200 };
@@ -51,6 +68,7 @@ export async function importExcelData(values: z.infer<typeof excelSchema>[]) {
         return {
             status: 409,
             message: "Missing data in cells input",
+            // TODO you are getting error here even the upload is success
         };
     }
 }

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { type NextRequest } from 'next/server'
-
+// TODO isactive no working
 export async function GET(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
@@ -14,19 +14,27 @@ export async function GET(request: NextRequest) {
             where: {
                 OR: searchQuery
                     ? [
-                          {
-                              model: {
-                                  contains: searchQuery,
-                                  mode: 'insensitive',
-                              },
-                          },
-                          {
-                              enDescription: {
-                                  contains: searchQuery,
-                                  mode: 'insensitive',
-                              },
-                          },
-                      ]
+                        {
+                            model: {
+                                contains: searchQuery,
+                                mode: 'insensitive',
+                            },
+                        },
+                        {
+                            enDescription: {
+                                contains: searchQuery,
+                                mode: 'insensitive',
+                            },
+                        },
+                        {
+                            category: {
+                                enName: {
+                                    contains: "PC Dell",
+                                    mode: 'insensitive',
+                                }
+                            }
+                        }
+                    ]
                     : undefined, // If no search query, return all products
             },
             include: {
