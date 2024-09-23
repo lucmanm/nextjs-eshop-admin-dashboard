@@ -13,48 +13,44 @@ const excelSchema = z.object({
     small_showroom: z.coerce.string().min(1),
     wh_showroom: z.coerce.string().min(1),
     web_showroom: z.coerce.string().min(1),
-})
-
-
-// export type TFileData = {
-//     model: string,
-//     ar_description: string
-//     en_description: string
-//     unit_price: string
-//     group_name: string
-//     big_showroom: string
-//     small_showroom: string
-//     wh_showroom: string
-//     web_showroom: string
-// }
+});
 
 export async function importExcelData(values: z.infer<typeof excelSchema>[]) {
     try {
+        const response = await Promise.all(
+            values.map(async (value) => {
+                await prisma.product.create({
+                    data: {
+                        arDescription: value.ar_description,
+                        enDescription: value.en_description,
+                        model: value.model,
+                        price: value.unit_price,
+                        stock: Number(value.web_showroom),
+                        category: {
+                            connectOrCreate: {
+                                create: {
+                                    arName: value.group_name,
+                                    enName: value.group_name
+                                },
+                                where: {
+                                    enName: value.group_name
+                                }
+                            }
+                        }
+                    }
+                })
+            })
+        )
 
-        const productResponse = await prisma.product.createMany({
-            data: values.map(data => ({
-                model: data.model,
-                enDescription: data.en_description,
-                arDescription: data.ar_description,
-                price: data.unit_price,
-                brandId: "cm06w36ci00022po30ovsfdrw",
-                isActive: true,
-                stock: data.big_showroom,
-                categoryId: "cm05v0n4t00012po3pa5q898f",
 
-            })),
-            skipDuplicates: true
-        })
-
-        if (productResponse) {
-            return { message: "Successfully Uplaoded", status: 200 }
+        if (response) {
+            return { message: "Successfully Uploaded", status: 200 };
         }
-
     } catch (error) {
+        console.error(error); // Log error for debugging
         return {
             status: 409,
-            message: "Missing data in cells input"
-        }
-
+            message: "Missing data in cells input",
+        };
     }
 }

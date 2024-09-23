@@ -8,16 +8,39 @@ model Product {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   categoryId    String
-  brandId       String
+  brandId       String?
   salePrice     Decimal?    @default(0.0)
   stock         Int         @default(0)
   arDescription String      @unique
   category      Category    @relation(fields: [categoryId], references: [id])
   images        Image[]
-  brand         Brand       @relation(fields: [brandId], references: [id])
-  Inventory     Inventory[]
+  brand         Brand?      @relation(fields: [brandId], references: [id])
 
-  @@index([categoryId])
-  @@index([brandId])
   @@map("products")
+  @@index([brandId])
+  @@index([categoryId])
+}
+
+model Category {
+  id        String      @id @default(cuid())
+  imageUrl  String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  arName    String      @unique
+  enName    String      @unique
+  Quotation Quotation[]
+  Product   Product[]
+
+  @@map("categories")
+}
+
+model Brand {
+  id        String      @id @default(cuid())
+  logoUrl   String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  arName    String      @unique
+  enName    String      @unique
+  Product   Product[]
+  Quotation Quotation[]
 }
