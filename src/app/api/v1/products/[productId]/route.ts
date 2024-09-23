@@ -6,6 +6,10 @@ export async function GET(request: Request, { params }: { params: { slug: string
         const results = await prisma.product.findFirst({
             where: {
                 id: params.slug
+            },
+            include:{
+                brand: true,
+                category: true
             }
         })
         return NextResponse.json({ message: "success", results })
