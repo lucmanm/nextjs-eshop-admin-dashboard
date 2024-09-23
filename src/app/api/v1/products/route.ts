@@ -4,39 +4,52 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 import { type NextRequest } from 'next/server'
+import { Prisma } from "@prisma/client";
 // TODO isactive no working
 export async function GET(request: NextRequest) {
     try {
         const searchParams = request.nextUrl.searchParams;
         const searchQuery = searchParams.get('search')?.toString() || '';
+        const categoryName = searchParams.get('category')?.toString() || '';
 
+        // Initialize an array to hold the conditions
+        const conditions: Prisma.ProductWhereInput[] = [];
+
+        // Add search conditions if present
+        if (searchQuery) {
+            conditions.push({
+                OR: [
+                    {
+                        model: {
+                            contains: searchQuery,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        enDescription: {
+                            contains: searchQuery,
+                            mode: 'insensitive',
+                        },
+                    },
+                ],
+            });
+        }
+
+        // Add category condition if present
+        if (categoryName) {
+            conditions.push({
+                category: {
+                    enName: {
+                        contains: categoryName,
+                        mode: 'insensitive',
+                    },
+                },
+            });
+        }
+
+        // Perform the database query with the conditions
         const results = await prisma.product.findMany({
-            where: {
-                OR: searchQuery
-                    ? [
-                        {
-                            model: {
-                                contains: searchQuery,
-                                mode: 'insensitive',
-                            },
-                        },
-                        {
-                            enDescription: {
-                                contains: searchQuery,
-                                mode: 'insensitive',
-                            },
-                        },
-                        {
-                            category: {
-                                enName: {
-                                    contains: "PC Dell",
-                                    mode: 'insensitive',
-                                }
-                            }
-                        }
-                    ]
-                    : undefined, // If no search query, return all products
-            },
+            where: conditions.length > 0 ? { AND: conditions } : undefined,
             include: {
                 images: true,
                 brand: true,
