@@ -1,11 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
+export async function GET(request: Request, { params }: { params: { productId: string } }) {
     try {
         const results = await prisma.product.findFirst({
             where: {
-                id: params.slug
+                id: params.productId
             },
             include:{
                 brand: true,
