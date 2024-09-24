@@ -6,9 +6,19 @@ export async function GET(request: Request, { params }: { params: { productSlug:
 
         const results = await prisma.product.findFirst({
             where: {
-                enDescription: {
-                    equals: decodeURIComponent(params.productSlug)
-                }
+                OR: [
+                    {
+                        enDescription: {
+                            equals: decodeURIComponent(params.productSlug)
+                        }
+                    },
+                    {
+                        arDescription: {
+                            equals: decodeURIComponent(params.productSlug)
+                        }
+                    }
+
+                ]
             },
             include: {
                 brand: true,
