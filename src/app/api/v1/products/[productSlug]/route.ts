@@ -1,13 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, { params }: { params: { productId: string } }) {
+export async function GET(request: Request, { params }: { params: { productSlug: string } }) {
     try {
+
         const results = await prisma.product.findFirst({
             where: {
-                id: params.productId
+                enDescription: {
+                    equals: decodeURIComponent(params.productSlug)
+                }
             },
-            include:{
+            include: {
                 brand: true,
                 category: true
             }
