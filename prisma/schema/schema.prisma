@@ -40,30 +40,22 @@ model Warehouse {
   @@index([productId])
 }
 
-// TODO this below model is not yet sync
 model Inventory {
-  id            String     @id @default(cuid())
+  id            String   @id @default(cuid())
   warehouseName String
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
-  Quotation     Quotation? @relation(fields: [quotationId], references: [id])
-  quotationId   String?
-
-  @@index([quotationId])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Image {
-  id          String     @id @default(cuid())
-  productId   String
-  imageUrl    String
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  product     Product    @relation(fields: [productId], references: [id], onUpdate: Cascade)
-  Quotation   Quotation? @relation(fields: [quotationId], references: [id])
-  quotationId String?
+  id        String   @id @default(cuid())
+  productId String
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onUpdate: Cascade)
 
   @@index([productId])
-  @@index([quotationId])
   @@map("images")
 }
 

@@ -1,20 +1,14 @@
 model Quotation {
-  id            String      @id @default(cuid())
-  model         String      @unique
-  enDescription String      @unique
-  arDescription String      @unique
-  price         Decimal     @default(0.0)
-  categoryId    String
-  brandId       String
-  quantity      Int         @default(0)
-  category      Category    @relation(fields: [categoryId], references: [id])
-  images        Image[]
-  brand         Brand       @relation(fields: [brandId], references: [id])
-  Inventory     Inventory[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id            String   @id @default(cuid())
+  userId        String
+  model         String   @unique
+  enDescription String   @unique
+  arDescription String   @unique
+  price         Decimal  @default(0.0)
+  quantity      Int      @default(0)
+  image         String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  @@index([categoryId])
-  @@index([brandId])
   @@map("quotations")
 }
