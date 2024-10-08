@@ -34,9 +34,11 @@ export const ImageUploadField = ({ name }: SliderFieldProps) => {
                       setTagNameCloundinaryImage("slider", results.info.public_id)
                     }
                   }}
+
                   options={{
                     sources: ['local', 'url', 'google_drive'],
                   }}
+
                 >
                   {({ open }) => {
                     const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {

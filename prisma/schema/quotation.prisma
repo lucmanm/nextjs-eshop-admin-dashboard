@@ -2,19 +2,17 @@ model Quotation {
   id            String      @id @default(cuid())
   model         String      @unique
   enDescription String      @unique
+  arDescription String      @unique
   price         Decimal     @default(0.0)
-  isActive      Boolean     @default(false)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
   categoryId    String
   brandId       String
-  salePrice     Decimal?    @default(0.0)
-  stock         Int         @default(0)
-  arDescription String      @unique
+  quantity      Int         @default(0)
   category      Category    @relation(fields: [categoryId], references: [id])
   images        Image[]
   brand         Brand       @relation(fields: [brandId], references: [id])
   Inventory     Inventory[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   @@index([categoryId])
   @@index([brandId])
