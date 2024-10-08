@@ -25,19 +25,3 @@ export async function POST(request: NextRequest) {
         }
     }
 }
-
-export async function GET(request: NextRequest, { params }: { params: { quotation_by_id: string } }) {
-    try {
-
-        const { quotation_by_id } = params
-        await prisma.quotation.findMany({
-            where: {
-                id: quotation_by_id
-            },
-        })
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return NextResponse.json({ message: "ERROR_POST_QUOTATION", errors: error.errors });
-        }
-    }
-}
