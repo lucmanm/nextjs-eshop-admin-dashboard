@@ -1,9 +1,9 @@
 model Quotation {
   id            String   @id @default(cuid())
   userId        String
-  model         String   @unique
-  enDescription String   @unique
-  arDescription String   @unique
+  model         String
+  enDescription String
+  arDescription String
   price         Decimal  @default(0.0)
   quantity      Int      @default(0)
   image         String

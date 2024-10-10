@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
     try {
 
         const quotationBody = await request.json()
-        const { arDescription, enDescription, image, model, price, userId } = quotationBody;
+        const { arDescription, enDescription, image, model, price, userId, quantity } = quotationBody;
 
 
         await prisma.quotation.create({
@@ -16,9 +16,11 @@ export async function POST(request: NextRequest) {
                 enDescription,
                 price,
                 image,
+                quantity,
                 userId: "dummyUser"
             }
         })
+
     } catch (error) {
         if (error instanceof z.ZodError) {
             return NextResponse.json({ message: "ERROR_POST_QUOTATION", errors: error.errors });
