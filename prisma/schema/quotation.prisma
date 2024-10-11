@@ -1,6 +1,6 @@
 model Quotation {
   id            String   @id @default(cuid())
-  quoteNumber   Int
+  quoteNumber   String
   userId        String
   model         String
   enDescription String

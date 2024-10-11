@@ -9,6 +9,7 @@ export async function POST(request: NextRequest) {
 
         const { arDescription, enDescription, image, model, price, quantity, quoteNumber } = quotationBody;
 
+        console.log(quotationBody);
 
         await prisma.quotation.create({
             data: {
