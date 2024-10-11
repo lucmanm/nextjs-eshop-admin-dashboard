@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, { params }: { params: { quotatio
 
         const { quotation_by_id } = params
 
-        const results = await prisma.quotation.findFirst({
+        const results = await prisma.quotation.findMany({
             where: {
                 quoteNumber: decodeURIComponent(quotation_by_id)
             },
