@@ -6,11 +6,13 @@ export async function POST(request: NextRequest) {
     try {
 
         const quotationBody = await request.json()
-        const { arDescription, enDescription, image, model, price, userId, quantity } = quotationBody;
+
+        const { arDescription, enDescription, image, model, price, quantity, quoteNumber } = quotationBody;
 
 
         await prisma.quotation.create({
             data: {
+                quoteNumber,
                 model,
                 arDescription,
                 enDescription,
