@@ -1,5 +1,6 @@
 model Quotation {
   id            String   @id @default(cuid())
+  quoteNumber   Int      @unique
   userId        String
   model         String
   enDescription String
