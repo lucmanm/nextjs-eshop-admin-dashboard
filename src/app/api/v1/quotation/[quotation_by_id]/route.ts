@@ -7,10 +7,12 @@ import { z } from "zod";
 export async function GET(request: NextRequest, { params }: { params: { quotation_by_id: string } }) {
     try {
 
+
         const { quotation_by_id } = params
-        const results = await prisma.quotation.findMany({
+
+        const results = await prisma.quotation.findFirst({
             where: {
-                id: quotation_by_id
+                quoteNumber: decodeURIComponent(quotation_by_id)
             },
         })
 
