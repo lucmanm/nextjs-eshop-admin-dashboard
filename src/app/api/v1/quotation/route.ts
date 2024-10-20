@@ -7,16 +7,18 @@ export async function POST(request: NextRequest) {
 
         const quotationBody = await request.json()
 
-        const { arDescription, enDescription, image, model, price, quantity, quoteNumber, productId } = quotationBody;
+        const { arDescription, enDescription, image, model, price, quantity, quoteNumber } = quotationBody;
 
-        const checkProduct = await prisma.quotation.findMany({
+        const checkProduct = await prisma.quotation.findFirst({
             where: {
-                id: productId
+                model: {
+                    contains: model,
+                }
             }
         })
 
         if (checkProduct) {
-            return NextResponse.json({ result: "Item Already Exits" }, {
+            return NextResponse.json({ result: "Item Already Exist." }, {
                 status: 409, statusText: "Conflict"
             })
         }
