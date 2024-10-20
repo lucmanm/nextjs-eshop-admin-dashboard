@@ -7,11 +7,21 @@ export async function POST(request: NextRequest) {
 
         const quotationBody = await request.json()
 
-        const { arDescription, enDescription, image, model, price, quantity, quoteNumber } = quotationBody;
+        const { arDescription, enDescription, image, model, price, quantity, quoteNumber, productId } = quotationBody;
 
-        console.log(quotationBody);
+        const checkProduct = await prisma.quotation.findMany({
+            where: {
+                id: productId
+            }
+        })
 
-        await prisma.quotation.create({
+        if (checkProduct) {
+            return NextResponse.json({ result: "Item Already Exits" }, {
+                status: 409, statusText: "Conflict"
+            })
+        }
+
+        const created = await prisma.quotation.create({
             data: {
                 quoteNumber,
                 model,
@@ -23,6 +33,10 @@ export async function POST(request: NextRequest) {
                 userId: "dummyUser"
             }
         })
+
+        if (created) {
+            return NextResponse.json({ result: "Created Successfully" }, { status: 201, statusText: "Created" })
+        }
 
     } catch (error) {
         if (error instanceof z.ZodError) {
